@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_welcome"
+    style="@style/general_layout_lineal_vertical_margin_match_match"
+    tools:context=".fragment.WelcomeFragment">
+
+    <Button
+        android:id="@+id/welcome_btn_chose_groups"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_chose_groups"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_ticket_technical_support"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_ticket_technical_support"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_ticket_developers"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_ticket_developers"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_ticket_networking"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_ticket_networking"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_ticket_pending"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_ticket_pending"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_ticket_number"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_ticket_number"
+        style="@style/general_button_icon" />
+    <Button
+        android:id="@+id/welcome_btn_stadistics_date"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_stadistics_date"
+        style="@style/general_button_icon"/>
+    <Button
+        android:id="@+id/welcome_btn_stadistics_pending"
+        android:drawableStart="@drawable/ic_menu_camera"
+        android:text="@string/welcome_btn_stadistics_pending"
+        style="@style/general_button_icon"/>
+</LinearLayout>

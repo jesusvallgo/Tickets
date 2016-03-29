@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_about"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.AboutFragment">
+
+    <LinearLayout
+        style="@style/general_layout_lineal_vertical_nomargin_match_wrap"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/general_match_wrap"
+            android:contentDescription="@string/loading_img_cenapred"
+            android:src="@mipmap/ic_cenapred" />
+
+        <TextView
+            android:id="@+id/about_txv_company_name"
+            android:text="@string/about_txv_company_name"
+            android:layout_marginTop="@dimen/general_vertical_space"
+            style="@style/about_textview_large" />
+
+        <TextView
+            android:id="@+id/about_txv_developer_title"
+            android:text="@string/about_txv_developer_title"
+            android:layout_marginTop="@dimen/general_vertical_space"
+            style="@style/about_textview_large" />
+
+        <TextView
+            android:id="@+id/about_txv_developer_description"
+            android:text="@string/about_txv_developer_description"
+            style="@style/about_textview_large" />
+
+        <TextView
+            android:id="@+id/about_txv_version"
+            android:text="@string/about_txv_version"
+            android:layout_marginTop="@dimen/general_vertical_space"
+            style="@style/about_textview_large" />
+
+        <TextView
+            android:id="@+id/about_txv_date"
+            android:text="@string/about_txv_date"
+            android:layout_marginTop="@dimen/general_vertical_space"
+            style="@style/about_textview_large" />
+    </LinearLayout>
+
+</RelativeLayout>

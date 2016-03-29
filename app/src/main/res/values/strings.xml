@@ -1,0 +1,109 @@
+<resources>
+    <!-- Cadenas generales -->
+    <string name="app_name">Tickets</string>
+    <string name="google_app_id">148070650521</string>
+
+    <!-- Cadenas para el menu de navegacion -->
+    <string name="nav_drawer_open">Abre menu de navegación</string>
+    <string name="nav_drawer_close">Cierra menu de navegación</string>
+    <string name="nav_user_image">Imagen de usuario</string>
+    <string name="nav_user_name">Nombre de usuario</string>
+    <string name="nav_welcome">Menú de inicio</string>
+    <string name="nav_about">Acerca de</string>
+    <string name="nav_logout">Cerrar sesión</string>
+
+    <!-- Cadenas para el Fragment de Loading -->
+    <string name="loading_img_cenapred">Icono CENAPRED</string>
+    <string name="loading_txv_loading">C A R G A N D O</string>
+
+    <!-- Cadenas para el Fragment de Login -->
+    <string name="login_txv_username">Usuario:</string>
+    <string name="login_txv_password">Contraseña:</string>
+    <string name="login_btn_send">Enviar</string>
+
+    <!-- Cadenas para el Fragment de Acerca de -->
+    <string name="about_txv_company_name">Centro Nacional de Prevención de Desastres</string>
+    <string name="about_txv_developer_title">Desarrollado por:</string>
+    <string name="about_txv_developer_description">Equipo de Desarrollo de Sistemas</string>
+    <string name="about_txv_version">Versión: 1.0 (BETA)</string>
+    <string name="about_txv_date">Fecha de lanzamiento: 2016/03/08</string>
+
+    <!-- Cadenas para el Fragment de manejo de errores -->
+    <string name="error_image_description">Icono de error</string>
+
+    <!-- Cadenas para el Fragment de bienvenida -->
+    <string name="welcome_btn_space">"  "</string>
+    <string name="welcome_btn_chose_groups">Afiliar a Grupo</string>
+    <string name="welcome_btn_ticket_technical_support">Generar Ticket (Soporte Técnico)</string>
+    <string name="welcome_btn_ticket_developers">Generar Ticket (Desarrollo de Sistemas)</string>
+    <string name="welcome_btn_ticket_networking">Generar Ticket (Redes y Enlaces)</string>
+    <string name="welcome_btn_ticket_pending">Consultar Tickets pendientes</string>
+    <string name="welcome_btn_ticket_number">Consultar Ticket por folio</string>
+    <string name="welcome_btn_stadistics_date">Estadísticas Tickets por fecha</string>
+    <string name="welcome_btn_stadistics_pending">Estadísticas Tickets pendientes</string>
+
+    <!-- Cadenas para el Fragment de Soporte Tecnico -->
+    <string name="technical_support_btn_low_toner">Tóner Bajo</string>
+    <string name="technical_support_btn_paper_jam">Atasco de papel</string>
+    <string name="technical_support_btn_virus">Virus</string>
+    <string name="technical_support_btn_crash_os">Daño en Sistema Operativo</string>
+    <string name="technical_support_btn_password_lost">Pérdida de contraseña</string>
+    <string name="technical_support_btn_domain_lost">Pérdida de confianza en dominio</string>
+    <string name="technical_support_btn_other">Otro</string>
+
+    <!-- Cadenas para el fragment de Reporte por numero de folio -->
+    <string name="ticket_number_txv_number">Número de folio:</string>
+    <string name="ticket_number_btn_send">Continuar</string>
+
+    <!-- Cadenas para el Fragment de detalles del reporte -->
+    <string name="report_detail_lbl_detail_title">Detalles del reporte</string>
+    <string name="report_detail_lbl_id_report">Número de folio:</string>
+    <string name="report_detail_lbl_date">Fecha del reporte:</string>
+    <string name="report_detail_lbl_user">Usuario:</string>
+    <string name="report_detail_lbl_area">Área del usuario:</string>
+    <string name="report_detail_lbl_area_atencion">Área de atención:</string>
+    <string name="report_detail_lbl_description">Descripción:</string>
+    <string name="report_detail_lbl_estatus">Estatus:</string>
+    <string name="report_detail_btn_show_history">Ver historial</string>
+
+    <string name="report_detail_lbl_update_title">Seguimiento del reporte</string>
+    <string name="report_detail_lbl_action">Acciones realizadas:</string>
+    <string name="report_detail_lbl_new_estatus">Nuevo estatus:</string>
+    <string name="report_detail_btn_update">Actualizar</string>
+
+    <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
+    <string name="log_success_token">Token generado</string>
+    <string name="log_error_token">Error al actualizar Token</string>
+
+    <!-- Cadenas para el Fragment de historial de acciones-->
+    <string name="report_history_lbl_history_title">Historial de atención</string>
+    <string name="report_history_lbl_id_report">Número de folio:</string>
+    <string name="report_history_lbl_date">Fecha de la acción:</string>
+    <string name="report_history_lbl_user">Usuario:</string>
+    <string name="report_history_lbl_action">Descripción:</string>
+
+    <!-- Pendientes -->
+    <!--
+
+
+
+
+
+
+
+
+    <string name="gcm_loading_registration">Generando token de aplicación</string>
+    <string name="gcm_success_registration">Token registrado correctamente</string>
+    <string name="gcm_error_registration">Error al generar y registrar token</string>
+
+
+
+    <string name="action_settings">Settings</string>
+
+
+
+
+
+
+    -->
+</resources>

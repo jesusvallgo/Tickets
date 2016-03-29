@@ -1,0 +1,155 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Tamaños generales -->
+    <style name="general_match_match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="general_match_wrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="general_wrap_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Layouts generales -->
+
+    <style name="general_layout_relative_nomargin_match_match" parent="general_match_match">
+    </style>
+
+    <style name="general_layout_relative_nomargin_match_wrap" parent="general_match_wrap">
+    </style>
+
+    <style name="general_layout_lineal_vertical_margin_match_match" parent="general_match_match">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">@dimen/general_margin_size</item>
+    </style>
+
+    <style name="general_layout_lineal_vertical_margin_match_wrap" parent="general_match_wrap">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">@dimen/general_margin_size</item>
+    </style>
+
+    <style name="general_layout_lineal_vertical_nomargin_match_match" parent="general_match_match">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="general_layout_lineal_vertical_nomargin_match_wrap" parent="general_match_wrap">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="general_layout_lineal_horizontal_nomargin_match_wrap" parent="general_match_wrap">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- Elementos generales -->
+
+    <style name="general_item_large" parent="general_match_wrap">
+        <item name="android:textSize">@dimen/general_font_size</item>
+    </style>
+
+    <style name="general_textview_large" parent="general_item_large">
+        <item name="android:paddingTop">@dimen/general_vertical_space</item>
+    </style>
+
+    <style name="general_textview_error_title" parent="general_item_large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/error_title_font_size</item>
+    </style>
+
+    <style name="general_textview_error_description" parent="general_item_large">
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/error_description_font_size</item>
+    </style>
+
+    <style name="general_edittext_large" parent="general_item_large">
+        <item name="android:paddingTop">@dimen/general_vertical_space</item>
+    </style>
+
+    <style name="general_button_large" parent="general_item_large">
+        <item name="android:background">@drawable/button_action_rounded</item>
+        <item name="android:textColor">@color/general_boton_action_text</item>
+        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="general_button_icon" parent="general_match_wrap">
+        <item name="android:background">@drawable/button_navigation_rounded</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">@dimen/general_margin_size</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="general_divider_vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:layout_marginBottom">@dimen/general_vertical_space</item>
+    </style>
+
+    <!-- Elementos para detalles -->
+    <style name="detail_textview_interface_subtitle" parent="general_item_large">
+        <item name="android:paddingTop">@dimen/nav_vertical_space</item>
+        <item name="android:paddingBottom">@dimen/nav_vertical_space</item>
+        <item name="android:textSize">@dimen/detail_title_font_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="detail_textview_title" parent="general_item_large">
+        <item name="android:paddingTop">@dimen/nav_vertical_space</item>
+        <item name="android:textSize">@dimen/detail_title_font_size</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="detail_textview_content" parent="general_item_large">
+        <item name="android:textSize">@dimen/detail_content_font_size</item>
+    </style>
+    <style name="detail_spinner_content" parent="general_item_large">
+        <item name="android:textSize">@dimen/detail_content_font_size</item>
+    </style>
+
+    <!-- Elementos para ListView del Fragment de Bitacora de Acciones -->
+    <style name="report_history_lsv_action_parent" parent="general_match_wrap">
+        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:divider">@color/report_history_lsv_divider</item>
+    </style>
+
+    <style name="report_history_lsv_action_item" parent="general_match_wrap">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">@dimen/report_history_lsv_divider</item>
+        <item name="android:padding">@dimen/report_history_lsv_divider</item>
+        <item name="android:background">@drawable/shape_custom_lisview_history_action</item>
+    </style>
+
+    <!-- Elemenos del Fragment de Acerca de -->
+    <style name="about_textview_large" parent="general_item_large">
+        <item name="android:textSize">@dimen/about_font_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

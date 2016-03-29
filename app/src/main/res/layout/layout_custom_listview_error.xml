@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
+    android:paddingTop="@dimen/error_item_padding_space"
+    android:paddingBottom="@dimen/error_item_padding_space"
+    android:weightSum="15">
+
+    <ImageView
+        android:id="@+id/error_image"
+        android:contentDescription="@string/error_image_description"
+        android:layout_width="@dimen/error_item_icon"
+        android:layout_height="@dimen/error_item_icon"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_error"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="14">
+        <TextView
+            android:id="@+id/error_title"
+            style="@style/general_textview_error_title" />
+        <TextView
+            android:id="@+id/error_description"
+            style="@style/general_textview_error_description" />
+    </LinearLayout>
+</LinearLayout>

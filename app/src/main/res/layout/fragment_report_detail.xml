@@ -1,0 +1,173 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_detail"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.ReportDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_lineal_vertical_margin_match_match"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/report_detail_lbl_detail_title"
+            style="@style/detail_textview_interface_subtitle"
+            android:text="@string/report_detail_lbl_detail_title" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_id_report"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_id_report" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_id_report"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_date"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_date" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_date"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_user"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_user" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_user"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_area"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_area" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_area"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_area_atencion"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_area_atencion" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_area_atencion"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_description"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_description" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_description"
+            style="@style/detail_textview_content" />
+
+        <TextView
+            android:id="@+id/report_detail_lbl_estatus"
+            style="@style/detail_textview_title"
+            android:text="@string/report_detail_lbl_estatus" />
+
+        <TextView
+            android:id="@+id/report_detail_txv_estatus"
+            style="@style/detail_textview_content" />
+
+        <Button
+            android:id="@+id/report_detail_btn_show_history"
+            style="@style/general_button_large"
+            android:text="@string/report_detail_btn_show_history" />
+
+        <TabHost
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tabHost">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+        <LinearLayout
+            android:id="@+id/report_detail_layout_update"
+            style="@style/general_layout_lineal_vertical_nomargin_match_wrap" >
+
+            <View style="@style/general_divider_vertical" />
+
+            <TextView
+                android:id="@+id/report_detail_lbl_update_title"
+                style="@style/detail_textview_interface_subtitle"
+                android:text="@string/report_detail_lbl_update_title" />
+
+            <TextView
+                android:id="@+id/report_detail_lbl_new_estatus"
+                style="@style/detail_textview_title"
+                android:text="@string/report_detail_lbl_new_estatus" />
+
+            <Spinner
+                android:id="@+id/report_detail_spn_new_estatus"
+                style="@style/detail_spinner_content" />
+
+            <Spinner
+                android:id="@+id/report_detail_spn_new_area_atencion"
+                style="@style/detail_spinner_content" />
+
+            <TextView
+                android:id="@+id/report_detail_lbl_action"
+                style="@style/detail_textview_title"
+                android:text="@string/report_detail_lbl_action" />
+
+            <EditText
+                android:id="@+id/report_detail_edt_action"
+                style="@style/general_edittext_large"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/report_detail_btn_update"
+                style="@style/general_button_large"
+                android:text="@string/report_detail_btn_update" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
+</RelativeLayout>

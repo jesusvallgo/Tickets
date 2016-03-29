@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_relative_nomargin_match_wrap" >
+
+    <ImageView
+        android:id="@+id/loading_img_cenapred"
+        android:contentDescription="@string/loading_img_cenapred"
+        android:src="@mipmap/ic_cenapred"
+        style="@style/general_match_wrap" />
+
+    <ProgressBar
+        style="@style/general_match_wrap" />
+
+    <TextView
+        android:id="@+id/loading_txv_loading"
+        android:text="@string/loading_txv_loading"
+        android:layout_below="@+id/loading_img_cenapred"
+        android:gravity="center"
+        style="@style/general_textview_large"/>
+
+</RelativeLayout>

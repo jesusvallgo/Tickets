@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_welcome"
+            android:visible="false"
+            android:title="@string/nav_welcome" />
+        <item
+            android:id="@+id/nav_about"
+            android:visible="true"
+            android:title="@string/nav_about" />
+        <item
+            android:id="@+id/nav_logout"
+            android:visible="false"
+            android:title="@string/nav_logout" />
+    </group>
+</menu>

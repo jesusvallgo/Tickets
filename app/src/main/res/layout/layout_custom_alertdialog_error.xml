@@ -1,0 +1,10 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_lineal_vertical_nomargin_match_wrap" >
+
+    <ListView
+        style="@style/general_match_wrap"
+        android:paddingTop="@dimen/error_item_padding_space"
+        android:paddingBottom="@dimen/error_item_padding_space"
+        android:id="@+id/list_custom_error" />
+
+</LinearLayout>

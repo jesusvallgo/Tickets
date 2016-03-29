@@ -1,0 +1,13 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_loading"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.LoadingFragment">
+
+    <include
+        layout="@layout/layout_loading"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

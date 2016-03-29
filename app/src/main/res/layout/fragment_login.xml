@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_login"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.LoginFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_lineal_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/login_txv_username"
+            style="@style/general_textview_large"
+            android:text="@string/login_txv_username" />
+
+        <EditText
+            android:id="@+id/login_edt_username"
+            style="@style/general_edittext_large"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/login_txv_password"
+            style="@style/general_textview_large"
+            android:text="@string/login_txv_password" />
+
+        <EditText
+            android:id="@+id/login_edt_password"
+            style="@style/general_edittext_large"
+            android:imeOptions="actionSend"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/login_btn_send"
+            style="@style/general_button_large"
+            android:text="@string/login_btn_send" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+</RelativeLayout>

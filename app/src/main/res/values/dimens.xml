@@ -1,0 +1,43 @@
+<resources>
+    <!-- Alto predeterminado del encabezado del menu de navegacion-->
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_padding">16dp</dimen>
+
+    <!-- Interlineado del menu de navegacion -->
+    <dimen name="nav_vertical_space">10dp</dimen>
+
+    <!-- Tamaño de los margenes generales -->
+    <dimen name="general_margin_none">0dp</dimen>
+    <dimen name="general_margin_size">10dp</dimen>
+
+    <!-- Tamaño de la fuente general -->
+    <dimen name="general_font_size">20sp</dimen>
+
+    <!-- Tamaño de fuente de error -->
+    <dimen name="error_title_font_size">15sp</dimen>
+    <dimen name="error_description_font_size">13sp</dimen>
+
+    <!-- Tamaño de fuente de Acera de -->
+    <dimen name="about_font_size">13sp</dimen>
+
+    <!-- Tamaño de fuente de Detalles -->
+    <dimen name="detail_title_font_size">15sp</dimen>
+    <dimen name="detail_content_font_size">14sp</dimen>
+
+    <!-- Interlineado general -->
+    <dimen name="general_vertical_space">16dp</dimen>
+
+    <!-- Margenes para el fragment de Cargando -->
+    <dimen name="loading_margin_top">90dp</dimen>
+
+    <!-- Divider para el fragment de Bitacora de Acciones -->
+    <dimen name="report_history_lsv_divider">10dp</dimen>
+
+    <!-- Bordes redondeados general -->
+    <dimen name="general_button_border">1dp</dimen>
+    <dimen name="general_button_rounded">8dp</dimen>
+
+    <!-- Icono de errores -->
+    <dimen name="error_item_icon">30dp</dimen>
+    <dimen name="error_item_padding_space">5dp</dimen>
+</resources>
