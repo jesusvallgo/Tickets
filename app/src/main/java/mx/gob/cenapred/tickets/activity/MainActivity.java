@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Variable para capturar o especificar el ID de Reporte
     private Integer idReport;
 
-
     // Acciones que se realizan al crear la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {

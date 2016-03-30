@@ -95,7 +95,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                 default:
                     throw new Exception("No se ha especificado un método válido.");
             }
-            System.out.println(urlWs);
+            //System.out.println(urlWs);
 
             // Regresa el contenido de la respuesta del Web Service
             return responseEntity.getBody();

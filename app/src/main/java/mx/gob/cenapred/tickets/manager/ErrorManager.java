@@ -91,6 +91,7 @@ public class ErrorManager {
                         break;
                     case AppPreference.ALERT_ACTION_GOBACK:
                         activity.onBackPressed();
+                        break;
                     default:
                         dialog.dismiss();
                         break;

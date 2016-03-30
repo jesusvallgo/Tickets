@@ -87,6 +87,8 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
                     requestEntity = new HttpEntity<>(httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.DELETE, requestEntity, ResponseWebServiceEntity.class);
                     break;
+                default:
+                    throw new Exception("No se ha especificado un método válido.");
             }
 
             // Regresa el contenido de la respuesta del Web Service

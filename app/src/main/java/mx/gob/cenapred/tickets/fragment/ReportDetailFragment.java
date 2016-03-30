@@ -264,7 +264,7 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
                                 peticionWSEntity.setCredencialesEntity(credencialesEntity);
                                 peticionWSEntity.setReporteEntity(reporteEntity);
 
-                                // Llamada al cliente para agregar el reporte correspondiente
+                                // Llamada al cliente para actualizar el reporte correspondiente
                                 ReporteWebService reporteWebService = new ReporteWebService();
                                 reporteWebService.webServiceListener = reportDetailFragment;
                                 reporteWebService.execute(peticionWSEntity);
