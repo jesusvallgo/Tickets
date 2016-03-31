@@ -97,10 +97,6 @@
                 android:id="@+id/report_detail_spn_new_estatus"
                 style="@style/detail_spinner_content" />
 
-            <Spinner
-                android:id="@+id/report_detail_spn_new_area_atencion"
-                style="@style/detail_spinner_content" />
-
             <TextView
                 android:id="@+id/report_detail_lbl_action"
                 style="@style/detail_textview_title"
