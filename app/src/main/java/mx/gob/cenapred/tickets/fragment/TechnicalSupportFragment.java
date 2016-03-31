@@ -106,7 +106,6 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
         // Construye los campos necesarios de la Entidad Credenciales
         credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
         credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
-        credencialesEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
 
         // Construye los campos necesarios de la Entidad AreaAtencion (ID de Soporte Tecnico)
         areaAtencionEntity.setIdAreaAtencion(1);

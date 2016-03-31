@@ -15,6 +15,7 @@ import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.entity.TokenGCMEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
@@ -33,6 +34,9 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
 
     // Instancia a la clase de CredencialesEntity
     private CredencialesEntity credencialesEntity = new CredencialesEntity();
+
+    // Instancia a la clase de TokenGCMEntity
+    private TokenGCMEntity tokenGCMEntity = new TokenGCMEntity();
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
@@ -79,11 +83,15 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
             // Construye los campos necesarios de la Entidad Credenciales
             credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
             credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
-            credencialesEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
+
+            // Agrega el token del dispositivo a su entidad correspondiente
+            tokenGCMEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
 
             // Construye la peticion
-            peticionWSEntity.setMetodo("delete");
+            peticionWSEntity.setMetodo("put");
+            peticionWSEntity.setAccion("delete");
             peticionWSEntity.setCredencialesEntity(credencialesEntity);
+            peticionWSEntity.setTokenGCMEntity(tokenGCMEntity);
 
             // Llamada al cliente para validar credenciales y cerrar sesion
             SesionWebService sesionWebService = new SesionWebService();

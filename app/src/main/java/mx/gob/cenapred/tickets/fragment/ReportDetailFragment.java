@@ -3,6 +3,9 @@ package mx.gob.cenapred.tickets.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -74,12 +77,15 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     TextView reportDetailTxvIdReport, reportDetailTxvDate, reportDetailTxvUser, reportDetailTxvArea, reportDetailTxvAreaAtencion, reportDetailTxvDescription, reportDetailTxvEstatus;
     EditText reportDetailEdtAction;
     Spinner reportDetailSpnNewStatus, reportDetailSpnNewAreaAtencion;
-    Button reportDetailBtnUpdate, reportDetailBtnShowHistory;
+    Button reportDetailBtnUpdate;
 
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
     private Boolean addToBackStack = false;
     private String alertAction;
+
+    private MenuItem menuItemHistory, menuItemDelegate, menuItemUpdate;
+    private Boolean menuItemHistoryVisible = false, menuItemDelegateVisible = false, menuItemUpdateVisible = false;
 
     // Constructor por default
     public ReportDetailFragment() {
@@ -117,7 +123,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         // Construye los campos necesarios de la Entidad Credenciales
         credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
         credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
-        credencialesEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
 
         // Mapea los elementos del Fragment
         reportDetailLayoutUpdate = (LinearLayout) rootView.findViewById(R.id.report_detail_layout_update);
@@ -128,7 +133,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         reportDetailTxvAreaAtencion = (TextView) rootView.findViewById(R.id.report_detail_txv_area_atencion);
         reportDetailTxvDescription = (TextView) rootView.findViewById(R.id.report_detail_txv_description);
         reportDetailTxvEstatus = (TextView) rootView.findViewById(R.id.report_detail_txv_estatus);
-        reportDetailBtnShowHistory = (Button) rootView.findViewById(R.id.report_detail_btn_show_history);
 
         reportDetailEdtAction = (EditText) rootView.findViewById(R.id.report_detail_edt_action);
         reportDetailSpnNewStatus = (Spinner) rootView.findViewById(R.id.report_detail_spn_new_estatus);
@@ -192,9 +196,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             // Oculta el Layout de actualizacion del reporte
             reportDetailLayoutUpdate.setVisibility(View.GONE);
 
-            // Oculta el Layout de historia del reporte
-            reportDetailBtnShowHistory.setVisibility(View.GONE);
-
             // Llena los campos con la informacion correspondiente
             reportDetailTxvIdReport.setText(responseWebServiceEntity.getReporte().getIdReporte().toString());
             reportDetailTxvDate.setText(responseWebServiceEntity.getReporte().getFecha().toString());
@@ -218,20 +219,32 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             reportDetailSpnNewAreaAtencion.setAdapter(areaAtencionAdapter);
 
             if (responseWebServiceEntity.getReporte().getBitacora().size() > 0) {
-                // Muestra el Layout de historia del reporte
-                reportDetailBtnShowHistory.setVisibility(View.VISIBLE);
+                // Habilita la bandera para mostrar la opcion de "Ver Historial" del reporte
+                menuItemHistoryVisible = true;
 
+                // Carga en el bundle auxiliar la lista de acciones realizadas
                 bundleEntity.setListHistoryAction(responseWebServiceEntity.getReporte().getBitacora());
-                reportDetailBtnShowHistory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_history, bundleEntity);
-                    }
-                });
             }
 
+            // Si existen datos del usuario
             if (responseWebServiceEntity.getUsuario() != null) {
+
+                // Si es un usuario con perfil de "Atencion a incidentes" y ademas, el reporte puede ser editado
                 if (responseWebServiceEntity.getUsuario().getRol().getIdRol() == 2 && responseWebServiceEntity.getReporte().getEstatus().getEditable() == true) {
+
+                    // Si existen datos de "Area de Atencion"
+                    if( responseWebServiceEntity.getListaAreaAtencion() != null ){
+                        // Si existe algun Area de Atencion para turnar el reporte
+                        if(responseWebServiceEntity.getListaAreaAtencion().size() > 0 ){
+                            // Habilita la bandera para mostrar la opcion de "Turnar reporte"
+                            menuItemDelegateVisible = true;
+
+                            // Carga en el bundle auxiliar la lista de areas de atencion
+                            bundleEntity.setIdReportBundle(idReport);
+                            bundleEntity.setListAreaAtencion(responseWebServiceEntity.getListaAreaAtencion());
+                        }
+                    }
+
                     // Muestra el Layout de actualizacion del reporte
                     reportDetailLayoutUpdate.setVisibility(View.VISIBLE);
 
@@ -294,6 +307,38 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
             // Muestra las opciones del Fragment
             layoutOptions.setVisibility(View.VISIBLE);
+
+            setHasOptionsMenu(true);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.report_detail_menu, menu);
+
+        // Mapea el item del menu
+        menuItemHistory = menu.findItem(R.id.item_history);
+        menuItemDelegate = menu.findItem(R.id.item_delegate);
+        menuItemUpdate = menu.findItem(R.id.item_update);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        // Muestra u oculta los items del menu
+        menuItemHistory.setVisible(menuItemHistoryVisible);
+        menuItemDelegate.setVisible(menuItemDelegateVisible);
+        menuItemUpdate.setVisible(menuItemUpdateVisible);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_history:
+                ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_history,bundleEntity);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

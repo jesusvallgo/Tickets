@@ -2,7 +2,9 @@ package mx.gob.cenapred.tickets.entity;
 
 public class PeticionWSEntity {
     private String metodo;
+    private String accion;
     private CredencialesEntity credencialesEntity;
+    private TokenGCMEntity tokenGCMEntity;
     private ReporteEntity reporteEntity;
 
     public String getMetodo() {
@@ -13,12 +15,28 @@ public class PeticionWSEntity {
         this.metodo = metodo;
     }
 
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+
     public CredencialesEntity getCredencialesEntity() {
         return credencialesEntity;
     }
 
     public void setCredencialesEntity(CredencialesEntity credencialesEntity) {
         this.credencialesEntity = credencialesEntity;
+    }
+
+    public TokenGCMEntity getTokenGCMEntity() {
+        return tokenGCMEntity;
+    }
+
+    public void setTokenGCMEntity(TokenGCMEntity tokenGCMEntity) {
+        this.tokenGCMEntity = tokenGCMEntity;
     }
 
     public ReporteEntity getReporteEntity() {

@@ -6,6 +6,7 @@ public class BundleEntity {
     private Integer idReportBundle;
     private Boolean addToBackStack;
     private List<BitacoraEntity> listHistoryAction;
+    private List<AreaAtencionEntity> listAreaAtencion;
 
     public Integer getIdReportBundle() {
         return idReportBundle;
@@ -21,6 +22,14 @@ public class BundleEntity {
 
     public void setAddToBackStack(Boolean addToBackStack) {
         this.addToBackStack = addToBackStack;
+    }
+
+    public List<AreaAtencionEntity> getListAreaAtencion() {
+        return listAreaAtencion;
+    }
+
+    public void setListAreaAtencion(List<AreaAtencionEntity> listAreaAtencion) {
+        this.listAreaAtencion = listAreaAtencion;
     }
 
     public List<BitacoraEntity> getListHistoryAction() {

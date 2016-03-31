@@ -20,6 +20,7 @@ import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.entity.TokenGCMEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
@@ -43,6 +44,9 @@ public class LoginFragment extends Fragment implements WebServiceListener {
 
     // Instancia a la clase de CredencialesEntity
     private CredencialesEntity credencialesEntity = new CredencialesEntity();
+
+    // Instancia a la clase de TokenGCMEntity
+    private TokenGCMEntity tokenGCMEntity = new TokenGCMEntity();
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
@@ -105,6 +109,9 @@ public class LoginFragment extends Fragment implements WebServiceListener {
         loginEdtPassword = (EditText) rootView.findViewById(R.id.login_edt_password);
         loginBtnSend = (Button) rootView.findViewById(R.id.login_btn_send);
 
+        // Agrega el token del dispositivo a su entidad correspondiente
+        tokenGCMEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
+
         loginEdtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -144,11 +151,12 @@ public class LoginFragment extends Fragment implements WebServiceListener {
             // Construye los campos necesarios de la Entidad Credenciales
             credencialesEntity.setUsername(loginEdtUsername.getText().toString().trim());
             credencialesEntity.setPassword(loginEdtPassword.getText().toString());
-            credencialesEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
 
             // Construye la peticion
-            peticionWSEntity.setMetodo("get");
+            peticionWSEntity.setMetodo("put");
+            peticionWSEntity.setAccion("add");
             peticionWSEntity.setCredencialesEntity(credencialesEntity);
+            peticionWSEntity.setTokenGCMEntity(tokenGCMEntity);
 
             // Llamada al cliente para validar credenciales y loguearse
             SesionWebService sesionWebService = new SesionWebService();

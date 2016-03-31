@@ -49,7 +49,6 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
             ObjectMapper mapper = new ObjectMapper();
             final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
             //final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            //System.out.println(jsonPet);
 
             // Instancia para recuperar las constantes
             MainConstant mainConstant = new MainConstant();
@@ -61,8 +60,8 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
             String apiKey = crypto.encryptMessage(jsonCredenciales, mainConstant.getPasswordCrypto());
 
             // Construye la URL del Web Service a consultar
-            String urlWs = mainConstant.getUrlWS() + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
-            //System.out.println(urlWs);
+            String urlWs = mainConstant.getUrlWS() + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&action=" + peticion[0].getAccion();
+            System.out.println(urlWs);
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -79,13 +78,9 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
             // Construye y envia la peticion de acuerdo al metodo indicado por el usuario
             // Regresa un arreglo de tipo MensajeEntitie que contendra los posibles errores
             switch (peticion[0].getMetodo()) {
-                case "get":
-                    requestEntity = new HttpEntity<>(httpHeaders);
-                    responseEntity = restTemplate.exchange(urlWs, HttpMethod.GET, requestEntity, ResponseWebServiceEntity.class);
-                    break;
-                case "delete":
-                    requestEntity = new HttpEntity<>(httpHeaders);
-                    responseEntity = restTemplate.exchange(urlWs, HttpMethod.DELETE, requestEntity, ResponseWebServiceEntity.class);
+                case "put":
+                    requestEntity = new HttpEntity<>(peticion[0].getTokenGCMEntity(), httpHeaders);
+                    responseEntity = restTemplate.exchange(urlWs, HttpMethod.PUT, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 default:
                     throw new Exception("No se ha especificado un método válido.");

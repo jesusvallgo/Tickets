@@ -2,11 +2,10 @@ package mx.gob.cenapred.tickets.entity;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "username", "password", "tokenDispositivo" })
+@JsonPropertyOrder({ "username", "password" })
 public class CredencialesEntity {
     private String username;
     private String password;
-    private String tokenDispositivo;
 
     public String getUsername() {
         return username;
@@ -22,13 +21,5 @@ public class CredencialesEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getTokenDispositivo() {
-        return tokenDispositivo;
-    }
-
-    public void setTokenDispositivo(String tokenDispositivo) {
-        this.tokenDispositivo = tokenDispositivo;
     }
 }
