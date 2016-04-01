@@ -18,6 +18,10 @@
             android:paddingTop="@dimen/general_margin_none"
             android:paddingBottom="@dimen/general_margin_none" />
 
+        <TextView
+            android:id="@+id/report_delegate_lbl_atention_area"
+            style="@style/detail_textview_title"
+            android:text="@string/report_delegate_lbl_atention_area" />
         <Spinner
             android:id="@+id/report_delegate_spn_atention_area"
             style="@style/detail_spinner_content" />

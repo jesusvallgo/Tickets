@@ -2,10 +2,12 @@ package mx.gob.cenapred.tickets.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -16,15 +18,19 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
+import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
+import mx.gob.cenapred.tickets.entity.EstatusEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportDelegateFragment extends Fragment implements WebServiceListener{
     // **************************** Variables ****************************
@@ -62,6 +68,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
     // Mapea los elementos del Fragment
     TextView reportDelegateTxvIdReport;
     Spinner reportDelegateSpnAtentionArea;
+    Button reportDelegateBtnAction;
 
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
@@ -108,6 +115,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         // Mapea los layouts del Fragment
         reportDelegateTxvIdReport = (TextView) rootView.findViewById(R.id.report_delegate_txv_id_report);
         reportDelegateSpnAtentionArea = (Spinner) rootView.findViewById(R.id.report_delegate_spn_atention_area);
+        reportDelegateBtnAction = (Button) rootView.findViewById(R.id.report_delegate_btn_action);
 
         // Obtiene el numero de acciones realizadas para el reporte especificado
         Integer numAreaAtencion = listAtentionArea.size();
@@ -121,9 +129,70 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
             ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listAtentionArea);
             areaAtencionAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
             reportDelegateSpnAtentionArea.setAdapter(areaAtencionAdapter);
-        } else {
-
         }
+
+        reportDelegateBtnAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Limpia las listas de error
+                messageErrorList.clear();
+                messageDebugList.clear();
+
+                try {
+                    // Oculta las opciones del Fragment
+                    layoutOptions.setVisibility(View.GONE);
+
+                    // Muestra el layout de Cargando
+                    layoutLoading.setVisibility(View.VISIBLE);
+
+                    // Obtiene el "Area de Atencion" seleccionada por el usuario
+                    AreaAtencionEntity areaAtencionEntity = (AreaAtencionEntity) reportDelegateSpnAtentionArea.getSelectedItem();
+
+                    // Genera la lista de acciones (solo un elemento)
+                    List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
+                    BitacoraEntity bitacoraEntity = new BitacoraEntity();
+                    bitacoraEntity.setAccion("Reporte turnado a " + areaAtencionEntity.getAreaAtencion());
+                    listaBitacora.add(bitacoraEntity);
+
+                    // Establece los datos por actualizar en el reporte
+                    reporteEntity.setIdReporte(idReport);
+                    reporteEntity.setAreaAtencion(areaAtencionEntity);
+                    reporteEntity.setBitacora(listaBitacora);
+
+                    if( areaAtencionEntity.getIdAreaAtencion()!= 0){
+                        // Construye la peticion
+                        peticionWSEntity.setMetodo("put");
+                        peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                        peticionWSEntity.setReporteEntity(reporteEntity);
+
+                        // Llamada al cliente para actualizar el reporte correspondiente
+                        ReporteWebService reporteWebService = new ReporteWebService();
+                        reporteWebService.webServiceListener = reportDelegateFragment;
+                        reporteWebService.execute(peticionWSEntity);
+                    } else{
+                        throw new NoInputDataException("Debe seleccionar un Área de Atención válida");
+                    }
+                } catch (NoInputDataException nidEx) {
+                    // Agrega el error a mostrar
+                    messageErrorList.add("Datos no válidos");
+                    messageDebugList.add(nidEx.getMessage());
+                } catch (Exception ex) {
+                    // Agrega el error a mostrar
+                    messageErrorList.add("Error al realizar la petición al Web Service");
+                    messageDebugList.add(ex.getMessage());
+                } finally {
+                    if (messageErrorList.size() > 0) {
+                        // Si existen errores genera la estructura adecuada
+                        messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                        ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
+                        respuesta.setListaMensajes(messagesList);
+
+                        // Llama al metodo que procesa la respuesta
+                        onCommunicationFinish(respuesta);
+                    }
+                }
+            }
+        });
 
         return rootView;
     }
@@ -140,5 +209,8 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         } else{
             getActivity().onBackPressed();
         }
+
+        // Muestra las opciones del Fragment
+        layoutOptions.setVisibility(View.VISIBLE);
     }
 }

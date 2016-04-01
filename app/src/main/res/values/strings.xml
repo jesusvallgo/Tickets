@@ -64,16 +64,6 @@
     <string name="report_detail_lbl_area_atencion">Área de atención:</string>
     <string name="report_detail_lbl_description">Descripción:</string>
     <string name="report_detail_lbl_estatus">Estatus:</string>
-    <string name="report_detail_btn_show_history">Ver historial</string>
-
-    <string name="report_detail_lbl_update_title">Seguimiento del reporte</string>
-    <string name="report_detail_lbl_action">Acciones realizadas:</string>
-    <string name="report_detail_lbl_new_estatus">Nuevo estatus:</string>
-    <string name="report_detail_btn_update">Actualizar</string>
-
-    <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
-    <string name="log_success_token">Token generado</string>
-    <string name="log_error_token">Error al actualizar Token</string>
 
     <!-- Cadenas para el Fragment de historial de acciones -->
     <string name="report_history_lbl_history_title">Historial de atención</string>
@@ -83,9 +73,18 @@
 
     <!-- Cadenas para el Fragment de turnar reporte -->
     <string name="report_delegate_lbl_delegate_title">Turnar reporte</string>
-    <string name="report_delegate_lbl_area_atencion">Área de atención:</string>
+    <string name="report_delegate_lbl_atention_area">Área de atención:</string>
     <string name="report_delegate_btn_action">Turnar</string>
 
+    <!-- Cadenas para el Fragment de Seguimiento al reporte -->
+    <string name="report_update_history_lbl_delegate_title">Agregar acción realizada</string>
+    <string name="report_update_history_lbl_status">Estatus:</string>
+    <string name="report_update_history_lbl_action">Acciones realizadas:</string>
+    <string name="report_update_history_btn_send">Enviar</string>
+
+    <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
+    <string name="log_success_token">Token generado</string>
+    <string name="log_error_token">Error al actualizar Token</string>
     <!-- Pendientes -->
     <!--
 

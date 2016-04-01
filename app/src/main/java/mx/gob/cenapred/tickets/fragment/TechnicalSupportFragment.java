@@ -179,7 +179,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
                 reporteEntity.setDescripcion(description);
 
                 // Construye la peticion
-                peticionWSEntity.setMetodo("put");
+                peticionWSEntity.setMetodo("post");
                 peticionWSEntity.setCredencialesEntity(credencialesEntity);
                 peticionWSEntity.setReporteEntity(reporteEntity);
 

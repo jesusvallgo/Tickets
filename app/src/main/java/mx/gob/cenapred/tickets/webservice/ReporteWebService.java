@@ -49,8 +49,8 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         try {
             ObjectMapper mapper = new ObjectMapper();
             final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            //final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            //System.out.println(jsonPet);
+            final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
+            System.out.println(jsonPet);
 
             // Instancia para recuperar las constantes
             MainConstant mainConstant = new MainConstant();
@@ -95,7 +95,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                 default:
                     throw new Exception("No se ha especificado un método válido.");
             }
-            //System.out.println(urlWs);
+            System.out.println(urlWs);
 
             // Regresa el contenido de la respuesta del Web Service
             return responseEntity.getBody();

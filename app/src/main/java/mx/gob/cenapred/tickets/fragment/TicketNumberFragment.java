@@ -15,7 +15,7 @@ import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
-import mx.gob.cenapred.tickets.exception.NoResultException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
@@ -102,12 +102,12 @@ public class TicketNumberFragment extends Fragment {
                         bundleEntity.setAddToBackStack(true);
                         ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
                     } else {
-                        throw new NoResultException("Es necesario especificar un Número de Folio de 9 dígitos");
+                        throw new NoInputDataException("Es necesario especificar un Número de Folio de 9 dígitos");
                     }
-                } catch (NoResultException nrEx) {
+                } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
                     messageErrorList.add("Datos no válidos");
-                    messageDebugList.add(nrEx.getMessage());
+                    messageDebugList.add(nidEx.getMessage());
                 } catch (NumberFormatException nfEx) {
                     // Agrega el error a mostrar
                     messageErrorList.add("Datos no válidos");

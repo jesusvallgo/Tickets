@@ -74,9 +74,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     // Mapea los elementos del Fragment
     LinearLayout reportDetailLayoutUpdate;
     TextView reportDetailTxvIdReport, reportDetailTxvDate, reportDetailTxvUser, reportDetailTxvArea, reportDetailTxvAreaAtencion, reportDetailTxvDescription, reportDetailTxvEstatus;
-    EditText reportDetailEdtAction;
-    Spinner reportDetailSpnNewStatus;
-    Button reportDetailBtnUpdate;
 
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
@@ -124,7 +121,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
 
         // Mapea los elementos del Fragment
-        reportDetailLayoutUpdate = (LinearLayout) rootView.findViewById(R.id.report_detail_layout_update);
         reportDetailTxvIdReport = (TextView) rootView.findViewById(R.id.report_detail_txv_id_report);
         reportDetailTxvDate = (TextView) rootView.findViewById(R.id.report_detail_txv_date);
         reportDetailTxvUser = (TextView) rootView.findViewById(R.id.report_detail_txv_user);
@@ -132,10 +128,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         reportDetailTxvAreaAtencion = (TextView) rootView.findViewById(R.id.report_detail_txv_area_atencion);
         reportDetailTxvDescription = (TextView) rootView.findViewById(R.id.report_detail_txv_description);
         reportDetailTxvEstatus = (TextView) rootView.findViewById(R.id.report_detail_txv_estatus);
-
-        reportDetailEdtAction = (EditText) rootView.findViewById(R.id.report_detail_edt_action);
-        reportDetailSpnNewStatus = (Spinner) rootView.findViewById(R.id.report_detail_spn_new_estatus);
-        reportDetailBtnUpdate = (Button) rootView.findViewById(R.id.report_detail_btn_update);
 
         try {
             // Construye los campos necesarios de la Entidad Reporte
@@ -191,9 +183,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             // Muestra los errores en pantalla
             errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
         } else if (responseWebServiceEntity.getReporte() != null) {
-            // Oculta el Layout de actualizacion del reporte
-            reportDetailLayoutUpdate.setVisibility(View.GONE);
-
             // Llena los campos con la informacion correspondiente
             reportDetailTxvIdReport.setText(responseWebServiceEntity.getReporte().getIdReporte().toString());
             reportDetailTxvDate.setText(responseWebServiceEntity.getReporte().getFecha().toString());
@@ -202,13 +191,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             reportDetailTxvAreaAtencion.setText(responseWebServiceEntity.getReporte().getAreaAtencion().getAreaAtencion().toString());
             reportDetailTxvDescription.setText(responseWebServiceEntity.getReporte().getDescripcion().toString());
             reportDetailTxvEstatus.setText(responseWebServiceEntity.getReporte().getEstatus().getEstatus().toString());
-            reportDetailEdtAction.setText("");
-
-            // Llena el spinner de estatus con los datos actuales
-            List<EstatusEntity> listaEstatus = responseWebServiceEntity.getListaEstatus();
-            ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listaEstatus);
-            estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
-            reportDetailSpnNewStatus.setAdapter(estatusAdapter);
 
             if (responseWebServiceEntity.getReporte().getBitacora().size() > 0) {
                 // Habilita la bandera para mostrar la opcion de "Ver Historial" del reporte
@@ -220,7 +202,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
             // Si existen datos del usuario
             if (responseWebServiceEntity.getUsuario() != null) {
-
                 // Si es un usuario con perfil de "Atencion a incidentes" y ademas, el reporte puede ser editado
                 if (responseWebServiceEntity.getUsuario().getRol().getIdRol() == 2 && responseWebServiceEntity.getReporte().getEstatus().getEditable() == true) {
 
@@ -237,63 +218,21 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
                         }
                     }
 
-                    // Muestra el Layout de actualizacion del reporte
-                    reportDetailLayoutUpdate.setVisibility(View.VISIBLE);
+                    // Si existen datos de "Estatus"
+                    if( responseWebServiceEntity.getListaEstatus() != null ){
+                        // Si existe algun Area de Atencion para turnar el reporte
+                        if(responseWebServiceEntity.getListaEstatus().size() > 0 ){
+                            // Habilita la bandera para mostrar la opcion de "Turnar reporte"
+                            menuItemUpdateVisible = true;
 
-                    // Acciones por realizar al presionar el boton de Actualizar
-                    reportDetailBtnUpdate.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            try {
-                                // Oculta las opciones del Fragment
-                                layoutOptions.setVisibility(View.GONE);
-
-                                // Muestra el layout de Cargando
-                                layoutLoading.setVisibility(View.VISIBLE);
-
-                                // Genera la lista de acciones (solo un elemento)
-                                List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
-                                BitacoraEntity bitacoraEntity = new BitacoraEntity();
-                                bitacoraEntity.setAccion(reportDetailEdtAction.getText().toString().trim());
-                                listaBitacora.add(bitacoraEntity);
-
-                                // Obtiene el nuevo estatus
-                                EstatusEntity newEstatus = (EstatusEntity) reportDetailSpnNewStatus.getSelectedItem();
-
-                                // Agrega las actualizaciones
-                                reporteEntity.setBitacora(listaBitacora);
-                                reporteEntity.setEstatus(newEstatus);
-
-                                // Construye la peticion
-                                peticionWSEntity.setMetodo("post");
-                                peticionWSEntity.setCredencialesEntity(credencialesEntity);
-                                peticionWSEntity.setReporteEntity(reporteEntity);
-
-                                // Llamada al cliente para actualizar el reporte correspondiente
-                                ReporteWebService reporteWebService = new ReporteWebService();
-                                reporteWebService.webServiceListener = reportDetailFragment;
-                                reporteWebService.execute(peticionWSEntity);
-                            } catch (Exception ex) {
-                                // Limpia las listas de error
-                                messageErrorList.clear();
-                                messageDebugList.clear();
-
-                                // Agrega el error a mostrar
-                                messageErrorList.add("Error al realizar la petición al Web Service");
-                                messageDebugList.add(ex.getMessage());
-                            } finally {
-                                if (messageErrorList.size() > 0) {
-                                    // Si existen errores genera la estructura adecuada
-                                    messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
-                                    ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
-                                    respuesta.setListaMensajes(messagesList);
-
-                                    // Llama al metodo que procesa la respuesta
-                                    onCommunicationFinish(respuesta);
-                                }
-                            }
+                            // Carga en el bundle auxiliar la lista de areas de atencion
+                            bundleEntity.setIdReportBundle(idReport);
+                            bundleEntity.setListEstatus(responseWebServiceEntity.getListaEstatus());
                         }
-                    });
+                    }
+                } else{
+                    menuItemDelegateVisible = false;
+                    menuItemUpdateVisible = false;
                 }
             }
 
@@ -332,6 +271,9 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
                 break;
             case R.id.item_delegate:
                 fragment = R.id.fragment_report_delegate;
+                break;
+            case R.id.item_update:
+                fragment = R.id.fragment_report_update_history;
                 break;
             default:
                 fragment = 0;

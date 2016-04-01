@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_update_history"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.ReportUpdateHistoryFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_lineal_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/report_delegate_lbl_delegate_title"
+            style="@style/detail_textview_interface_subtitle"
+            android:text="@string/report_update_history_lbl_delegate_title" />
+        <TextView
+            android:id="@+id/report_update_history_txv_id_report"
+            style="@style/detail_textview_interface_subtitle"
+            android:paddingTop="@dimen/general_margin_none"
+            android:paddingBottom="@dimen/general_margin_none" />
+
+        <TextView
+            android:id="@+id/report_update_history_lbl_status"
+            style="@style/detail_textview_title"
+            android:text="@string/report_update_history_lbl_status" />
+
+        <Spinner
+            android:id="@+id/report_update_history_spn_status"
+            style="@style/detail_spinner_content" />
+
+        <TextView
+            android:id="@+id/report_update_history_lbl_action"
+            style="@style/detail_textview_title"
+            android:text="@string/report_update_history_lbl_action" />
+
+        <EditText
+            android:id="@+id/report_update_history_edt_action"
+            style="@style/general_edittext_large"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/report_update_history_btn_send"
+            style="@style/general_button_large"
+            android:text="@string/report_update_history_btn_send" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+</RelativeLayout>

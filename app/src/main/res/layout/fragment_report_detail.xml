@@ -76,42 +76,6 @@
         <TextView
             android:id="@+id/report_detail_txv_estatus"
             style="@style/detail_textview_content" />
-
-        <LinearLayout
-            android:id="@+id/report_detail_layout_update"
-            style="@style/general_layout_lineal_vertical_nomargin_match_wrap" >
-
-            <View style="@style/general_divider_vertical" />
-
-            <TextView
-                android:id="@+id/report_detail_lbl_update_title"
-                style="@style/detail_textview_interface_subtitle"
-                android:text="@string/report_detail_lbl_update_title" />
-
-            <TextView
-                android:id="@+id/report_detail_lbl_new_estatus"
-                style="@style/detail_textview_title"
-                android:text="@string/report_detail_lbl_new_estatus" />
-
-            <Spinner
-                android:id="@+id/report_detail_spn_new_estatus"
-                style="@style/detail_spinner_content" />
-
-            <TextView
-                android:id="@+id/report_detail_lbl_action"
-                style="@style/detail_textview_title"
-                android:text="@string/report_detail_lbl_action" />
-
-            <EditText
-                android:id="@+id/report_detail_edt_action"
-                style="@style/general_edittext_large"
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/report_detail_btn_update"
-                style="@style/general_button_large"
-                android:text="@string/report_detail_btn_update" />
-        </LinearLayout>
     </LinearLayout>
 
     <include

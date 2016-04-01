@@ -33,6 +33,7 @@ import mx.gob.cenapred.tickets.fragment.LogoutFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
+import mx.gob.cenapred.tickets.fragment.ReportUpdateHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
 import mx.gob.cenapred.tickets.fragment.TicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
@@ -309,6 +310,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putSerializable("listAtentionArea", (Serializable) bundleEntity.getListAreaAtencion());
                 mainCurrentFragment = new ReportDelegateFragment();
+                addToBackStack = true;
+                break;
+            case R.id.fragment_report_update_history:
+                bundle.putInt("idReport", bundleEntity.getIdReportBundle());
+                bundle.putSerializable("listStatus", (Serializable) bundleEntity.getListEstatus());
+                mainCurrentFragment = new ReportUpdateHistoryFragment();
                 addToBackStack = true;
                 break;
             case R.id.nav_welcome:
