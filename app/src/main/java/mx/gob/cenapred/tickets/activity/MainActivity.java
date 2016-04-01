@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -31,6 +30,7 @@ import mx.gob.cenapred.tickets.fragment.AboutFragment;
 import mx.gob.cenapred.tickets.fragment.LoadingFragment;
 import mx.gob.cenapred.tickets.fragment.LoginFragment;
 import mx.gob.cenapred.tickets.fragment.LogoutFragment;
+import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
@@ -39,10 +39,10 @@ import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MenuManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.util.GooglePlayServices;
-import mx.gob.cenapred.tickets.manager.KeyboardManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -302,7 +302,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.fragment_report_history:
                 bundle.putSerializable("listHistoryAction", (Serializable) bundleEntity.getListHistoryAction());
-                mainCurrentFragment = new  ReportHistoryFragment();
+                mainCurrentFragment = new ReportHistoryFragment();
+                addToBackStack = true;
+                break;
+            case R.id.fragment_report_delegate:
+                bundle.putInt("idReport", bundleEntity.getIdReportBundle());
+                bundle.putSerializable("listAtentionArea", (Serializable) bundleEntity.getListAreaAtencion());
+                mainCurrentFragment = new ReportDelegateFragment();
                 addToBackStack = true;
                 break;
             case R.id.nav_welcome:

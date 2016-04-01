@@ -21,7 +21,6 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
-import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
@@ -76,7 +75,7 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     LinearLayout reportDetailLayoutUpdate;
     TextView reportDetailTxvIdReport, reportDetailTxvDate, reportDetailTxvUser, reportDetailTxvArea, reportDetailTxvAreaAtencion, reportDetailTxvDescription, reportDetailTxvEstatus;
     EditText reportDetailEdtAction;
-    Spinner reportDetailSpnNewStatus, reportDetailSpnNewAreaAtencion;
+    Spinner reportDetailSpnNewStatus;
     Button reportDetailBtnUpdate;
 
     // Inicializa las variables del Fragment
@@ -136,7 +135,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
         reportDetailEdtAction = (EditText) rootView.findViewById(R.id.report_detail_edt_action);
         reportDetailSpnNewStatus = (Spinner) rootView.findViewById(R.id.report_detail_spn_new_estatus);
-        reportDetailSpnNewAreaAtencion = (Spinner) rootView.findViewById(R.id.report_detail_spn_new_area_atencion);
         reportDetailBtnUpdate = (Button) rootView.findViewById(R.id.report_detail_btn_update);
 
         try {
@@ -211,12 +209,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listaEstatus);
             estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
             reportDetailSpnNewStatus.setAdapter(estatusAdapter);
-
-            // Llena el spinner de areas de atencion con los datos correspondientes
-            List<AreaAtencionEntity> listaAreaAtencion = responseWebServiceEntity.getListaAreaAtencion();
-            ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listaAreaAtencion);
-            areaAtencionAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
-            reportDetailSpnNewAreaAtencion.setAdapter(areaAtencionAdapter);
 
             if (responseWebServiceEntity.getReporte().getBitacora().size() > 0) {
                 // Habilita la bandera para mostrar la opcion de "Ver Historial" del reporte
@@ -333,12 +325,22 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Integer fragment;
         switch (item.getItemId()) {
             case R.id.item_history:
-                ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_history,bundleEntity);
-                return true;
+                fragment = R.id.fragment_report_history;
+                break;
+            case R.id.item_delegate:
+                fragment = R.id.fragment_report_delegate;
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                fragment = 0;
+                break;
         }
+
+        if( fragment!=0 ){
+            ((MainActivity) getActivity()).manageFragment(fragment, bundleEntity);
+        }
+        return true;
     }
 }

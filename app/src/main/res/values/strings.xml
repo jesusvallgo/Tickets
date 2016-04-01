@@ -75,12 +75,16 @@
     <string name="log_success_token">Token generado</string>
     <string name="log_error_token">Error al actualizar Token</string>
 
-    <!-- Cadenas para el Fragment de historial de acciones-->
+    <!-- Cadenas para el Fragment de historial de acciones -->
     <string name="report_history_lbl_history_title">Historial de atención</string>
-    <string name="report_history_lbl_id_report">Número de folio:</string>
     <string name="report_history_lbl_date">Fecha de la acción:</string>
     <string name="report_history_lbl_user">Usuario:</string>
     <string name="report_history_lbl_action">Descripción:</string>
+
+    <!-- Cadenas para el Fragment de turnar reporte -->
+    <string name="report_delegate_lbl_delegate_title">Turnar reporte</string>
+    <string name="report_delegate_lbl_area_atencion">Área de atención:</string>
+    <string name="report_delegate_btn_action">Turnar</string>
 
     <!-- Pendientes -->
     <!--
