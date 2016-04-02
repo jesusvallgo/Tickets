@@ -8,12 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,10 +17,8 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
-import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
-import mx.gob.cenapred.tickets.entity.EstatusEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
@@ -198,6 +192,8 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
                 // Carga en el bundle auxiliar la lista de acciones realizadas
                 bundleEntity.setListHistoryAction(responseWebServiceEntity.getReporte().getBitacora());
+            } else{
+                menuItemHistoryVisible = false;
             }
 
             // Si existen datos del usuario

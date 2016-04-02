@@ -49,7 +49,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         try {
             ObjectMapper mapper = new ObjectMapper();
             final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
+            final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
             System.out.println(jsonPet);
 
             // Instancia para recuperar las constantes
