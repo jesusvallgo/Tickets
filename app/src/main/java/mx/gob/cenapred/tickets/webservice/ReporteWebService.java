@@ -73,7 +73,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             requestFactory.setReadTimeout(2000); // 2 segundos
 
             // Construye la plantilla para la peticion REST
-            RestTemplate restTemplate = new RestTemplate();
+            RestTemplate restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
