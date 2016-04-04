@@ -61,7 +61,6 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
 
             // Construye la URL del Web Service a consultar
             String urlWs = mainConstant.getUrlWS() + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&action=" + peticion[0].getAccion();
-            System.out.println(urlWs);
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();

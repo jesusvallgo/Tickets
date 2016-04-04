@@ -49,8 +49,8 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         try {
             ObjectMapper mapper = new ObjectMapper();
             final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
-            System.out.println(jsonPet);
+            //final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
+            //System.out.println(jsonPet);
 
             // Instancia para recuperar las constantes
             MainConstant mainConstant = new MainConstant();
@@ -80,11 +80,12 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             // Regresa un arreglo de tipo MensajeEntitie que contendra los posibles errores
             switch (peticion[0].getMetodo()) {
                 case "get":
-                    urlWs += "&idReporte=" + peticion[0].getReporteEntity().getIdReporte();
+                    urlWs += "&idReport=" + peticion[0].getReporteEntity().getIdReporte();
                     requestEntity = new HttpEntity<>(httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.GET, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 case "put":
+                    urlWs += "&action=" + peticion[0].getAccion();
                     requestEntity = new HttpEntity<ReporteEntity>(peticion[0].getReporteEntity(), httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.PUT, requestEntity, ResponseWebServiceEntity.class);
                     break;
@@ -95,7 +96,6 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                 default:
                     throw new Exception("No se ha especificado un método válido.");
             }
-            System.out.println(urlWs);
 
             // Regresa el contenido de la respuesta del Web Service
             return responseEntity.getBody();

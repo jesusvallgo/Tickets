@@ -162,6 +162,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                     if( areaAtencionEntity.getIdAreaAtencion()!= 0){
                         // Construye la peticion
                         peticionWSEntity.setMetodo("put");
+                        peticionWSEntity.setAccion("delegate");
                         peticionWSEntity.setCredencialesEntity(credencialesEntity);
                         peticionWSEntity.setReporteEntity(reporteEntity);
 

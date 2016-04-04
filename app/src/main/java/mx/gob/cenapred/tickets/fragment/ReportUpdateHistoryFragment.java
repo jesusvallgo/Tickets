@@ -180,6 +180,7 @@ public class ReportUpdateHistoryFragment extends Fragment implements WebServiceL
 
                     // Construye la peticion
                     peticionWSEntity.setMetodo("put");
+                    peticionWSEntity.setAccion("history");
                     peticionWSEntity.setCredencialesEntity(credencialesEntity);
                     peticionWSEntity.setReporteEntity(reporteEntity);
 
