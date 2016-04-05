@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
-import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.EstatusEntity;
@@ -160,6 +159,16 @@ public class ReportUpdateHistoryFragment extends Fragment implements WebServiceL
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        reportUpdateHistoryEdtAction.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_ENTER){
+                    return true;
+                }
+                return false;
             }
         });
 

@@ -190,8 +190,7 @@
         <item name="android:ems">10</item>
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/edittext_input_data</item>
-        <item name="android:lines">6</item>
-        <item name="android:inputType">textMultiLine</item>
+        <item name="android:lines">5</item>
         <item name="android:scrollbars">vertical</item>
     </style>
     <style name="update_history_linear_action">
