@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class TicketNumberFragment extends Fragment {
 
     // Mapea los elementos del Fragment
     private EditText ticketNumberEdtNumber;
-    private Button ticketNumberBtnSearch;
+    private ImageButton ticketNumberBtnSearch;
 
     // Inicializa las variables del Fragment
     private String idReport = "";
@@ -86,7 +87,7 @@ public class TicketNumberFragment extends Fragment {
 
         // Mapea los elementos del Fragment
         ticketNumberEdtNumber = (EditText) rootView.findViewById(R.id.ticket_number_edt_number);
-        ticketNumberBtnSearch = (Button) rootView.findViewById(R.id.ticket_number_btn_search);
+        ticketNumberBtnSearch = (ImageButton) rootView.findViewById(R.id.ticket_number_btn_search);
 
         ticketNumberEdtNumber.setOnKeyListener(new View.OnKeyListener() {
             @Override

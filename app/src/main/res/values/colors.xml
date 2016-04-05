@@ -12,6 +12,6 @@
 
     <color name="color_error_backgroud">#DFDFDF</color>
 
-    <color name="report_history_lsv_background">#64bababa</color>
+    <color name="report_history_lsv_background">#64BABABA</color>
     <color name="report_history_lsv_divider">@android:color/transparent</color>
 </resources>

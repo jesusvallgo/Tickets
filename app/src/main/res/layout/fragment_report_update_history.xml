@@ -25,22 +25,36 @@
 
         <Spinner
             android:id="@+id/report_update_history_spn_status"
-            style="@style/detail_spinner_content" />
+            style="@style/general_spinner_large" />
 
         <TextView
             android:id="@+id/report_update_history_lbl_action"
             style="@style/detail_textview_title"
             android:text="@string/report_update_history_lbl_action" />
 
-        <EditText
-            android:id="@+id/report_update_history_edt_action"
-            style="@style/general_edittext_large"
-            android:inputType="text" />
+        <LinearLayout
+            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
+            android:weightSum="10">
 
-        <Button
-            android:id="@+id/report_update_history_btn_send"
-            style="@style/general_button_large"
-            android:text="@string/report_update_history_btn_send" />
+            <EditText
+                android:id="@+id/report_update_history_edt_action"
+                style="@style/update_history_edittex_action"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                style="@style/update_history_linear_action"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/report_update_history_txv_characters"
+                    style="@style/update_history_txv_characters" />
+
+                <ImageButton
+                    android:id="@+id/report_update_history_btn_send"
+                    style="@style/update_history_button_send"
+                    android:adjustViewBounds="false"
+                    android:baselineAlignBottom="false" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <include

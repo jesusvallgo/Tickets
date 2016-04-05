@@ -104,6 +104,21 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="general_button_only_icon">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:background">@drawable/button_action_rounded</item>
+    </style>
+
+    <style name="general_spinner_large" parent="general_item_large">
+        <item name="android:textSize">@dimen/detail_content_font_size</item>
+        <item name="android:background">@drawable/input_data_edittext</item>
+    </style>
+
     <style name="general_divider_vertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -130,9 +145,6 @@
     <style name="detail_textview_content" parent="general_item_large">
         <item name="android:textSize">@dimen/detail_content_font_size</item>
     </style>
-    <style name="detail_spinner_content" parent="general_item_large">
-        <item name="android:textSize">@dimen/detail_content_font_size</item>
-    </style>
 
     <!-- Elementos para ListView del Fragment de Bitacora de Acciones -->
     <style name="report_history_lsv_action_parent" parent="general_match_wrap">
@@ -154,8 +166,48 @@
     </style>
 
     <!-- Elementos del Fragment de Consulta de Ticket -->
-    <style name="ticket_number_button_search">
+    <style name="ticket_number_edittex_number">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:background">@drawable/input_data_edittext</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">9</item>
+    </style>
+    <style name="ticket_number_button_search" parent="general_button_only_icon">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:contentDescription">@string/ticket_number_btn_send</item>
+        <item name="android:src">@mipmap/ic_search</item>
+    </style>
+
+    <!-- Elementos del Fragment de Seguimiento de Ticket -->
+    <style name="update_history_edittex_action">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/button_action_rounded</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/input_data_edittext</item>
+        <item name="android:lines">6</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+    <style name="update_history_linear_action">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+    <style name="update_history_txv_characters" parent="general_match_wrap">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="update_history_button_send" parent="general_button_only_icon">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:contentDescription">@string/report_update_history_btn_send</item>
+        <item name="android:src">@mipmap/ic_send</item>
     </style>
 </resources>

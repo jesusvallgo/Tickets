@@ -53,7 +53,7 @@
 
     <!-- Cadenas para el fragment de Reporte por numero de folio -->
     <string name="ticket_number_txv_number">Número de folio:</string>
-    <string name="ticket_number_btn_send">Continuar</string>
+    <string name="ticket_number_btn_send">Buscar</string>
 
     <!-- Cadenas para el Fragment de detalles del reporte -->
     <string name="report_detail_lbl_detail_title">Detalles del reporte</string>
@@ -81,6 +81,7 @@
     <string name="report_update_history_lbl_status">Estatus:</string>
     <string name="report_update_history_lbl_action">Acciones realizadas:</string>
     <string name="report_update_history_btn_send">Enviar</string>
+
 
     <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
     <string name="log_success_token">Token generado</string>

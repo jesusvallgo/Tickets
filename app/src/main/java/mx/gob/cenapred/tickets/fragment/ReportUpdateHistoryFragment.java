@@ -2,12 +2,15 @@ package mx.gob.cenapred.tickets.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -72,10 +75,10 @@ public class ReportUpdateHistoryFragment extends Fragment implements WebServiceL
     private RelativeLayout layoutLoading;
 
     // Mapea los elementos del Fragment
-    TextView reportUpdateHistoryTxvIdReport;
+    TextView reportUpdateHistoryTxvIdReport, reportUpdateHistoryTxvCharacters;
     Spinner reportUpdateHistorySpnEstatus;
     EditText reportUpdateHistoryEdtAction;
-    Button reportUpdateHistoryBtnSend;
+    ImageButton reportUpdateHistoryBtnSend;
 
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
@@ -126,7 +129,8 @@ public class ReportUpdateHistoryFragment extends Fragment implements WebServiceL
         reportUpdateHistoryTxvIdReport = (TextView) rootView.findViewById(R.id.report_update_history_txv_id_report);
         reportUpdateHistorySpnEstatus = (Spinner) rootView.findViewById(R.id.report_update_history_spn_status);
         reportUpdateHistoryEdtAction = (EditText) rootView.findViewById(R.id.report_update_history_edt_action);
-        reportUpdateHistoryBtnSend = (Button) rootView.findViewById(R.id.report_update_history_btn_send);
+        reportUpdateHistoryTxvCharacters = (TextView) rootView.findViewById(R.id.report_update_history_txv_characters);
+        reportUpdateHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_update_history_btn_send);
 
         // Obtiene el numero de acciones realizadas para el reporte especificado
         Integer numEstatus = listEstatus.size();
@@ -141,6 +145,23 @@ public class ReportUpdateHistoryFragment extends Fragment implements WebServiceL
             estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
             reportUpdateHistorySpnEstatus.setAdapter(estatusAdapter);
         }
+
+        reportUpdateHistoryEdtAction.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                reportUpdateHistoryTxvCharacters.setText(String.valueOf(s.length()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         reportUpdateHistoryBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override

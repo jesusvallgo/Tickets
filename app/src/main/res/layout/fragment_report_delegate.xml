@@ -24,7 +24,7 @@
             android:text="@string/report_delegate_lbl_atention_area" />
         <Spinner
             android:id="@+id/report_delegate_spn_atention_area"
-            style="@style/detail_spinner_content" />
+            style="@style/general_spinner_large" />
 
         <Button
             android:id="@+id/report_delegate_btn_action"
