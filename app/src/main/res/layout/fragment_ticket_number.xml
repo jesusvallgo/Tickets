@@ -13,16 +13,26 @@
             style="@style/general_textview_large"
             android:text="@string/ticket_number_txv_number" />
 
-        <EditText
-            android:id="@+id/ticket_number_edt_number"
-            style="@style/general_edittext_large"
-            android:text="160328003"
-            android:inputType="number" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:weightSum="15">
 
-        <Button
-            android:id="@+id/ticket_number_btn_send"
-            style="@style/general_button_large"
-            android:text="@string/ticket_number_btn_send" />
+            <EditText
+                android:id="@+id/ticket_number_edt_number"
+                style="@style/general_edittext_large"
+                android:text="160328003"
+                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_weight="12"
+                android:layout_gravity="bottom"/>
+            <Button
+                android:id="@+id/ticket_number_btn_search"
+                style="@style/ticket_number_button_search"
+                android:layout_width="0dp"
+                android:layout_weight="3" />
+        </LinearLayout>
     </LinearLayout>
 
     <include

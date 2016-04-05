@@ -2,6 +2,7 @@ package mx.gob.cenapred.tickets.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,8 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
-import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.preference.AppPreference;
 
 public class TicketNumberFragment extends Fragment {
     // **************************** Constantes ****************************
@@ -48,7 +49,7 @@ public class TicketNumberFragment extends Fragment {
 
     // Mapea los elementos del Fragment
     private EditText ticketNumberEdtNumber;
-    private Button ticketNumberBtnSend;
+    private Button ticketNumberBtnSearch;
 
     // Inicializa las variables del Fragment
     private String idReport = "";
@@ -85,49 +86,63 @@ public class TicketNumberFragment extends Fragment {
 
         // Mapea los elementos del Fragment
         ticketNumberEdtNumber = (EditText) rootView.findViewById(R.id.ticket_number_edt_number);
-        ticketNumberBtnSend = (Button) rootView.findViewById(R.id.ticket_number_btn_send);
+        ticketNumberBtnSearch = (Button) rootView.findViewById(R.id.ticket_number_btn_search);
 
-        ticketNumberBtnSend.setOnClickListener(new View.OnClickListener() {
+        ticketNumberEdtNumber.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    tryGetTicket();
+                }
+                return false;
+            }
+        });
+
+        ticketNumberBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                idReport = ticketNumberEdtNumber.getText().toString().trim();
-
-                // Limpia las listas de error
-                messageErrorList.clear();
-                messageDebugList.clear();
-
-                try {
-                    if (idReport.length() == 9) {
-                        bundleEntity.setIdReportBundle(Integer.parseInt(idReport));
-                        bundleEntity.setAddToBackStack(true);
-                        ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
-                    } else {
-                        throw new NoInputDataException("Es necesario especificar un Número de Folio de 9 dígitos");
-                    }
-                } catch (NoInputDataException nidEx) {
-                    // Agrega el error a mostrar
-                    messageErrorList.add("Datos no válidos");
-                    messageDebugList.add(nidEx.getMessage());
-                } catch (NumberFormatException nfEx) {
-                    // Agrega el error a mostrar
-                    messageErrorList.add("Datos no válidos");
-                    messageDebugList.add("El Número de folio especificado no puede ser leido correctamente");
-                } catch (Exception ex) {
-                    // Agrega el error a mostrar
-                    messageErrorList.add("Error desconocido");
-                    messageDebugList.add(ex.getMessage());
-                } finally {
-                    if (messageErrorList.size() > 0) {
-                        // Crea la lista de errores
-                        messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
-
-                        // Despliega los errores encontrados
-                        errorManager.displayError(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_DEFAULT);
-                    }
-                }
+                tryGetTicket();
             }
         });
 
         return rootView;
+    }
+
+    private void tryGetTicket(){
+        idReport = ticketNumberEdtNumber.getText().toString().trim();
+
+        // Limpia las listas de error
+        messageErrorList.clear();
+        messageDebugList.clear();
+
+        try {
+            if (idReport.length() == 9) {
+                bundleEntity.setIdReportBundle(Integer.parseInt(idReport));
+                bundleEntity.setAddToBackStack(true);
+                ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
+            } else {
+                throw new NoInputDataException("Es necesario especificar un Número de Folio de 9 dígitos");
+            }
+        } catch (NoInputDataException nidEx) {
+            // Agrega el error a mostrar
+            messageErrorList.add("Datos no válidos");
+            messageDebugList.add(nidEx.getMessage());
+        } catch (NumberFormatException nfEx) {
+            // Agrega el error a mostrar
+            messageErrorList.add("Datos no válidos");
+            messageDebugList.add("El Número de folio especificado no puede ser leido correctamente");
+        } catch (Exception ex) {
+            // Agrega el error a mostrar
+            messageErrorList.add("Error desconocido");
+            messageDebugList.add(ex.getMessage());
+        } finally {
+            if (messageErrorList.size() > 0) {
+                // Crea la lista de errores
+                messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+
+                // Despliega los errores encontrados
+                errorManager.displayError(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_DEFAULT);
+            }
+        }
     }
 }

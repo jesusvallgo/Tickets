@@ -147,9 +147,15 @@
         <item name="android:background">@drawable/shape_custom_lisview_history_action</item>
     </style>
 
-    <!-- Elemenos del Fragment de Acerca de -->
+    <!-- Elementos del Fragment de Acerca de -->
     <style name="about_textview_large" parent="general_item_large">
         <item name="android:textSize">@dimen/about_font_size</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Elementos del Fragment de Consulta de Ticket -->
+    <style name="ticket_number_button_search">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_action_rounded</item>
     </style>
 </resources>
