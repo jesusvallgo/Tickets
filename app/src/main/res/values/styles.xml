@@ -116,7 +116,7 @@
 
     <style name="general_spinner_large" parent="general_item_large">
         <item name="android:textSize">@dimen/detail_content_font_size</item>
-        <item name="android:background">@drawable/input_data_edittext</item>
+        <item name="android:background">@drawable/edittext_input_data</item>
     </style>
 
     <style name="general_divider_vertical">
@@ -171,7 +171,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:background">@drawable/input_data_edittext</item>
+        <item name="android:background">@drawable/edittext_input_data</item>
         <item name="android:inputType">number</item>
         <item name="android:maxLength">9</item>
     </style>
@@ -189,7 +189,7 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:ems">10</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">@drawable/input_data_edittext</item>
+        <item name="android:background">@drawable/edittext_input_data</item>
         <item name="android:lines">6</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:scrollbars">vertical</item>

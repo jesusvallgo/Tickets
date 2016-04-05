@@ -39,6 +39,7 @@
             <EditText
                 android:id="@+id/report_update_history_edt_action"
                 style="@style/update_history_edittex_action"
+                android:imeOptions="actionDone"
                 android:layout_weight="8" />
 
             <LinearLayout
