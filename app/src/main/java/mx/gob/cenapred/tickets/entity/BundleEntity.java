@@ -4,6 +4,7 @@ import java.util.List;
 
 public class BundleEntity {
     private Integer idReportBundle;
+    private Integer idAreaAtencion;
     private Boolean addToBackStack;
     private List<BitacoraEntity> listHistoryAction;
     private List<AreaAtencionEntity> listAreaAtencion;
@@ -15,6 +16,14 @@ public class BundleEntity {
 
     public void setIdReportBundle(Integer idReportBundle) {
         this.idReportBundle = idReportBundle;
+    }
+
+    public Integer getIdAreaAtencion() {
+        return idAreaAtencion;
+    }
+
+    public void setIdAreaAtencion(Integer idAreaAtencion) {
+        this.idAreaAtencion = idAreaAtencion;
     }
 
     public Boolean getAddToBackStack() {

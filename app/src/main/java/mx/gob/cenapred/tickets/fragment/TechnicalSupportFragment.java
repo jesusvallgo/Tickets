@@ -160,6 +160,8 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
                 break;
             case R.id.technical_support_btn_other:
                 askWS = false;
+                bundleEntity.setIdAreaAtencion(1);
+                ((MainActivity)getActivity()).manageFragment(R.id.fragment_report_other,bundleEntity);
                 break;
             default:
                 break;

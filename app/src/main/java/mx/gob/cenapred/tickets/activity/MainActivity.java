@@ -33,6 +33,7 @@ import mx.gob.cenapred.tickets.fragment.LogoutFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
+import mx.gob.cenapred.tickets.fragment.ReportOtherFragment;
 import mx.gob.cenapred.tickets.fragment.ReportUpdateHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
 import mx.gob.cenapred.tickets.fragment.TicketNumberFragment;
@@ -293,6 +294,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_login:
                 mainCurrentFragment = new LoginFragment();
                 updateMenu = true;
+                break;
+            case R.id.fragment_report_other:
+                bundle.putInt("idAtentionArea", bundleEntity.getIdAreaAtencion());
+                mainCurrentFragment = new ReportOtherFragment();
+                addToBackStack = true;
                 break;
             case R.id.fragment_report_detail:
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());

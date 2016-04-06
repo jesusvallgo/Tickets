@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_report_update_history"
+    android:id="@+id/fragment_report_other"
     style="@style/general_layout_relative_nomargin_match_match"
-    tools:context=".fragment.ReportUpdateHistoryFragment">
+    tools:context=".fragment.ReportOtherFragment">
 
     <LinearLayout
         android:id="@+id/layout_options"
