@@ -4,44 +4,83 @@
     style="@style/general_layout_lineal_vertical_margin_match_match"
     tools:context=".fragment.WelcomeFragment">
 
+    <LinearLayout
+        style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
+        android:background="#CCCCCC"
+        android:weightSum="10">
+
+        <LinearLayout
+            style="@style/general_layout_lineal_vertical_margin_match_wrap"
+            android:layout_weight="5"
+            android:background="#ABDABD">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_cenapred" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:text="@string/welcome_btn_ticket_technical_support" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/general_layout_lineal_vertical_margin_match_wrap"
+            android:layout_weight="5"
+            android:background="#ABDABD">
+
+        </LinearLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/welcome_btn_chose_groups"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_chose_groups"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_chose_groups" />
+
     <Button
         android:id="@+id/welcome_btn_ticket_technical_support"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_ticket_technical_support"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_ticket_technical_support" />
+
     <Button
         android:id="@+id/welcome_btn_ticket_developers"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_ticket_developers"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_ticket_developers" />
+
     <Button
         android:id="@+id/welcome_btn_ticket_networking"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_ticket_networking"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_ticket_networking" />
+
     <Button
         android:id="@+id/welcome_btn_ticket_pending"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_ticket_pending"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_ticket_pending" />
+
     <Button
         android:id="@+id/welcome_btn_ticket_number"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_ticket_number"
-        style="@style/general_button_icon" />
+        android:text="@string/welcome_btn_ticket_number" />
+
     <Button
         android:id="@+id/welcome_btn_stadistics_date"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_stadistics_date"
-        style="@style/general_button_icon"/>
+        android:text="@string/welcome_btn_stadistics_date" />
+
     <Button
         android:id="@+id/welcome_btn_stadistics_pending"
+        style="@style/general_button_icon"
         android:drawableStart="@drawable/ic_menu_camera"
-        android:text="@string/welcome_btn_stadistics_pending"
-        style="@style/general_button_icon"/>
+        android:text="@string/welcome_btn_stadistics_pending" />
 </LinearLayout>

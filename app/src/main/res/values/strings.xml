@@ -34,7 +34,7 @@
     <!-- Cadenas para el Fragment de bienvenida -->
     <string name="welcome_btn_space">"  "</string>
     <string name="welcome_btn_chose_groups">Afiliar a Grupo</string>
-    <string name="welcome_btn_ticket_technical_support">Generar Ticket (Soporte Técnico)</string>
+    <string name="welcome_btn_ticket_technical_support">Generar Ticket\n(Soporte Técnico)</string>
     <string name="welcome_btn_ticket_developers">Generar Ticket (Desarrollo de Sistemas)</string>
     <string name="welcome_btn_ticket_networking">Generar Ticket (Redes y Enlaces)</string>
     <string name="welcome_btn_ticket_pending">Consultar Tickets pendientes</string>
