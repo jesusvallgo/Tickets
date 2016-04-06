@@ -116,7 +116,27 @@
 
     <style name="general_spinner_large" parent="general_item_large">
         <item name="android:textSize">@dimen/detail_content_font_size</item>
+        <item name="android:background">@drawable/spinner_input_data</item>
+    </style>
+
+    <style name="general_edittext_multiline" parent="general_match_wrap">
+        <item name="android:ems">10</item>
+        <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/edittext_input_data</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:lines">5</item>
+    </style>
+
+    <style name="general_linear_container_action">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="general_textview_characters_count" parent="general_match_wrap">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="general_divider_vertical">
@@ -183,27 +203,25 @@
     </style>
 
     <!-- Elementos del Fragment de Seguimiento de Ticket -->
-    <style name="update_history_edittex_action">
+    <style name="update_history_edittex_action" parent="general_edittext_multiline">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_marginRight">5dp</item>
-        <item name="android:ems">10</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:background">@drawable/edittext_input_data</item>
-        <item name="android:lines">5</item>
-        <item name="android:scrollbars">vertical</item>
-    </style>
-    <style name="update_history_linear_action">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:gravity">bottom</item>
-    </style>
-    <style name="update_history_txv_characters" parent="general_match_wrap">
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:gravity">center</item>
     </style>
     <style name="update_history_button_send" parent="general_button_only_icon">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:contentDescription">@string/report_update_history_btn_send</item>
+        <item name="android:src">@mipmap/ic_send</item>
+    </style>
+
+    <!-- Elementos del Fragment de Otro de Ticket -->
+    <style name="report_other_edittex_description" parent="general_edittext_multiline">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+    <style name="report_other_button_send" parent="general_button_only_icon">
         <item name="android:layout_height">45dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:contentDescription">@string/report_update_history_btn_send</item>

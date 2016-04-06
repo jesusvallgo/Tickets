@@ -2,7 +2,6 @@ package mx.gob.cenapred.tickets.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
-import mx.gob.cenapred.tickets.entity.EstatusEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
@@ -127,7 +125,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
 
             // Llena el spinner de areas de atencion con los datos correspondientes
             ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listAtentionArea);
-            areaAtencionAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_estatus);
+            areaAtencionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             reportDelegateSpnAtentionArea.setAdapter(areaAtencionAdapter);
         }
 
