@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_welcome_2"
+    style="@style/general_layout_lineal_vertical_nomargin_match_match"
+    tools:context=".fragment.WelcomeFragment">
+
+    <TabHost
+        android:id="@+id/welcomeTabHost"
+        style="@style/general_match_match">
+
+        <LinearLayout
+            android:id="@+id/welcomeTabHostMainContainer"
+            style="@style/general_layout_lineal_vertical_nomargin_match_match" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                style="@style/general_match_wrap"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                style="@style/general_match_match" >
+
+                <LinearLayout
+                    android:id="@+id/welcomeTabCreateTicket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#CCCCCC"
+                        android:text="crear"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/welcomeTabSearchTicket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#CCCCCC"
+                        android:text="buscar"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/welcomeTabStadistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#CCCCCC"
+                        android:text="estadisticas"/>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

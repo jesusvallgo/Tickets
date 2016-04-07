@@ -1,11 +1,16 @@
 package mx.gob.cenapred.tickets.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
@@ -25,7 +30,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     MenuManager menuManager = new MenuManager();
 
     // Elementos del Fragment
-    Button btnChoseGroups, btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnTicketPending, btnTicketNumber, btnStadisticsDate, btnStadisticsPending;
+    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnStadisticsGeneral;
 
     // Constructor por default
     public WelcomeFragment() {
@@ -49,8 +54,16 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Genera la vista para el Fragment
-        rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
+        rootView = inflater.inflate(R.layout.fragment_welcome_2, container, false);
 
+        // Mapea el TabHost
+        TabHost welcomeTabHost = (TabHost) rootView.findViewById(R.id.welcomeTabHost);
+        welcomeTabHost.setup();
+        setupNewTab(welcomeTabHost, "createTicket", getString(R.string.welcome_title_create_ticket), R.id.welcomeTabCreateTicket);
+        setupNewTab(welcomeTabHost, "searchTicket", getString(R.string.welcome_title_search_ticket), R.id.welcomeTabSearchTicket);
+        setupNewTab(welcomeTabHost, "stadistics", getString(R.string.welcome_title_stadistics), R.id.welcomeTabStadistics);
+
+        /*
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
@@ -58,34 +71,21 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         menuManager.updateWelcomeOptions(rootView, appPreferencesManager);
 
         // Mapea los elementos del fragment
-        btnChoseGroups = (Button) rootView.findViewById(R.id.welcome_btn_chose_groups);
-        btnTicketTechnicalSupport = (Button) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
-        btnTicketDevelopers = (Button) rootView.findViewById(R.id.welcome_btn_ticket_developers);
-        btnTicketNetworking = (Button) rootView.findViewById(R.id.welcome_btn_ticket_networking);
-        btnTicketPending = (Button) rootView.findViewById(R.id.welcome_btn_ticket_pending);
-        btnTicketNumber = (Button) rootView.findViewById(R.id.welcome_btn_ticket_number);
-        btnStadisticsDate = (Button) rootView.findViewById(R.id.welcome_btn_stadistics_date);
-        btnStadisticsPending = (Button) rootView.findViewById(R.id.welcome_btn_stadistics_pending);
-
-        // Agrega una serie de espacios a los elementos del Fragment para su presentacion
-        btnChoseGroups.setText(getString(R.string.welcome_btn_space) + btnChoseGroups.getText().toString());
-        btnTicketTechnicalSupport.setText(getString(R.string.welcome_btn_space) + btnTicketTechnicalSupport.getText().toString());
-        btnTicketDevelopers.setText(getString(R.string.welcome_btn_space) + btnTicketDevelopers.getText().toString());
-        btnTicketPending.setText(getString(R.string.welcome_btn_space) + btnTicketPending.getText().toString());
-        btnTicketNumber.setText(getString(R.string.welcome_btn_space) + btnTicketNumber.getText().toString());
-        btnStadisticsDate.setText(getString(R.string.welcome_btn_space) + btnStadisticsDate.getText().toString());
-        btnStadisticsPending.setText(getString(R.string.welcome_btn_space) + btnStadisticsPending.getText().toString());
+        btnTicketTechnicalSupport = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
+        btnTicketDevelopers = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_developers);
+        btnTicketNetworking = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_networking);
+        btnMyTicketPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_my_ticket_pending);
+        btnSearchTicketNumber = (LinearLayout) rootView.findViewById(R.id.welcome_btn_search_ticket_number);
+        btnStadisticsGeneral = (LinearLayout) rootView.findViewById(R.id.welcome_btn_stadistics_general);
 
         // Agrega el evento onClick a los elementos del Fragment
-        btnChoseGroups.setOnClickListener(this);
         btnTicketTechnicalSupport.setOnClickListener(this);
         btnTicketDevelopers.setOnClickListener(this);
         btnTicketNetworking.setOnClickListener(this);
-        btnTicketPending.setOnClickListener(this);
-        btnTicketNumber.setOnClickListener(this);
-        btnStadisticsDate.setOnClickListener(this);
-        btnStadisticsPending.setOnClickListener(this);
-
+        btnMyTicketPending.setOnClickListener(this);
+        btnSearchTicketNumber.setOnClickListener(this);
+        btnStadisticsGeneral.setOnClickListener(this);
+        */
         return rootView;
     }
 
@@ -94,5 +94,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         // Llama al metodo que manipula las opciones presionadas
         ((MainActivity) getActivity()).manageFragment(v.getId(), null);
+    }
+
+    private void setupNewTab(TabHost tabHost, String tag, String text, Integer idLayout) {
+        TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(text).setContent(idLayout);
+        tabHost.addTab(spec);
     }
 }

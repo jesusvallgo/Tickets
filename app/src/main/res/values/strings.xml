@@ -34,13 +34,17 @@
     <!-- Cadenas para el Fragment de bienvenida -->
     <string name="welcome_btn_space">"  "</string>
     <string name="welcome_btn_chose_groups">Afiliar a Grupo</string>
-    <string name="welcome_btn_ticket_technical_support">Generar Ticket\n(Soporte Técnico)</string>
-    <string name="welcome_btn_ticket_developers">Generar Ticket (Desarrollo de Sistemas)</string>
-    <string name="welcome_btn_ticket_networking">Generar Ticket (Redes y Enlaces)</string>
-    <string name="welcome_btn_ticket_pending">Consultar Tickets pendientes</string>
-    <string name="welcome_btn_ticket_number">Consultar Ticket por folio</string>
-    <string name="welcome_btn_stadistics_date">Estadísticas Tickets por fecha</string>
-    <string name="welcome_btn_stadistics_pending">Estadísticas Tickets pendientes</string>
+    <string name="welcome_title_create_ticket">Generar</string>
+    <string name="welcome_btn_ticket_technical_support">Soporte Técnico</string>
+    <string name="welcome_btn_ticket_developers">Sistemas Web</string>
+    <string name="welcome_btn_ticket_networking">Redes y Enlaces</string>
+
+    <string name="welcome_title_search_ticket">Buscar</string>
+    <string name="welcome_btn_my_ticket_pending">Tickets pendientes</string>
+    <string name="welcome_btn_search_ticket_number">Por  folio</string>
+
+    <string name="welcome_title_stadistics">Estadísticas</string>
+    <string name="welcome_btn_stadistics_general">Personalizada</string>
 
     <!-- Cadenas para el Fragment de Soporte Tecnico -->
     <string name="technical_support_btn_low_toner">Tóner Bajo</string>

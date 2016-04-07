@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mainCurrentFragment = new TechnicalSupportFragment();
                 addToBackStack = true;
                 break;
-            case R.id.welcome_btn_ticket_number:
+            case R.id.welcome_btn_search_ticket_number:
                 mainCurrentFragment = new TicketNumberFragment();
                 addToBackStack = true;
                 break;

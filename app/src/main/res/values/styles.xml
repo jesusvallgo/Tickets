@@ -147,6 +147,34 @@
         <item name="android:layout_marginBottom">@dimen/general_vertical_space</item>
     </style>
 
+    <!-- Elementos para Fragment de Welcome -->
+    <style name="welcome_section_container" parent="general_layout_lineal_vertical_nomargin_match_wrap">
+        <item name="android:background">@drawable/welcome_section_container</item>
+    </style>
+    <style name="welcome_section_title" parent="general_match_wrap">
+        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
+        <item name="android:textSize">@dimen/general_font_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="welcome_button_container" parent="general_layout_lineal_vertical_nomargin_match_wrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/welcome_button_container</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+    <style name="welcome_button_icon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="welcome_button_text" parent="general_match_wrap">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/welcome_button_text</item>
+    </style>
+
     <!-- Elementos para detalles -->
     <style name="detail_textview_interface_subtitle" parent="general_item_large">
         <item name="android:paddingTop">@dimen/nav_vertical_space</item>

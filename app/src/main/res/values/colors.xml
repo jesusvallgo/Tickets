@@ -10,6 +10,10 @@
     <color name="general_boton_action_background_pressed">#E66164</color>
     <color name="general_boton_action_text">#FFFFFF</color>
 
+    <color name="welcome_button_container_background_first">#670002</color>
+    <color name="welcome_button_container_background_last">#C01D20</color>
+    <color name="welcome_button_text">#FFFFFF</color>
+
     <color name="color_error_backgroud">#DFDFDF</color>
 
     <color name="report_history_lsv_background">#64BABABA</color>

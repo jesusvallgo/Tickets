@@ -40,7 +40,7 @@ public class MenuManager {
     }
 
     public void updateWelcomeOptions(View view, AppPreferencesManager appPreferencesManager){
-        Integer postGroups = View.GONE, putTicket = View.GONE, getTicketPending = View.GONE, getTicketNumber = View.GONE, getStadisticsDate = View.GONE, getStadisticsPending = View.GONE, idPerfil = appPreferencesManager.getUserRole();
+        Integer putTicket = View.GONE, getTicketPending = View.GONE, getTicketNumber = View.GONE, getStadisticsDate = View.GONE, getStadisticsPending = View.GONE, idPerfil = appPreferencesManager.getUserRole();
 
         switch (idPerfil) {
             case 1:
@@ -48,24 +48,20 @@ public class MenuManager {
                 getTicketNumber = View.VISIBLE;
                 break;
             case 2:
-                postGroups = View.VISIBLE;
                 putTicket = View.VISIBLE;
                 getTicketPending = View.VISIBLE;
                 getTicketNumber = View.VISIBLE;
                 getStadisticsDate = View.VISIBLE;
-                getStadisticsPending = View.VISIBLE;
                 break;
             default:
                 break;
         }
 
-        view.findViewById(R.id.welcome_btn_chose_groups).setVisibility(postGroups);
         view.findViewById(R.id.welcome_btn_ticket_technical_support).setVisibility(putTicket);
         view.findViewById(R.id.welcome_btn_ticket_developers).setVisibility(putTicket);
         view.findViewById(R.id.welcome_btn_ticket_networking).setVisibility(putTicket);
-        view.findViewById(R.id.welcome_btn_ticket_pending).setVisibility(getTicketPending);
-        view.findViewById(R.id.welcome_btn_ticket_number).setVisibility(getTicketNumber);
-        view.findViewById(R.id.welcome_btn_stadistics_date).setVisibility(getStadisticsDate);
-        view.findViewById(R.id.welcome_btn_stadistics_pending).setVisibility(getStadisticsPending);
+        view.findViewById(R.id.welcome_btn_my_ticket_pending).setVisibility(getTicketPending);
+        view.findViewById(R.id.welcome_btn_search_ticket_number).setVisibility(getTicketNumber);
+        view.findViewById(R.id.welcome_btn_stadistics_general).setVisibility(getStadisticsDate);
     }
 }
