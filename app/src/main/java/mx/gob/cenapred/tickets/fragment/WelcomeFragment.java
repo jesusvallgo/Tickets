@@ -1,16 +1,12 @@
 package mx.gob.cenapred.tickets.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
@@ -56,17 +52,13 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         // Genera la vista para el Fragment
         rootView = inflater.inflate(R.layout.fragment_welcome_2, container, false);
 
-        // Mapea el TabHost
-        TabHost welcomeTabHost = (TabHost) rootView.findViewById(R.id.welcomeTabHost);
-        welcomeTabHost.setup();
-        setupNewTab(welcomeTabHost, "createTicket", getString(R.string.welcome_title_create_ticket), R.id.welcomeTabCreateTicket);
-        setupNewTab(welcomeTabHost, "searchTicket", getString(R.string.welcome_title_search_ticket), R.id.welcomeTabSearchTicket);
-        setupNewTab(welcomeTabHost, "stadistics", getString(R.string.welcome_title_stadistics), R.id.welcomeTabStadistics);
-
-        /*
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
+        // Agrega los Tabs necesarios
+        menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole());
+
+        /*
         // Llama al metodo que establece las opciones que puede realizar el usuario logueado
         menuManager.updateWelcomeOptions(rootView, appPreferencesManager);
 

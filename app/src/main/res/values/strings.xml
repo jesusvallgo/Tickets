@@ -36,12 +36,13 @@
     <string name="welcome_btn_chose_groups">Afiliar a Grupo</string>
     <string name="welcome_title_create_ticket">Generar</string>
     <string name="welcome_btn_ticket_technical_support">Soporte Técnico</string>
-    <string name="welcome_btn_ticket_developers">Sistemas Web</string>
+    <string name="welcome_btn_ticket_developers">Desarrollo de Sistemas</string>
     <string name="welcome_btn_ticket_networking">Redes y Enlaces</string>
 
     <string name="welcome_title_search_ticket">Buscar</string>
-    <string name="welcome_btn_my_ticket_pending">Tickets pendientes</string>
-    <string name="welcome_btn_search_ticket_number">Por  folio</string>
+    <string name="welcome_btn_my_ticket_pending">Mis tickets pendientes</string>
+    <string name="welcome_btn_search_ticket_number">Por número de folio</string>
+    <string name="welcome_btn_request_pending">Solicitudes por atender</string>
 
     <string name="welcome_title_stadistics">Estadísticas</string>
     <string name="welcome_btn_stadistics_general">Personalizada</string>

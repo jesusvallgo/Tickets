@@ -4,6 +4,7 @@
     style="@style/general_layout_lineal_vertical_margin_match_match"
     tools:context=".fragment.WelcomeFragment">
 
+    <!--
     <LinearLayout style="@style/welcome_section_container">
 
         <TextView
@@ -136,4 +137,5 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+    -->
 </LinearLayout>

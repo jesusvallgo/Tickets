@@ -35,8 +35,6 @@ import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.ReportOtherFragment;
 import mx.gob.cenapred.tickets.fragment.ReportUpdateHistoryFragment;
-import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
-import mx.gob.cenapred.tickets.fragment.TicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -336,14 +334,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 mainCurrentFragment = new LogoutFragment();
                 break;
-            case R.id.welcome_btn_ticket_technical_support:
+            /*case R.id.welcome_btn_ticket_technical_support:
                 mainCurrentFragment = new TechnicalSupportFragment();
                 addToBackStack = true;
                 break;
-            case R.id.welcome_btn_search_ticket_number:
+            case R.id.welcome_btn_my_ticket_pending:
                 mainCurrentFragment = new TicketNumberFragment();
                 addToBackStack = true;
-                break;
+                break;*/
             default:
                 mainCurrentFragment = null;
                 break;

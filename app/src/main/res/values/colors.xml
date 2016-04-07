@@ -10,9 +10,9 @@
     <color name="general_boton_action_background_pressed">#E66164</color>
     <color name="general_boton_action_text">#FFFFFF</color>
 
-    <color name="welcome_button_container_background_first">#670002</color>
-    <color name="welcome_button_container_background_last">#C01D20</color>
-    <color name="welcome_button_text">#FFFFFF</color>
+    <color name="welcome_button_container_background_first">#DFDFDF</color>
+    <color name="welcome_button_container_background_last">@android:color/transparent</color>
+    <color name="welcome_button_text">#000000</color>
 
     <color name="color_error_backgroud">#DFDFDF</color>
 
