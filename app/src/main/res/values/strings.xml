@@ -91,28 +91,4 @@
     <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
     <string name="log_success_token">Token generado</string>
     <string name="log_error_token">Error al actualizar Token</string>
-    <!-- Pendientes -->
-    <!--
-
-
-
-
-
-
-
-
-    <string name="gcm_loading_registration">Generando token de aplicación</string>
-    <string name="gcm_success_registration">Token registrado correctamente</string>
-    <string name="gcm_error_registration">Error al generar y registrar token</string>
-
-
-
-    <string name="action_settings">Settings</string>
-
-
-
-
-
-
-    -->
 </resources>

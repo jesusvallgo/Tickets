@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
-    android:paddingTop="@dimen/error_item_padding_space"
-    android:paddingBottom="@dimen/error_item_padding_space"
+    style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+    android:padding="@dimen/error_padding_container"
     android:weightSum="15">
 
     <ImageView
         android:id="@+id/error_image"
-        android:contentDescription="@string/error_image_description"
-        android:layout_width="@dimen/error_item_icon"
-        android:layout_height="@dimen/error_item_icon"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_error"
-        android:layout_weight="1" />
+        style="@style/error_imageview_icon"
+        android:layout_weight="2" />
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="14">
+        style="@style/error_layout_container"
+        android:layout_weight="13">
         <TextView
             android:id="@+id/error_title"
-            style="@style/general_textview_error_title" />
+            style="@style/error_textview_title" />
         <TextView
             android:id="@+id/error_description"
-            style="@style/general_textview_error_description" />
+            style="@style/error_textview_description" />
     </LinearLayout>
 </LinearLayout>

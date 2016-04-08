@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores generales -->
+    <!-- Colores generales de Layout -->
     <color name="colorPrimary">#C01D20</color>
     <color name="colorPrimaryDark">#7F0F11</color>
     <color name="colorAccent">#C8494C</color>
+
+    <!-- Colores generales de Fuentes -->
+    <color name="general_font_title">#C01D20</color>
+
+    <!-- Colores del Fragment de Welcome -->
+    <color name="welcome_font_title">#7F0F11</color>
 
     <color name="general_boton_action_border">#000000</color>
     <color name="general_boton_action_background_normal">#C01D20</color>
@@ -13,8 +19,6 @@
     <color name="welcome_button_container_background_first">#DFDFDF</color>
     <color name="welcome_button_container_background_last">@android:color/transparent</color>
     <color name="welcome_button_text">#000000</color>
-
-    <color name="color_error_backgroud">#DFDFDF</color>
 
     <color name="report_history_lsv_background">#64BABABA</color>
     <color name="report_history_lsv_divider">@android:color/transparent</color>

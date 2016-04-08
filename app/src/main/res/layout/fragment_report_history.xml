@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_report_history"
-    style="@style/general_layout_lineal_vertical_nomargin_match_match"
+    style="@style/general_layout_linear_vertical_nomargin_match_match"
     android:baselineAligned="false"
     tools:context=".fragment.ReportHistoryFragment">
 

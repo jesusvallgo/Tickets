@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/layout_options"
-        style="@style/general_layout_lineal_vertical_margin_match_match">
+        style="@style/general_layout_linear_vertical_margin_match_match">
 
         <TextView
             android:id="@+id/report_delegate_lbl_delegate_title"

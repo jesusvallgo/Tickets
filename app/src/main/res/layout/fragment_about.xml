@@ -5,7 +5,7 @@
     tools:context=".fragment.AboutFragment">
 
     <LinearLayout
-        style="@style/general_layout_lineal_vertical_nomargin_match_wrap"
+        style="@style/general_layout_linear_vertical_margin_match_wrap"
         android:layout_centerVertical="true">
         <ImageView
             android:id="@+id/imageView"

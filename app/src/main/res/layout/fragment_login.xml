@@ -6,27 +6,27 @@
 
     <LinearLayout
         android:id="@+id/layout_options"
-        style="@style/general_layout_lineal_vertical_margin_match_match">
+        style="@style/general_layout_linear_vertical_margin_match_match">
 
         <TextView
             android:id="@+id/login_txv_username"
-            style="@style/general_textview_large"
+            style="@style/welcome_textview_title"
             android:text="@string/login_txv_username" />
 
         <EditText
             android:id="@+id/login_edt_username"
-            style="@style/general_edittext_large"
+            style="@style/welcome_edittext_description"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"/>
 
         <TextView
             android:id="@+id/login_txv_password"
-            style="@style/general_textview_large"
+            style="@style/welcome_textview_title"
             android:text="@string/login_txv_password" />
 
         <EditText
             android:id="@+id/login_edt_password"
-            style="@style/general_edittext_large"
+            style="@style/welcome_edittext_description"
             android:imeOptions="actionSend"
             android:inputType="textPassword" />
 

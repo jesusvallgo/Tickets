@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
@@ -26,7 +25,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     MenuManager menuManager = new MenuManager();
 
     // Elementos del Fragment
-    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnStadisticsGeneral;
+    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
 
     // Constructor por default
     public WelcomeFragment() {
@@ -50,17 +49,13 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Genera la vista para el Fragment
-        rootView = inflater.inflate(R.layout.fragment_welcome_2, container, false);
+        rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
 
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
-        // Agrega los Tabs necesarios
+        // Agrega los Tabs y botones necesarios
         menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole());
-
-        /*
-        // Llama al metodo que establece las opciones que puede realizar el usuario logueado
-        menuManager.updateWelcomeOptions(rootView, appPreferencesManager);
 
         // Mapea los elementos del fragment
         btnTicketTechnicalSupport = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
@@ -68,6 +63,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         btnTicketNetworking = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_networking);
         btnMyTicketPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_my_ticket_pending);
         btnSearchTicketNumber = (LinearLayout) rootView.findViewById(R.id.welcome_btn_search_ticket_number);
+        btnRequestPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_request_pending);
         btnStadisticsGeneral = (LinearLayout) rootView.findViewById(R.id.welcome_btn_stadistics_general);
 
         // Agrega el evento onClick a los elementos del Fragment
@@ -76,8 +72,9 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         btnTicketNetworking.setOnClickListener(this);
         btnMyTicketPending.setOnClickListener(this);
         btnSearchTicketNumber.setOnClickListener(this);
+        btnRequestPending.setOnClickListener(this);
         btnStadisticsGeneral.setOnClickListener(this);
-        */
+
         return rootView;
     }
 
@@ -86,10 +83,5 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         // Llama al metodo que manipula las opciones presionadas
         ((MainActivity) getActivity()).manageFragment(v.getId(), null);
-    }
-
-    private void setupNewTab(TabHost tabHost, String tag, String text, Integer idLayout) {
-        TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(text).setContent(idLayout);
-        tabHost.addTab(spec);
     }
 }

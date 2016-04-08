@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/general_layout_lineal_vertical_nomargin_match_wrap">
+    style="@style/general_layout_linear_vertical_nomargin_match_wrap">
 
     <LinearLayout
         style="@style/report_history_lsv_action_item" >

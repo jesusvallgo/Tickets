@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/layout_options"
-        style="@style/general_layout_lineal_vertical_margin_match_match">
+        style="@style/general_layout_linear_vertical_margin_match_match">
 
         <TextView
             android:id="@+id/report_update_history_lbl_action"
@@ -14,7 +14,7 @@
             android:text="Descripción del problema:" />
 
         <LinearLayout
-            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
+            style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
             android:weightSum="10">
 
             <EditText

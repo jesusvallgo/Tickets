@@ -6,49 +6,84 @@
 
     <LinearLayout
         android:id="@+id/layout_options"
-        style="@style/general_layout_lineal_vertical_margin_match_match">
+        style="@style/general_layout_linear_vertical_margin_match_match">
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_low_toner"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_low_toner" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_low_toner" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_paper_jam"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_paper_jam" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_paper_jam" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_virus"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_virus" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_virus" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_crash_os"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_crash_os" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_crash_os" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_password_lost"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_password_lost" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_password_lost" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_domain_lost"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_domain_lost" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_domain_lost" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/technical_support_btn_other"
-            style="@style/general_button_icon"
-            android:drawableStart="@drawable/ic_menu_camera"
-            android:text="@string/technical_support_btn_other" />
+            style="@style/general_option_button_container">
+            <ImageView
+                style="@style/general_option_button_icon"
+                android:src="@mipmap/ic_cenapred" />
+            <TextView
+                style="@style/general_option_button_text"
+                android:text="@string/technical_support_btn_other" />
+        </LinearLayout>
     </LinearLayout>
 
     <include

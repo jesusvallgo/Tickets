@@ -70,7 +70,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
     private Boolean askWS = false;
 
     // Mapea los elementos del Fragment
-    Button btnLowToner, btnPaperJam, btnVirus, btnCrashOs, btnPasswordLost, btnDomainLost, btnOther;
+    LinearLayout btnLowToner, btnPaperJam, btnVirus, btnCrashOs, btnPasswordLost, btnDomainLost, btnOther;
 
     // Constructor por default
     public TechnicalSupportFragment() {
@@ -111,13 +111,13 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
         areaAtencionEntity.setIdAreaAtencion(1);
 
         // Mapea los elementos del Fragment
-        btnLowToner = (Button) rootView.findViewById(R.id.technical_support_btn_low_toner);
-        btnPaperJam = (Button) rootView.findViewById(R.id.technical_support_btn_paper_jam);
-        btnVirus = (Button) rootView.findViewById(R.id.technical_support_btn_virus);
-        btnCrashOs = (Button) rootView.findViewById(R.id.technical_support_btn_crash_os);
-        btnPasswordLost = (Button) rootView.findViewById(R.id.technical_support_btn_password_lost);
-        btnDomainLost = (Button) rootView.findViewById(R.id.technical_support_btn_domain_lost);
-        btnOther = (Button) rootView.findViewById(R.id.technical_support_btn_other);
+        btnLowToner = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_low_toner);
+        btnPaperJam = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_paper_jam);
+        btnVirus = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_virus);
+        btnCrashOs = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_crash_os);
+        btnPasswordLost = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_password_lost);
+        btnDomainLost = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_domain_lost);
+        btnOther = (LinearLayout) rootView.findViewById(R.id.technical_support_btn_other);
 
         // Agrega el evento onClick a los elementos del Fragment
         btnLowToner.setOnClickListener(this);

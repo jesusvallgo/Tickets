@@ -35,6 +35,8 @@ import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.ReportOtherFragment;
 import mx.gob.cenapred.tickets.fragment.ReportUpdateHistoryFragment;
+import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
+import mx.gob.cenapred.tickets.fragment.TicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -74,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Indicador para definir si se desea agregar a la pila de Fragments
     private boolean addToBackStack = false;
+
+    // Cadenas para la barra de la aplicacion
+    private String fragmentName, appBarName;
 
     // Indicador para definir si se desea actualizar el menu de usuario
     private boolean updateMenu = false;
@@ -276,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Metodo para cambiar los Fragment de la Activity
     public void manageFragment(int id, BundleEntity bundleEntity) {
+        fragmentName = getSupportActionBar().getTitle().toString();
         clearBackStack = false;
         addToBackStack = false;
         updateMenu = false;
@@ -299,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 addToBackStack = true;
                 break;
             case R.id.fragment_report_detail:
+                fragmentName = "Detalle";
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putBoolean("addToBackStack", bundleEntity.getAddToBackStack());
                 mainCurrentFragment = new ReportDetailFragment();
@@ -306,17 +313,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 updateMenu = true;
                 break;
             case R.id.fragment_report_history:
+                fragmentName = "Historial";
                 bundle.putSerializable("listHistoryAction", (Serializable) bundleEntity.getListHistoryAction());
                 mainCurrentFragment = new ReportHistoryFragment();
                 addToBackStack = true;
                 break;
             case R.id.fragment_report_delegate:
+                fragmentName = "Turnar";
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putSerializable("listAtentionArea", (Serializable) bundleEntity.getListAreaAtencion());
                 mainCurrentFragment = new ReportDelegateFragment();
                 addToBackStack = true;
                 break;
             case R.id.fragment_report_update_history:
+                fragmentName = "Seguimiento";
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putSerializable("listStatus", (Serializable) bundleEntity.getListEstatus());
                 mainCurrentFragment = new ReportUpdateHistoryFragment();
@@ -328,20 +338,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 updateMenu = true;
                 break;
             case R.id.nav_about:
-                addToBackStack = true;
+                fragmentName = "Acerca de";
                 mainCurrentFragment = new AboutFragment();
+                addToBackStack = true;
                 break;
             case R.id.nav_logout:
                 mainCurrentFragment = new LogoutFragment();
                 break;
-            /*case R.id.welcome_btn_ticket_technical_support:
+            case R.id.welcome_btn_ticket_technical_support:
+                fragmentName = "Soporte Técnico";
                 mainCurrentFragment = new TechnicalSupportFragment();
                 addToBackStack = true;
                 break;
-            case R.id.welcome_btn_my_ticket_pending:
+            case R.id.welcome_btn_search_ticket_number:
+                fragmentName = "Buscar";
                 mainCurrentFragment = new TicketNumberFragment();
                 addToBackStack = true;
-                break;*/
+                break;
             default:
                 mainCurrentFragment = null;
                 break;
@@ -359,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             if (addToBackStack) {
                 // Si es necesario, agrega a la pila de Fragments
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(fragmentName);
             }
 
             if (clearBackStack){
@@ -383,6 +396,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         totalEvents = getSupportFragmentManager().getBackStackEntryCount();
 
         if (totalEvents > 0) {
+            // Obtiene el nombre del Fragment actual
+            appBarName = getSupportFragmentManager().getBackStackEntryAt(totalEvents-1).getName();
+
             // Deshabilita los gestos del menu
             mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -397,6 +413,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         } else {
+            // Obtiene el nombre del Fragment por default
+            appBarName = getString(R.string.app_name);
+
             // Habilita los gestos del menu
             mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
@@ -414,6 +433,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         }
+
+        // Establece el nombre del AppBar
+        getSupportActionBar().setTitle(appBarName);
     }
 
     // Metodo para limpiar el BackStack

@@ -105,32 +105,4 @@ public class MenuManager {
         TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(text).setContent(idContent);
         tabHost.addTab(spec);
     }
-
-    public void updateWelcomeOptions(View view, AppPreferencesManager appPreferencesManager){
-        Integer putTicket = View.GONE, getTicketPending = View.GONE, getTicketNumber = View.GONE, getStadisticsDate = View.GONE, getStadisticsPending = View.GONE, idPerfil = appPreferencesManager.getUserRole();
-
-        switch (idPerfil) {
-            case 1:
-                putTicket = View.VISIBLE;
-                getTicketNumber = View.VISIBLE;
-                break;
-            case 2:
-                putTicket = View.VISIBLE;
-                getTicketPending = View.VISIBLE;
-                getTicketNumber = View.VISIBLE;
-                getStadisticsDate = View.VISIBLE;
-                break;
-            default:
-                break;
-        }
-
-        /*
-        view.findViewById(R.id.welcome_btn_ticket_technical_support).setVisibility(putTicket);
-        view.findViewById(R.id.welcome_btn_ticket_developers).setVisibility(putTicket);
-        view.findViewById(R.id.welcome_btn_ticket_networking).setVisibility(putTicket);
-        view.findViewById(R.id.welcome_btn_my_ticket_pending).setVisibility(getTicketPending);
-        view.findViewById(R.id.welcome_btn_search_ticket_number).setVisibility(getTicketNumber);
-        view.findViewById(R.id.welcome_btn_stadistics_general).setVisibility(getStadisticsDate);
-        */
-    }
 }

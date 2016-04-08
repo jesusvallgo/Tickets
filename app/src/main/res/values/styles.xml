@@ -14,7 +14,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Tamaños generales -->
@@ -34,59 +33,112 @@
     </style>
 
     <!-- Layouts generales -->
-
     <style name="general_layout_relative_nomargin_match_match" parent="general_match_match">
     </style>
 
     <style name="general_layout_relative_nomargin_match_wrap" parent="general_match_wrap">
     </style>
 
-    <style name="general_layout_lineal_vertical_margin_match_match" parent="general_match_match">
+    <style name="general_layout_linear_vertical_margin_match_match" parent="general_match_match">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_margin">@dimen/general_margin_size</item>
     </style>
 
-    <style name="general_layout_lineal_vertical_margin_match_wrap" parent="general_match_wrap">
+    <style name="general_layout_linear_vertical_margin_match_wrap" parent="general_match_wrap">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_margin">@dimen/general_margin_size</item>
     </style>
 
-    <style name="general_layout_lineal_vertical_nomargin_match_match" parent="general_match_match">
+    <style name="general_layout_linear_vertical_nomargin_match_match" parent="general_match_match">
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="general_layout_lineal_vertical_nomargin_match_wrap" parent="general_match_wrap">
+    <style name="general_layout_linear_vertical_nomargin_match_wrap" parent="general_match_wrap">
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="general_layout_lineal_horizontal_nomargin_match_wrap" parent="general_match_wrap">
+    <style name="general_layout_linear_horizontal_nomargin_match_wrap" parent="general_match_wrap">
         <item name="android:orientation">horizontal</item>
     </style>
 
     <!-- Elementos generales -->
-
     <style name="general_item_large" parent="general_match_wrap">
         <item name="android:textSize">@dimen/general_font_size</item>
     </style>
 
+    <!-- TextView (Label) generales -->
     <style name="general_textview_large" parent="general_item_large">
         <item name="android:paddingTop">@dimen/general_vertical_space</item>
-    </style>
-
-    <style name="general_textview_error_title" parent="general_item_large">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">@dimen/error_title_font_size</item>
-    </style>
-
-    <style name="general_textview_error_description" parent="general_item_large">
-        <item name="android:color">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/error_description_font_size</item>
     </style>
 
     <style name="general_edittext_large" parent="general_item_large">
         <item name="android:paddingTop">@dimen/general_vertical_space</item>
     </style>
+
+    <!-- Elementos para mostrar errores -->
+    <style name="error_imageview_icon">
+        <item name="android:description">@string/error_image_description</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:src">@mipmap/ic_error</item>
+    </style>
+    <style name="error_layout_container">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+    <style name="error_textview_title" parent="general_item_large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/error_title_font_size</item>
+    </style>
+
+    <style name="error_textview_description" parent="general_item_large">
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/error_description_font_size</item>
+    </style>
+
+    <!-- Elementos para el Fragment de Login -->
+    <style name="welcome_textview_title" parent="general_textview_large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/welcome_font_title</item>
+    </style>
+    <style name="welcome_edittext_description" parent="general_textview_large">
+        <item name="android:textStyle">italic</item>
+        <item name="android:background">@drawable/edittext_input_data</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <style name="general_button_large" parent="general_item_large">
         <item name="android:background">@drawable/button_action_rounded</item>
@@ -147,22 +199,28 @@
         <item name="android:layout_marginBottom">@dimen/general_vertical_space</item>
     </style>
 
-    <!-- Elementos para Fragment de Welcome -->
-    <style name="welcome_button_container" parent="general_layout_lineal_horizontal_nomargin_match_wrap">
+    <!-- Elementos para boton de opciones en Fragments -->
+    <style name="general_option_button_container" parent="general_layout_linear_horizontal_nomargin_match_wrap">
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/welcome_button_container</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:weightSum">10</item>
     </style>
-    <style name="welcome_button_icon">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:layout_margin">5dp</item>
+    <style name="general_option_button_icon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.5</item>
     </style>
-    <style name="welcome_button_text" parent="general_match_match">
-        <item name="android:layout_margin">5dp</item>
+    <style name="general_option_button_text" parent="general_match_match">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">@dimen/general_font_size</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/welcome_button_text</item>
+        <item name="android:layout_weight">8.5</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
 
     <!-- Elementos para detalles -->
@@ -245,33 +303,4 @@
         <item name="android:contentDescription">@string/report_update_history_btn_send</item>
         <item name="android:src">@mipmap/ic_send</item>
     </style>
-
-    <!-- Elementos para Fragment de Welcome (OLD)
-    <style name="welcome_section_container" parent="general_layout_lineal_vertical_nomargin_match_wrap">
-        <item name="android:background">@drawable/welcome_section_container</item>
-    </style>
-    <style name="welcome_section_title" parent="general_match_wrap">
-        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
-        <item name="android:textSize">@dimen/general_font_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
-    </style>
-    <style name="welcome_button_container" parent="general_layout_lineal_vertical_nomargin_match_wrap">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/welcome_button_container</item>
-        <item name="android:layout_margin">10dp</item>
-    </style>
-    <style name="welcome_button_icon">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">80dp</item>
-        <item name="android:layout_margin">5dp</item>
-    </style>
-    <style name="welcome_button_text" parent="general_match_wrap">
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/welcome_button_text</item>
-    </style>
-    -->
 </resources>

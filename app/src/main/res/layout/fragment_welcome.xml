@@ -1,141 +1,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_welcome"
-    style="@style/general_layout_lineal_vertical_margin_match_match"
+    android:id="@+id/fragment_welcome_2"
+    style="@style/general_layout_linear_vertical_nomargin_match_match"
     tools:context=".fragment.WelcomeFragment">
 
-    <!--
-    <LinearLayout style="@style/welcome_section_container">
-
-        <TextView
-            style="@style/welcome_section_title"
-            android:text="@string/welcome_title_create_ticket" />
+    <TabHost
+        android:id="@+id/welcomeTabHost"
+        style="@style/general_match_match">
 
         <LinearLayout
-            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
-            android:weightSum="10">
+            android:id="@+id/welcomeTabHostMainContainer"
+            style="@style/general_layout_linear_vertical_nomargin_match_match" >
 
-            <LinearLayout
-                android:id="@+id/welcome_btn_ticket_technical_support"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
+            <TabWidget
+                android:id="@android:id/tabs"
+                style="@style/general_match_wrap"></TabWidget>
 
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                style="@style/general_match_match" >
 
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_ticket_technical_support" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/welcomeTabCreateTicket"
+                    style="@style/general_layout_linear_vertical_margin_match_match"
+                    android:visibility="invisible" >
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_ticket_technical_support"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_ticket_technical_support" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_ticket_developers"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_ticket_developers" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_ticket_networking"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_ticket_networking" />
+                    </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/welcome_btn_ticket_developers"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
+                <LinearLayout
+                    android:id="@+id/welcomeTabSearchTicket"
+                    style="@style/general_layout_linear_vertical_margin_match_match" >
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_my_ticket_pending"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_my_ticket_pending" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_search_ticket_number"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_search_ticket_number" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_request_pending"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_request_pending" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
-
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_ticket_developers" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/welcomeTabStadistics"
+                    style="@style/general_layout_linear_vertical_margin_match_match" >
+                    <LinearLayout
+                        android:id="@+id/welcome_btn_stadistics_general"
+                        style="@style/general_option_button_container">
+                        <ImageView
+                            style="@style/general_option_button_icon"
+                            android:src="@mipmap/ic_cenapred" />
+                        <TextView
+                            style="@style/general_option_button_text"
+                            android:text="@string/welcome_btn_stadistics_general" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
-
-        <LinearLayout
-            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
-            android:weightSum="10">
-
-            <LinearLayout
-                style="@style/welcome_button_container"
-                android:layout_weight="2.5" />
-
-            <LinearLayout
-                android:id="@+id/welcome_btn_ticket_networking"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
-
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
-
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_ticket_networking" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/welcome_button_container"
-                android:layout_weight="2.5" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout style="@style/welcome_section_container">
-
-        <TextView
-            style="@style/welcome_section_title"
-            android:text="@string/welcome_title_search_ticket" />
-
-        <LinearLayout
-            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
-            android:weightSum="10">
-
-            <LinearLayout
-                android:id="@+id/welcome_btn_my_ticket_pending"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
-
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
-
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_my_ticket_pending" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/welcome_btn_search_ticket_number"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
-
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
-
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_search_ticket_number" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout style="@style/welcome_section_container">
-
-        <TextView
-            style="@style/welcome_section_title"
-            android:text="@string/welcome_title_stadistics" />
-
-        <LinearLayout
-            style="@style/general_layout_lineal_horizontal_nomargin_match_wrap"
-            android:weightSum="10">
-
-            <LinearLayout
-                android:id="@+id/welcome_btn_stadistics_general"
-                style="@style/welcome_button_container"
-                android:layout_weight="5">
-
-                <ImageView
-                    style="@style/welcome_button_icon"
-                    android:src="@mipmap/ic_cenapred" />
-
-                <TextView
-                    style="@style/welcome_button_text"
-                    android:text="@string/welcome_btn_stadistics_general" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    -->
+    </TabHost>
 </LinearLayout>
