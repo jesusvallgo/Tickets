@@ -86,7 +86,7 @@ public class MenuManager {
                 getStadisticsGeneral = View.VISIBLE;
 
                 // Crea la pestaña para "Estadisticas"
-                addNewTab(welcomeTabHost, "stadistics", activity.getString(R.string.welcome_title_stadistics), R.id.welcomeTabStadistics);
+                addNewTab(welcomeTabHost, "stadisticss", activity.getString(R.string.welcome_title_stadistics), R.id.welcomeTabStadistics);
                 break;
             case 3:
                 break;
