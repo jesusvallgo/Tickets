@@ -296,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mainCurrentFragment = new LoadingFragment();
                 break;
             case R.id.fragment_login:
+                fragmentName = "Login";
                 mainCurrentFragment = new LoginFragment();
                 updateMenu = true;
                 break;
@@ -375,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.addToBackStack(fragmentName);
             }
 
-            if (clearBackStack){
+            if (clearBackStack) {
                 // Si es necesario, limpia la pila de Fragments
                 clearBackStack(fragmentManager);
             }
@@ -397,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (totalEvents > 0) {
             // Obtiene el nombre del Fragment actual
-            appBarName = getSupportFragmentManager().getBackStackEntryAt(totalEvents-1).getName();
+            appBarName = getSupportFragmentManager().getBackStackEntryAt(totalEvents - 1).getName();
 
             // Deshabilita los gestos del menu
             mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -415,6 +416,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             // Obtiene el nombre del Fragment por default
             appBarName = getString(R.string.app_name);
+
 
             // Habilita los gestos del menu
             mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -439,8 +441,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // Metodo para limpiar el BackStack
-    private void clearBackStack(FragmentManager fragmentManager){
-        while (fragmentManager.getBackStackEntryCount() != 0){
+    private void clearBackStack(FragmentManager fragmentManager) {
+        while (fragmentManager.getBackStackEntryCount() != 0) {
             fragmentManager.popBackStackImmediate();
         }
     }

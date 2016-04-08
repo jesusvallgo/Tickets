@@ -8,31 +8,28 @@
         android:id="@+id/layout_options"
         style="@style/general_layout_linear_vertical_margin_match_match">
 
-        <TextView
-            android:id="@+id/login_txv_username"
-            style="@style/welcome_textview_title"
-            android:text="@string/login_txv_username" />
+        <ImageView
+            style="@style/login_imageview_icon" />
 
         <EditText
             android:id="@+id/login_edt_username"
-            style="@style/welcome_edittext_description"
+            style="@style/login_edittext_description"
+            android:background="@drawable/login_credentials_item_first"
+            android:hint="@string/login_txv_username"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"/>
-
-        <TextView
-            android:id="@+id/login_txv_password"
-            style="@style/welcome_textview_title"
-            android:text="@string/login_txv_password" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/login_edt_password"
-            style="@style/welcome_edittext_description"
+            style="@style/login_edittext_description"
+            android:background="@drawable/login_credentials_item_last"
+            android:hint="@string/login_txv_password"
             android:imeOptions="actionSend"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/login_btn_send"
-            style="@style/general_button_large"
+            style="@style/general_button_only_text"
             android:text="@string/login_btn_send" />
     </LinearLayout>
 

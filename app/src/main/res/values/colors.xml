@@ -8,13 +8,27 @@
     <!-- Colores generales de Fuentes -->
     <color name="general_font_title">#C01D20</color>
 
+    <!-- Colores para boton personalizado -->
+    <color name="general_button_icon_text_border">#000000</color>
+    <color name="general_button_icon_text_text">#444444</color>
+
+    <!-- Colores para boton predeterminado -->
+    <color name="general_button_text_border">#000000</color>
+    <color name="general_button_text_text">#FFFFFF</color>
+    <color name="general_button_text_background_first">#FF7F0F11</color>
+    <color name="general_button_text_background_last">#FFC01D20</color>
+
+    <!-- Colores del Fragment de Login -->
+    <color name="login_credentials_border">#D2D2D2</color>
+    <color name="login_credentials_background">#FFFFFF</color>
+    <color name="login_credentials_text">#444444</color>
+
+
+
+
+
     <!-- Colores del Fragment de Welcome -->
     <color name="welcome_font_title">#7F0F11</color>
-
-    <color name="general_boton_action_border">#000000</color>
-    <color name="general_boton_action_background_normal">#C01D20</color>
-    <color name="general_boton_action_background_pressed">#E66164</color>
-    <color name="general_boton_action_text">#FFFFFF</color>
 
     <color name="welcome_button_container_background_first">#DFDFDF</color>
     <color name="welcome_button_container_background_last">@android:color/transparent</color>

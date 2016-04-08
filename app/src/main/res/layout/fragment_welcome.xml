@@ -26,32 +26,32 @@
                     android:visibility="invisible" >
                     <LinearLayout
                         android:id="@+id/welcome_btn_ticket_technical_support"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_ticket_technical_support" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/welcome_btn_ticket_developers"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_ticket_developers" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/welcome_btn_ticket_networking"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_ticket_networking" />
                     </LinearLayout>
                 </LinearLayout>
@@ -61,32 +61,32 @@
                     style="@style/general_layout_linear_vertical_margin_match_match" >
                     <LinearLayout
                         android:id="@+id/welcome_btn_my_ticket_pending"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_my_ticket_pending" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/welcome_btn_search_ticket_number"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_search_ticket_number" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/welcome_btn_request_pending"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_request_pending" />
                     </LinearLayout>
                 </LinearLayout>
@@ -96,12 +96,12 @@
                     style="@style/general_layout_linear_vertical_margin_match_match" >
                     <LinearLayout
                         android:id="@+id/welcome_btn_stadistics_general"
-                        style="@style/general_option_button_container">
+                        style="@style/general_button_icon_text_container">
                         <ImageView
-                            style="@style/general_option_button_icon"
+                            style="@style/general_button_icon_text_icon"
                             android:src="@mipmap/ic_cenapred" />
                         <TextView
-                            style="@style/general_option_button_text"
+                            style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_stadistics_general" />
                     </LinearLayout>
                 </LinearLayout>

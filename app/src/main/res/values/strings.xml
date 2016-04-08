@@ -17,19 +17,20 @@
     <string name="loading_txv_loading">C A R G A N D O</string>
 
     <!-- Cadenas para el Fragment de Login -->
-    <string name="login_txv_username">Usuario:</string>
-    <string name="login_txv_password">Contraseña:</string>
-    <string name="login_btn_send">Enviar</string>
+    <string name="login_imv_icon">Ícono de aplicación</string>
+    <string name="login_txv_username">Usuario</string>
+    <string name="login_txv_password">Contraseña</string>
+    <string name="login_btn_send">Ingresar</string>
 
     <!-- Cadenas para el Fragment de Acerca de -->
+    <string name="about_imv_icon">Ícono de CENAPRED</string>
     <string name="about_txv_company_name">Centro Nacional de Prevención de Desastres</string>
-    <string name="about_txv_developer_title">Desarrollado por:</string>
-    <string name="about_txv_developer_description">Equipo de Desarrollo de Sistemas</string>
+    <string name="about_txv_developer_title">Desarrollado por:\nEquipo de Desarrollo de Sistemas</string>
     <string name="about_txv_version">Versión: 1.0 (BETA)</string>
-    <string name="about_txv_date">Fecha de lanzamiento: 2016/03/08</string>
+    <string name="about_txv_date">Fecha de lanzamiento: 08/MARZO/2016</string>
 
     <!-- Cadenas para el Fragment de manejo de errores -->
-    <string name="error_image_description">Icono de error</string>
+    <string name="error_imv_description">Icono de error</string>
 
     <!-- Cadenas para el Fragment de bienvenida -->
     <string name="welcome_btn_space">"  "</string>

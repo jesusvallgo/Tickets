@@ -9,37 +9,26 @@
         android:layout_centerVertical="true">
         <ImageView
             android:id="@+id/imageView"
-            style="@style/general_match_wrap"
-            android:contentDescription="@string/loading_img_cenapred"
-            android:src="@mipmap/ic_cenapred" />
+            style="@style/about_imageview_icon" />
 
         <TextView
             android:id="@+id/about_txv_company_name"
             android:text="@string/about_txv_company_name"
-            android:layout_marginTop="@dimen/general_vertical_space"
             style="@style/about_textview_large" />
 
         <TextView
             android:id="@+id/about_txv_developer_title"
             android:text="@string/about_txv_developer_title"
-            android:layout_marginTop="@dimen/general_vertical_space"
-            style="@style/about_textview_large" />
-
-        <TextView
-            android:id="@+id/about_txv_developer_description"
-            android:text="@string/about_txv_developer_description"
             style="@style/about_textview_large" />
 
         <TextView
             android:id="@+id/about_txv_version"
             android:text="@string/about_txv_version"
-            android:layout_marginTop="@dimen/general_vertical_space"
             style="@style/about_textview_large" />
 
         <TextView
             android:id="@+id/about_txv_date"
             android:text="@string/about_txv_date"
-            android:layout_marginTop="@dimen/general_vertical_space"
             style="@style/about_textview_large" />
     </LinearLayout>
 
