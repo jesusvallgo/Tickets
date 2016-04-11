@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_update_history"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.ReportAddHistoryFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_linear_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/report_add_history_txv_title"
+            style="@style/general_textview_interface_subtitle"
+            android:text="@string/report_add_history_txv_title" />
+
+        <TextView
+            android:id="@+id/report_add_history_txv_status"
+            style="@style/general_textview_main"
+            android:text="@string/report_add_history_txv_status" />
+
+        <Spinner
+            android:id="@+id/report_add_history_spn_status"
+            style="@style/general_spinner_large" />
+
+        <TextView
+            android:id="@+id/report_add_history_txv_action"
+            style="@style/general_textview_main"
+            android:text="@string/report_add_history_txv_action" />
+
+        <LinearLayout
+            style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+            android:weightSum="10">
+
+            <EditText
+                android:id="@+id/report_add_history_edt_description"
+                style="@style/report_add_history_edittex_description"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                style="@style/general_linear_container_action"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/report_add_history_txv_characters_count"
+                    style="@style/general_textview_characters_count" />
+
+                <ImageButton
+                    android:id="@+id/report_add_history_btn_send"
+                    style="@style/report_add_history_button_send" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        style="@style/loading_layout_container"
+        android:visibility="gone" />
+</RelativeLayout>

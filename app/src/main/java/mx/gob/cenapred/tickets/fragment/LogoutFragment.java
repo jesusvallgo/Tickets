@@ -103,7 +103,7 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
             messageDebugList.clear();
 
             // Agrega el error a mostrar
-            messageErrorList.add(0, "Error al realizar la petición al Web Service");
+            messageErrorList.add(0, getString(R.string.general_error_ws_request_fail));
             messageDebugList.add(0, ex.getMessage());
         } finally {
             if (messageErrorList.size() > 0) {

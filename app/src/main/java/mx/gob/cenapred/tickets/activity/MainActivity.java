@@ -32,11 +32,11 @@ import mx.gob.cenapred.tickets.fragment.LoginFragment;
 import mx.gob.cenapred.tickets.fragment.LogoutFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
-import mx.gob.cenapred.tickets.fragment.ReportHistoryFragment;
-import mx.gob.cenapred.tickets.fragment.ReportOtherFragment;
-import mx.gob.cenapred.tickets.fragment.ReportUpdateHistoryFragment;
+import mx.gob.cenapred.tickets.fragment.ReportViewHistoryFragment;
+import mx.gob.cenapred.tickets.fragment.ReportNewOtherFragment;
+import mx.gob.cenapred.tickets.fragment.ReportAddHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
-import mx.gob.cenapred.tickets.fragment.TicketNumberFragment;
+import mx.gob.cenapred.tickets.fragment.SearchTicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.fragment_report_other:
                 bundle.putInt("idAtentionArea", bundleEntity.getIdAreaAtencion());
-                mainCurrentFragment = new ReportOtherFragment();
+                mainCurrentFragment = new ReportNewOtherFragment();
                 addToBackStack = true;
                 break;
             case R.id.fragment_report_detail:
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_report_history:
                 fragmentName = "Historial";
                 bundle.putSerializable("listHistoryAction", (Serializable) bundleEntity.getListHistoryAction());
-                mainCurrentFragment = new ReportHistoryFragment();
+                mainCurrentFragment = new ReportViewHistoryFragment();
                 addToBackStack = true;
                 break;
             case R.id.fragment_report_delegate:
@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentName = "Seguimiento";
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putSerializable("listStatus", (Serializable) bundleEntity.getListEstatus());
-                mainCurrentFragment = new ReportUpdateHistoryFragment();
+                mainCurrentFragment = new ReportAddHistoryFragment();
                 addToBackStack = true;
                 break;
             case R.id.nav_welcome:
@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.welcome_btn_search_ticket_number:
                 fragmentName = "Buscar";
-                mainCurrentFragment = new TicketNumberFragment();
+                mainCurrentFragment = new SearchTicketNumberFragment();
                 addToBackStack = true;
                 break;
             default:

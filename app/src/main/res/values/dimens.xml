@@ -1,54 +1,50 @@
 <resources>
-    <!-- Alto predeterminado del encabezado del menu de navegacion-->
+    <!-- Dimensiones del menu de navegacion -->
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="nav_header_padding">16dp</dimen>
-
-    <!-- Dimensiones del menu de navegacion -->
     <dimen name="nav_vertical_space">10dp</dimen>
-
-    <!-- Dimensiones de los margenes generales -->
-    <dimen name="general_margin_none">0dp</dimen>
-    <dimen name="general_margin_size">10dp</dimen>
-
-    <!-- Dimensiones de la fuente general -->
-    <dimen name="general_font_size">16sp</dimen>
-
-    <!-- Dimensiones para mostrar errores -->
-    <dimen name="error_title_font_size">16sp</dimen>
-    <dimen name="error_description_font_size">15sp</dimen>
-    <dimen name="error_padding_container">10dp</dimen>
-    <dimen name="error_padding_item">5dp</dimen>
-
-    <!-- Dimensiones para Fragment de Login -->
-    <dimen name="welcome_font_size">16sp</dimen>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Tamaño de fuente de Acera de -->
-    <dimen name="about_font_size">16sp</dimen>
-
-    <!-- Tamaño de fuente de Detalles -->
-    <dimen name="detail_title_font_size">16sp</dimen>
-    <dimen name="detail_content_font_size">15sp</dimen>
 
     <!-- Interlineado general -->
     <dimen name="general_vertical_space">16dp</dimen>
 
-    <!-- Margenes para el fragment de Cargando -->
-    <dimen name="loading_margin_top">90dp</dimen>
+    <!-- Dimension de tamaño nulo -->
+    <dimen name="general_none">0dp</dimen>
 
-    <!-- Divider para el fragment de Bitacora de Acciones -->
-    <dimen name="report_history_lsv_divider">10dp</dimen>
+    <!-- Dimension de los Margin general -->
+    <dimen name="general_margin_size">10dp</dimen>
 
-    <!-- Bordes redondeados general -->
-    <dimen name="general_button_border">1dp</dimen>
-    <dimen name="general_button_rounded">8dp</dimen>
+    <!-- Dimension de los Padding general -->
+    <dimen name="general_padding_size">10dp</dimen>
+
+    <!-- Dimension de Borde (Stroke) general -->
+    <dimen name="general_border_size">1dp</dimen>
+
+    <!-- Dimension de Radius general -->
+    <dimen name="general_radius_size">5dp</dimen>
+
+    <!-- Dimensiones de la Fuente general -->
+    <dimen name="general_main_font_size">16sp</dimen>
+    <dimen name="general_description_font_size">15sp</dimen>
+
+    <!-- Dimensiones para ListView predeterminado -->
+    <dimen name="general_listview_radius">@dimen/general_radius_size</dimen>
+
+    <!-- Dimensiones para Button predeterminado -->
+    <dimen name="general_button_icon_text_border">@dimen/general_border_size</dimen>
+    <dimen name="general_button_icon_text_radius">@dimen/general_radius_size</dimen>
+
+    <!-- Dimensiones para Button predeterminado -->
+    <dimen name="general_button_text_border">@dimen/general_border_size</dimen>
+    <dimen name="general_button_text_radius">@dimen/general_radius_size</dimen>
+
+    <!-- Dimensiones para EditText predeterminado -->
+    <dimen name="general_edittext_border">@dimen/general_border_size</dimen>
+    <dimen name="general_edittext_radius">@dimen/general_radius_size</dimen>
+    <dimen name="general_edittext_padding">15dp</dimen>
+
+    <!-- Dimensiones para mostrar errores -->
+    <dimen name="error_title_font_size">@dimen/general_main_font_size</dimen>
+    <dimen name="error_description_font_size">@dimen/general_description_font_size</dimen>
+    <dimen name="error_padding_container">@dimen/general_padding_size</dimen>
+    <dimen name="error_padding_item">5dp</dimen>
 </resources>

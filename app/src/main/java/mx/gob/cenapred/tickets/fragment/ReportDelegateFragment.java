@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
     private RelativeLayout layoutLoading;
 
     // Mapea los elementos del Fragment
-    TextView reportDelegateTxvIdReport;
+    TextView reportDelegateTxvTitle;
     Spinner reportDelegateSpnAtentionArea;
     Button reportDelegateBtnAction;
 
@@ -111,7 +112,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
 
         // Mapea los layouts del Fragment
-        reportDelegateTxvIdReport = (TextView) rootView.findViewById(R.id.report_delegate_txv_id_report);
+        reportDelegateTxvTitle = (TextView) rootView.findViewById(R.id.report_delegate_txv_title);
         reportDelegateSpnAtentionArea = (Spinner) rootView.findViewById(R.id.report_delegate_spn_atention_area);
         reportDelegateBtnAction = (Button) rootView.findViewById(R.id.report_delegate_btn_action);
 
@@ -121,11 +122,11 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         // Determina si existen mensajes para desplegar
         if (numAreaAtencion > 0) {
             // Establece el ID del reporte
-            reportDelegateTxvIdReport.setText("No. Folio: " + idReport.toString());
+            reportDelegateTxvTitle.append(" " + idReport.toString());
 
             // Llena el spinner de areas de atencion con los datos correspondientes
-            ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_estatus, listAtentionArea);
-            areaAtencionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, listAtentionArea);
+            areaAtencionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             reportDelegateSpnAtentionArea.setAdapter(areaAtencionAdapter);
         }
 
@@ -149,7 +150,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                     // Genera la lista de acciones (solo un elemento)
                     List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
                     BitacoraEntity bitacoraEntity = new BitacoraEntity();
-                    bitacoraEntity.setAccion("Reporte turnado a " + areaAtencionEntity.getAreaAtencion());
+                    bitacoraEntity.setAccion(getString(R.string.report_delegate_default_text) + " " + areaAtencionEntity.getAreaAtencion());
                     listaBitacora.add(bitacoraEntity);
 
                     // Establece los datos por actualizar en el reporte
@@ -169,15 +170,15 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                         reporteWebService.webServiceListener = reportDelegateFragment;
                         reporteWebService.execute(peticionWSEntity);
                     } else{
-                        throw new NoInputDataException("Debe seleccionar un Área de Atención válida");
+                        throw new NoInputDataException(getString(R.string.general_error_no_atention_area));
                     }
                 } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
-                    messageErrorList.add("Datos no válidos");
+                    messageErrorList.add(getString(R.string.general_error_bad_data));
                     messageDebugList.add(nidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
-                    messageErrorList.add("Error al realizar la petición al Web Service");
+                    messageErrorList.add(getString(R.string.general_error_ws_request_fail));
                     messageDebugList.add(ex.getMessage());
                 } finally {
                     if (messageErrorList.size() > 0) {
@@ -206,6 +207,9 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
             // Muestra los errores en pantalla
             errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
         } else{
+            // Genera aviso para el usuario que indica que su peticion ha sido exitosa
+            Toast.makeText(getContext(), getString(R.string.general_toast_delegate_report_successful), Toast.LENGTH_LONG).show();
+
             getActivity().onBackPressed();
         }
 

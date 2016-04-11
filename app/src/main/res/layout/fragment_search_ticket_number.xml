@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_ticket_number"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.SearchTicketNumberFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_linear_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/search_ticket_number_txv_number"
+            style="@style/general_textview_main"
+            android:text="@string/search_ticket_number_txv_number" />
+
+        <LinearLayout
+            style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+            android:layout_marginTop="@dimen/general_margin_size"
+            android:weightSum="10">
+
+            <EditText
+                android:id="@+id/ticket_number_edt_number"
+                style="@style/search_ticket_number_edittex_number"
+                android:text="160328003"
+                android:layout_weight="8" />
+
+            <ImageButton
+                android:id="@+id/ticket_number_btn_search"
+                style="@style/search_ticket_number_button_search"
+                android:layout_weight="2" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+</RelativeLayout>

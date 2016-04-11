@@ -13,16 +13,16 @@
 
         <EditText
             android:id="@+id/login_edt_username"
-            style="@style/login_edittext_description"
-            android:background="@drawable/login_credentials_item_first"
+            style="@style/login_edittext_credentials"
+            android:background="@drawable/login_edittext_item_first"
             android:hint="@string/login_txv_username"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/login_edt_password"
-            style="@style/login_edittext_description"
-            android:background="@drawable/login_credentials_item_last"
+            style="@style/login_edittext_credentials"
+            android:background="@drawable/login_edittext_item_last"
             android:hint="@string/login_txv_password"
             android:imeOptions="actionSend"
             android:inputType="textPassword" />

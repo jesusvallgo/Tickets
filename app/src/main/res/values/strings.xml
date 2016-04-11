@@ -3,6 +3,16 @@
     <string name="app_name">Tickets</string>
     <string name="google_app_id">148070650521</string>
 
+    <!-- Cadenas generales para errores -->
+    <string name="general_error_ws_request_fail">Error al realizar la petición al Web Service</string>
+    <string name="general_error_bad_data">Datos no válidos</string>
+    <string name="general_error_no_description">Debe especificar la descripción</string>
+    <string name="general_error_no_atention_area">Debe especificar el Área de Atención</string>
+
+    <!-- Cadenas generales para notificar al usuario -->
+    <string name="general_toast_create_report_successful">El reporte se ha generado de forma correcta</string>
+    <string name="general_toast_delegate_report_successful">El reporte se ha actualizado de forma correcta</string>
+
     <!-- Cadenas para el menu de navegacion -->
     <string name="nav_drawer_open">Abre menu de navegación</string>
     <string name="nav_drawer_close">Cierra menu de navegación</string>
@@ -12,15 +22,12 @@
     <string name="nav_about">Acerca de</string>
     <string name="nav_logout">Cerrar sesión</string>
 
+    <!-- Cadenas para el Fragment de manejo de errores -->
+    <string name="error_imv_description">Icono de error</string>
+
     <!-- Cadenas para el Fragment de Loading -->
     <string name="loading_img_cenapred">Icono CENAPRED</string>
     <string name="loading_txv_loading">C A R G A N D O</string>
-
-    <!-- Cadenas para el Fragment de Login -->
-    <string name="login_imv_icon">Ícono de aplicación</string>
-    <string name="login_txv_username">Usuario</string>
-    <string name="login_txv_password">Contraseña</string>
-    <string name="login_btn_send">Ingresar</string>
 
     <!-- Cadenas para el Fragment de Acerca de -->
     <string name="about_imv_icon">Ícono de CENAPRED</string>
@@ -29,12 +36,13 @@
     <string name="about_txv_version">Versión: 1.0 (BETA)</string>
     <string name="about_txv_date">Fecha de lanzamiento: 08/MARZO/2016</string>
 
-    <!-- Cadenas para el Fragment de manejo de errores -->
-    <string name="error_imv_description">Icono de error</string>
+    <!-- Cadenas para el Fragment de Login -->
+    <string name="login_imv_icon">Ícono de aplicación</string>
+    <string name="login_txv_username">Usuario</string>
+    <string name="login_txv_password">Contraseña</string>
+    <string name="login_btn_send">Ingresar</string>
 
-    <!-- Cadenas para el Fragment de bienvenida -->
-    <string name="welcome_btn_space">"  "</string>
-    <string name="welcome_btn_chose_groups">Afiliar a Grupo</string>
+    <!-- Cadenas para el Fragment de Welcome -->
     <string name="welcome_title_create_ticket">Generar</string>
     <string name="welcome_btn_ticket_technical_support">Soporte Técnico</string>
     <string name="welcome_btn_ticket_developers">Desarrollo de Sistemas</string>
@@ -48,45 +56,73 @@
     <string name="welcome_title_stadistics">Estadísticas</string>
     <string name="welcome_btn_stadistics_general">Personalizada</string>
 
+    <!-- Cadenas comunes para Crear de Reportes -->
+    <string name="general_btn_other">Otro</string>
+    <string name="general_interface_subtitle">No. de Folio:</string>
+
     <!-- Cadenas para el Fragment de Soporte Tecnico -->
     <string name="technical_support_btn_low_toner">Tóner Bajo</string>
+    <string name="technical_support_description_low_toner">La calidad de impresión es baja, probablemente se debe a toner bajo</string>
     <string name="technical_support_btn_paper_jam">Atasco de papel</string>
+    <string name="technical_support_description_paper_jam">Atasco de papel en impresora</string>
     <string name="technical_support_btn_virus">Virus</string>
+    <string name="technical_support_description_virus">Probable virus en el equipo</string>
     <string name="technical_support_btn_crash_os">Daño en Sistema Operativo</string>
+    <string name="technical_support_description_crash_os">Daño del sistema operativo</string>
     <string name="technical_support_btn_password_lost">Pérdida de contraseña</string>
+    <string name="technical_support_description_password_lost">Olvidé mi conraseña</string>
     <string name="technical_support_btn_domain_lost">Pérdida de confianza en dominio</string>
-    <string name="technical_support_btn_other">Otro</string>
+    <string name="technical_support_description_domain_lost">Se ha perdido la confianza en el dominio</string>
+    <string name="technical_support_btn_other">@string/general_btn_other</string>
 
-    <!-- Cadenas para el fragment de Reporte por numero de folio -->
-    <string name="ticket_number_txv_number">Número de folio:</string>
-    <string name="ticket_number_btn_send">Buscar</string>
+    <!-- Cadenas para el Fragment de Crar reporte (Otro) -->
+    <string name="report_new_other_txv_description">Descripción del problema:</string>
+    <string name="report_new_other_max_lenght">160</string>
+
+    <!-- Cadenas para el Fragment de Buscar reporte por numero de folio -->
+    <string name="search_ticket_number_txv_number">Número de folio:</string>
 
     <!-- Cadenas para el Fragment de detalles del reporte -->
-    <string name="report_detail_lbl_detail_title">Detalles del reporte</string>
-    <string name="report_detail_lbl_id_report">Número de folio:</string>
-    <string name="report_detail_lbl_date">Fecha del reporte:</string>
-    <string name="report_detail_lbl_user">Usuario:</string>
-    <string name="report_detail_lbl_area">Área del usuario:</string>
-    <string name="report_detail_lbl_area_atencion">Área de atención:</string>
-    <string name="report_detail_lbl_description">Descripción:</string>
-    <string name="report_detail_lbl_estatus">Estatus:</string>
+    <string name="report_detail_txv_id_report">Número de folio:</string>
+    <string name="report_detail_txv_date">Fecha del reporte:</string>
+    <string name="report_detail_txv_user">Usuario:</string>
+    <string name="report_detail_txv_area">Área del usuario:</string>
+    <string name="report_detail_txv_atention_area">Área de atención:</string>
+    <string name="report_detail_txv_description">Descripción:</string>
+    <string name="report_detail_txv_estatus">Estatus:</string>
 
-    <!-- Cadenas para el Fragment de historial de acciones -->
-    <string name="report_history_lbl_history_title">Historial de atención</string>
-    <string name="report_history_lbl_date">Fecha de la acción:</string>
-    <string name="report_history_lbl_user">Usuario:</string>
-    <string name="report_history_lbl_action">Descripción:</string>
+    <!-- Cadenas para el Fragment de Bitacora del reporte -->
+    <string name="report_view_history_txv_title">@string/general_interface_subtitle</string>
+    <string name="report_view_history_txv_date">Fecha de la acción:</string>
+    <string name="report_view_history_txv_user">Usuario que realizó:</string>
+    <string name="report_view_history_txv_action">Descripción:</string>
 
-    <!-- Cadenas para el Fragment de turnar reporte -->
-    <string name="report_delegate_lbl_delegate_title">Turnar reporte</string>
-    <string name="report_delegate_lbl_atention_area">Área de atención:</string>
-    <string name="report_delegate_btn_action">Turnar</string>
+    <!-- Cadenas para el Fragment de Turnar reporte -->
+    <string name="report_delegate_default_text">Reporte turnado a</string>
+    <string name="report_delegate_txv_title">@string/general_interface_subtitle</string>
+    <string name="report_delegate_txv_delegate_title">Turnar reporte</string>
+    <string name="report_delegate_txv_atention_area">Área de atención:</string>
+    <string name="report_delegate_txv_action">Turnar</string>
 
     <!-- Cadenas para el Fragment de Seguimiento al reporte -->
-    <string name="report_update_history_lbl_delegate_title">Agregar acción realizada</string>
-    <string name="report_update_history_lbl_status">Estatus:</string>
-    <string name="report_update_history_lbl_action">Acciones realizadas:</string>
-    <string name="report_update_history_btn_send">Enviar</string>
+    <string name="report_add_history_txv_title">@string/general_interface_subtitle</string>
+    <string name="report_add_history_txv_status">Estatus:</string>
+    <string name="report_add_history_txv_action">Acciones realizadas:</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>

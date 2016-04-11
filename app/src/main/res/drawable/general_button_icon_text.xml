@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item >
         <shape android:shape="rectangle"  >
-            <corners android:radius="@dimen/general_button_rounded" />
-            <stroke android:width="@dimen/general_button_border" android:color="@color/general_button_icon_text_border" />
-            <gradient android:angle="90" android:startColor="@color/welcome_button_container_background_first" android:endColor="@color/welcome_button_container_background_last" />
+            <corners android:radius="@dimen/general_button_icon_text_radius" />
+            <stroke android:width="@dimen/general_button_icon_text_border" android:color="@color/general_button_icon_text_border" />
+            <gradient android:angle="90" android:startColor="@color/general_button_icon_text_background_first" android:endColor="@color/general_button_icon_text_background_last" />
         </shape>
     </item>
 </selector>

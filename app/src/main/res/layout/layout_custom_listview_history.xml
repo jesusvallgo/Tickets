@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_vertical_nomargin_match_wrap">
+
+    <LinearLayout
+        style="@style/report_view_history_listview_action_item" >
+
+        <TextView
+            android:id="@+id/report_view_history_lbl_date"
+            style="@style/general_textview_main"
+            android:layout_marginTop="@dimen/general_none"
+            android:text="@string/report_view_history_txv_date" />
+
+        <TextView
+            android:id="@+id/report_view_history_txv_date"
+            style="@style/general_textview_description" />
+
+        <TextView
+            android:id="@+id/report_view_history_lbl_user"
+            style="@style/general_textview_main"
+            android:text="@string/report_view_history_txv_user" />
+
+        <TextView
+            android:id="@+id/report_view_history_txv_user"
+            style="@style/general_textview_description" />
+
+        <TextView
+            android:id="@+id/report_view_history_lbl_action"
+            style="@style/general_textview_main"
+            android:text="@string/report_view_history_txv_action" />
+
+        <TextView
+            android:id="@+id/report_view_history_txv_action"
+            style="@style/general_textview_description" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,34 +9,27 @@
         style="@style/general_layout_linear_vertical_margin_match_match">
 
         <TextView
-            android:id="@+id/report_delegate_lbl_delegate_title"
-            style="@style/detail_textview_interface_subtitle"
-            android:text="@string/report_delegate_lbl_delegate_title" />
-        <TextView
-            android:id="@+id/report_delegate_txv_id_report"
-            style="@style/detail_textview_interface_subtitle"
-            android:paddingTop="@dimen/general_margin_none"
-            android:paddingBottom="@dimen/general_margin_none" />
+            android:id="@+id/report_delegate_txv_title"
+            style="@style/general_textview_interface_subtitle"
+            android:text="@string/report_delegate_txv_title" />
 
         <TextView
-            android:id="@+id/report_delegate_lbl_atention_area"
-            style="@style/detail_textview_title"
-            android:text="@string/report_delegate_lbl_atention_area" />
+            android:id="@+id/report_delegate_txv_atention_area"
+            style="@style/general_textview_main"
+            android:text="@string/report_delegate_txv_atention_area" />
         <Spinner
             android:id="@+id/report_delegate_spn_atention_area"
             style="@style/general_spinner_large" />
 
         <Button
             android:id="@+id/report_delegate_btn_action"
-            style="@style/general_button_large"
-            android:text="@string/report_delegate_btn_action" />
+            style="@style/general_button_only_text"
+            android:text="@string/report_delegate_txv_action" />
     </LinearLayout>
 
     <include
         android:id="@+id/layout_loading"
         layout="@layout/layout_loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        style="@style/loading_layout_container"
         android:visibility="gone" />
 </RelativeLayout>

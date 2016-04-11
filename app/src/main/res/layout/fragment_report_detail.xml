@@ -10,78 +10,71 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/report_detail_lbl_detail_title"
-            style="@style/detail_textview_interface_subtitle"
-            android:text="@string/report_detail_lbl_detail_title" />
-
-        <TextView
             android:id="@+id/report_detail_lbl_id_report"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_id_report" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_id_report" />
 
         <TextView
             android:id="@+id/report_detail_txv_id_report"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_date"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_date" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_date" />
 
         <TextView
             android:id="@+id/report_detail_txv_date"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_user"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_user" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_user" />
 
         <TextView
             android:id="@+id/report_detail_txv_user"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_area"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_area" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_area" />
 
         <TextView
             android:id="@+id/report_detail_txv_area"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_area_atencion"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_area_atencion" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_atention_area" />
 
         <TextView
             android:id="@+id/report_detail_txv_area_atencion"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_description"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_description" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_description" />
 
         <TextView
             android:id="@+id/report_detail_txv_description"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
 
         <TextView
             android:id="@+id/report_detail_lbl_estatus"
-            style="@style/detail_textview_title"
-            android:text="@string/report_detail_lbl_estatus" />
+            style="@style/general_textview_main"
+            android:text="@string/report_detail_txv_estatus" />
 
         <TextView
             android:id="@+id/report_detail_txv_estatus"
-            style="@style/detail_textview_content" />
+            style="@style/general_textview_description" />
     </LinearLayout>
 
     <include
         android:id="@+id/layout_loading"
         layout="@layout/layout_loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
+        style="@style/loading_layout_container" />
 </RelativeLayout>

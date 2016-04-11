@@ -8,32 +8,35 @@
     <!-- Colores generales de Fuentes -->
     <color name="general_font_title">#C01D20</color>
 
-    <!-- Colores para boton personalizado -->
+    <!-- Colores para el menu principal -->
+    <color name="menu_background_first">#DC5254</color>
+    <color name="menu_background_center">#C01D20</color>
+    <color name="menu_background_last">#7F0F11</color>
+
+    <!-- Colores para Button personalizado -->
     <color name="general_button_icon_text_border">#000000</color>
     <color name="general_button_icon_text_text">#444444</color>
+    <color name="general_button_icon_text_background_first">#DFDFDF</color>
+    <color name="general_button_icon_text_background_last">@android:color/transparent</color>
 
-    <!-- Colores para boton predeterminado -->
+    <!-- Colores para Button predeterminado -->
     <color name="general_button_text_border">#000000</color>
     <color name="general_button_text_text">#FFFFFF</color>
     <color name="general_button_text_background_first">#FF7F0F11</color>
     <color name="general_button_text_background_last">#FFC01D20</color>
 
-    <!-- Colores del Fragment de Login -->
-    <color name="login_credentials_border">#D2D2D2</color>
-    <color name="login_credentials_background">#FFFFFF</color>
-    <color name="login_credentials_text">#444444</color>
+    <!-- Colores para TextView predeterminado -->
+    <color name="general_textview_interface_subtitle">@color/colorPrimaryDark</color>
+    <color name="general_textview_main_text">@color/colorPrimary</color>
+    <color name="general_textview_description_text">@color/colorAccent</color>
 
+    <!-- Colores para EditText predeterminado -->
+    <color name="general_edittext_border_normal">#D2D2D2</color>
+    <color name="general_edittext_border_focus">@color/colorPrimaryDark</color>
+    <color name="general_edittext_background">#FFFFFF</color>
+    <color name="general_edittext_text">#444444</color>
 
-
-
-
-    <!-- Colores del Fragment de Welcome -->
-    <color name="welcome_font_title">#7F0F11</color>
-
-    <color name="welcome_button_container_background_first">#DFDFDF</color>
-    <color name="welcome_button_container_background_last">@android:color/transparent</color>
-    <color name="welcome_button_text">#000000</color>
-
-    <color name="report_history_lsv_background">#64BABABA</color>
-    <color name="report_history_lsv_divider">@android:color/transparent</color>
+    <!-- Colores para ListView predeterminado -->
+    <color name="general_listview_background">#64BABABA</color>
+    <color name="general_listview_divider">@android:color/transparent</color>
 </resources>

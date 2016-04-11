@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_history"
+    style="@style/general_layout_linear_vertical_nomargin_match_match"
+    android:layout_marginTop="@dimen/general_margin_size"
+    android:baselineAligned="false"
+    tools:context=".fragment.ReportViewHistoryFragment">
+
+    <TextView
+        android:id="@+id/report_view_history_txv_title"
+        style="@style/general_textview_interface_subtitle"
+        android:text="@string/report_view_history_txv_title" />
+
+    <ListView
+        android:id="@+id/report_view_history_lsv_action"
+        style="@style/report_view_history_listview_action_container"
+        android:listSelector="@android:color/transparent" />
+</LinearLayout>

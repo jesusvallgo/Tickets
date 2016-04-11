@@ -6,8 +6,6 @@
 
     <include
         layout="@layout/layout_loading"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_centerVertical="true" />
+        style="@style/loading_layout_container" />
 
 </RelativeLayout>

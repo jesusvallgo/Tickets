@@ -141,22 +141,22 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
         // Carga las variables del Fragment de acuerdo al boton seleccionado
         switch (v.getId()) {
             case R.id.technical_support_btn_low_toner:
-                description = "La calidad de impresión es baja, probablemente se debe a toner bajo";
+                description = getString(R.string.technical_support_description_low_toner);
                 break;
             case R.id.technical_support_btn_paper_jam:
-                description = "Atasco de papel en impresora";
+                description = getString(R.string.technical_support_description_paper_jam);
                 break;
             case R.id.technical_support_btn_virus:
-                description = "Probable virus en el equipo";
+                description = getString(R.string.technical_support_description_virus);
                 break;
             case R.id.technical_support_btn_crash_os:
-                description = "Daño del sistema operativo";
+                description = getString(R.string.technical_support_description_crash_os);
                 break;
             case R.id.technical_support_btn_password_lost:
-                description = "Olvidé mi conraseña";
+                description = getString(R.string.technical_support_description_password_lost);
                 break;
             case R.id.technical_support_btn_domain_lost:
-                description = "Se ha perdido la confianza en el dominio";
+                description = getString(R.string.technical_support_description_domain_lost);
                 break;
             case R.id.technical_support_btn_other:
                 askWS = false;
@@ -195,7 +195,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
                 messageDebugList.clear();
 
                 // Agrega el error a mostrar
-                messageErrorList.add("Error al realizar la petición al Web Service");
+                messageErrorList.add(getString(R.string.general_error_ws_request_fail));
                 messageDebugList.add(ex.getMessage());
             } finally {
                 if (messageErrorList.size() > 0) {
@@ -225,7 +225,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
             layoutOptions.setVisibility(View.VISIBLE);
         } else {
             // Genera aviso para el usuario que indica que su peticion ha sido exitosa
-            Toast.makeText(getContext(), "El reporte se ha generado de forma correcta.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.general_toast_create_report_successful), Toast.LENGTH_LONG).show();
 
             // Redirige al Fragment de bienvenida
             ((MainActivity) getActivity()).manageFragment(R.id.nav_welcome, null);

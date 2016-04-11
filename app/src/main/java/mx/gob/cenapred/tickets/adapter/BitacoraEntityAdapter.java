@@ -33,9 +33,9 @@ public class BitacoraEntityAdapter extends ArrayAdapter<BitacoraEntity> {
             row = inflater.inflate(myLayoutResourceID,parent,false);
 
             holder = new BitacoraEntityHolder();
-            holder.date = (TextView)row.findViewById(R.id.report_history_txv_date);
-            holder.user = (TextView)row.findViewById(R.id.report_history_txv_user);
-            holder.action = (TextView)row.findViewById(R.id.report_history_txv_action);
+            holder.date = (TextView)row.findViewById(R.id.report_view_history_txv_date);
+            holder.user = (TextView)row.findViewById(R.id.report_view_history_txv_user);
+            holder.action = (TextView)row.findViewById(R.id.report_view_history_txv_action);
             row.setTag(holder);
         } else {
             holder = (BitacoraEntityHolder)row.getTag();

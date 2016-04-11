@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_other"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.ReportNewOtherFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_linear_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/report_new_other_txv_description"
+            style="@style/general_textview_main"
+            android:text="@string/report_new_other_txv_description" />
+
+        <LinearLayout
+            style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+            android:weightSum="10">
+
+            <EditText
+                android:id="@+id/report_new_other_edt_description"
+                style="@style/report_new_other_edittex_description"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                style="@style/general_linear_container_action"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/report_new_other_txv_characters_count"
+                    style="@style/general_textview_characters_count" />
+
+                <ImageButton
+                    android:id="@+id/report_new_other_btn_send"
+                    style="@style/report_new_other_button_send" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        style="@style/loading_layout_container"
+        android:visibility="gone" />
+</RelativeLayout>
