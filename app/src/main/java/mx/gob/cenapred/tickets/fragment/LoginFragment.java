@@ -142,6 +142,9 @@ public class LoginFragment extends Fragment implements WebServiceListener {
 
     private void tryLogin() {
         try {
+            // Oculta el teclado
+            keyboardManager.hideSoftKeyboard(getActivity());
+
             // Oculta las opciones del Fragment
             layoutOptions.setVisibility(View.GONE);
 

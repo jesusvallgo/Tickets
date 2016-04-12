@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/general_edittext_background"/>
+            <stroke android:color="@color/general_edittext_border_normal" android:width="@dimen/general_border_size" />
+            <corners android:radius="@dimen/general_radius_size" android:bottomRightRadius="@dimen/general_none"/>
+        </shape>
+    </item>
+    <item>
+        <bitmap android:src="@mipmap/dropdown_ic_arrow_normal_holo_light" android:gravity="bottom|right" />
+    </item>
+</layer-list>
