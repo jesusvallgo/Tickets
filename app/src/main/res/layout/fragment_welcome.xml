@@ -14,7 +14,8 @@
 
             <TabWidget
                 android:id="@android:id/tabs"
-                style="@style/general_match_wrap"></TabWidget>
+                style="@style/general_match_wrap"
+                android:background="@color/colorPrimary"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"

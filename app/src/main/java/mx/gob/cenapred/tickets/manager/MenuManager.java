@@ -2,6 +2,8 @@ package mx.gob.cenapred.tickets.manager;
 
 import android.app.Activity;
 import android.support.design.widget.NavigationView;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +14,7 @@ import android.widget.TextView;
 import mx.gob.cenapred.tickets.R;
 
 public class MenuManager {
-    public void updateMenuOptions(NavigationView mainNavigationView, AppPreferencesManager appPreferencesManager){
+    public void updateMenuOptions(NavigationView mainNavigationView, AppPreferencesManager appPreferencesManager) {
         String nombre = appPreferencesManager.getUserName();
         Integer idImgAvatar = R.mipmap.ic_avatar, idPerfil = appPreferencesManager.getUserRole();
 
@@ -36,13 +38,13 @@ public class MenuManager {
         menu.findItem(R.id.nav_logout).setVisible(logout);
 
         View headerView = mainNavigationView.getHeaderView(0);
-        ImageView nav_img_icon = (ImageView)headerView.findViewById(R.id.nav_img_avatar);
+        ImageView nav_img_icon = (ImageView) headerView.findViewById(R.id.nav_img_avatar);
         nav_img_icon.setImageResource(idImgAvatar);
-        TextView nav_txv_nombre = (TextView)headerView.findViewById(R.id.nav_txv_nombre);
+        TextView nav_txv_nombre = (TextView) headerView.findViewById(R.id.nav_txv_nombre);
         nav_txv_nombre.setText(nombre);
     }
 
-    public void updateWelcomeTab(Activity activity, View view, Integer idRol){
+    public void updateWelcomeTab(Activity activity, View view, Integer idRol) {
         // Mapea el TabHost
         TabHost welcomeTabHost = (TabHost) view.findViewById(R.id.welcomeTabHost);
 
@@ -68,7 +70,7 @@ public class MenuManager {
         Integer getMyTicketPending = View.GONE, getSearchTicketNumber = View.GONE, getRequestPending = View.GONE;
         Integer getStadisticsGeneral = View.GONE;
 
-        switch (idRol){
+        switch (idRol) {
             case 1:
                 putTicketTechnicalSupport = View.VISIBLE;
                 putTicketDevelopers = View.VISIBLE;
@@ -92,6 +94,19 @@ public class MenuManager {
                 break;
         }
 
+        for (Integer i = 0; i < welcomeTabHost.getTabWidget().getChildCount(); i++) {
+            View tabView = welcomeTabHost.getTabWidget().getChildAt(i);
+            tabView.setBackgroundResource(R.drawable.general_tabhost);
+
+            TextView title = (TextView) welcomeTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            title.setAllCaps(false);
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            title.setHorizontallyScrolling(false);
+            title.setSingleLine();
+            title.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.general_main_font_size));
+            title.setTextColor(activity.getResources().getColorStateList(R.color.general_tabhost_text));
+        }
+
         view.findViewById(R.id.welcome_btn_ticket_technical_support).setVisibility(putTicketTechnicalSupport);
         view.findViewById(R.id.welcome_btn_ticket_developers).setVisibility(putTicketDevelopers);
         view.findViewById(R.id.welcome_btn_ticket_networking).setVisibility(putTicketNetworking);
@@ -101,7 +116,7 @@ public class MenuManager {
         view.findViewById(R.id.welcome_btn_stadistics_general).setVisibility(getStadisticsGeneral);
     }
 
-    private void addNewTab(TabHost tabHost, String tag, String text, Integer idContent){
+    private void addNewTab(TabHost tabHost, String tag, String text, Integer idContent) {
         TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(text).setContent(idContent);
         tabHost.addTab(spec);
     }

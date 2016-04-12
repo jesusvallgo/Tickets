@@ -15,20 +15,24 @@
     <color name="menu_background_last">#7F0F11</color>
 
     <!-- Colores para Button personalizado -->
-    <color name="general_button_icon_text_border">#000000</color>
+    <color name="general_button_icon_text_border">@android:color/black</color>
     <color name="general_button_icon_text_text">#444444</color>
     <color name="general_button_icon_text_background_first">#DFDFDF</color>
     <color name="general_button_icon_text_background_last">@android:color/transparent</color>
 
     <!-- Colores para Button predeterminado -->
-    <color name="general_button_text_border">#000000</color>
+    <color name="general_button_text_border">@android:color/black</color>
     <color name="general_button_text_text">#FFFFFF</color>
     <color name="general_button_text_background_first">#7F0F11</color>
     <color name="general_button_text_background_last">#C01D20</color>
 
+    <!-- Colores para TabHost predeterminado -->
+    <color name="general_tabhost_text_unselected">#C8FFFFFF</color>
+    <color name="general_tabhost_text_selected">@android:color/white</color>
+
     <!-- Colores para Spinner predeterminado -->
     <color name="general_spinner_divider">@color/general_border_normal</color>
-    <color name="general_spinner_item_background_normal">#FFFFFF</color>
+    <color name="general_spinner_item_background_normal">@android:color/white</color>
     <color name="general_spinner_item_background_focus">#F0F0F0</color>
 
     <!-- Colores para TextView predeterminado -->
@@ -39,7 +43,7 @@
     <!-- Colores para EditText predeterminado -->
     <color name="general_edittext_border_normal">@color/general_border_normal</color>
     <color name="general_edittext_border_focus">@color/colorPrimaryDark</color>
-    <color name="general_edittext_background">#FFFFFF</color>
+    <color name="general_edittext_background">@android:color/white</color>
     <color name="general_edittext_text">#444444</color>
 
     <!-- Colores para ListView predeterminado -->
