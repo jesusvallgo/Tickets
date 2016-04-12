@@ -61,6 +61,12 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="general_layout_linear_charactersCount_action" parent="general_match_match">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
     <!-- Elementos generales -->
     <style name="general_item_large" parent="general_match_wrap">
         <item name="android:textSize">@dimen/general_main_font_size</item>
@@ -68,7 +74,7 @@
 
     <!-- TextView (Label) generales -->
     <style name="general_textview_large" parent="general_item_large">
-        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
     </style>
 
     <style name="general_textview_characters_count" parent="general_match_wrap">
@@ -77,7 +83,7 @@
     </style>
 
     <style name="general_textview_interface_subtitle" parent="general_item_large">
-        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
+        <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
         <item name="android:textSize">@dimen/general_main_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/general_textview_interface_subtitle</item>
@@ -85,7 +91,7 @@
     </style>
 
     <style name="general_textview_main" parent="general_item_large">
-        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
+        <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
         <item name="android:textSize">@dimen/general_main_font_size</item>
         <item name="android:textColor">@color/general_textview_main_text</item>
     </style>
@@ -96,7 +102,7 @@
 
     <!-- EditText generales -->
     <style name="general_edittext_large" parent="general_item_large">
-        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
         <item name="android:padding">@dimen/general_edittext_padding</item>
         <item name="android:background">@drawable/general_edittext</item>
     </style>
@@ -107,6 +113,12 @@
         <item name="android:scrollbars">vertical</item>
     </style>
 
+    <!-- Spinner generales -->
+    <style name="general_spinner_large" parent="general_item_large">
+        <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
+        <item name="android:textSize">@dimen/general_description_font_size</item>
+    </style>
+
     <!-- Button generales -->
     <style name="general_button_large" parent="general_item_large">
         <item name="android:background">@drawable/general_button_text</item>
@@ -115,7 +127,7 @@
 
     <!-- Boton predeterminado -->
     <style name="general_button_only_text" parent="general_button_large">
-        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
+        <item name="android:layout_marginTop">@dimen/general_button_vertical_space</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -250,61 +262,11 @@
     </style>
 
     <!-- Elementos del Fragment de Seguimiento de Ticket -->
-    <style name="update_history_edittex_action" parent="general_edittext_multiline">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">0dp</item>
+    <style name="report_add_history_edittex_description" parent="general_edittext_multiline">
+        <item name="android:layout_width">@dimen/general_none</item>
         <item name="android:layout_marginRight">5dp</item>
     </style>
-    <style name="update_history_button_send" parent="general_button_only_icon">
-        <item name="android:layout_height">45dp</item>
-        <item name="android:layout_width">match_parent</item>
+    <style name="report_add_history_button_send" parent="general_button_only_icon">
         <item name="android:src">@mipmap/ic_send</item>
     </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <style name="general_spinner_large" parent="general_item_large">
-        <item name="android:textSize">@dimen/general_description_font_size</item>
-    </style>
-
-    <style name="general_linear_container_action">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:gravity">bottom</item>
-    </style>
-
-    <style name="general_divider_vertical">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/colorAccent</item>
-        <item name="android:layout_marginTop">@dimen/general_vertical_space</item>
-        <item name="android:layout_marginBottom">@dimen/general_vertical_space</item>
-    </style>
-
-
-
-
 </resources>

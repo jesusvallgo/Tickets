@@ -23,7 +23,7 @@
                 android:layout_weight="8" />
 
             <LinearLayout
-                style="@style/general_linear_container_action"
+                style="@style/general_layout_linear_charactersCount_action"
                 android:layout_weight="2">
                 <TextView
                     android:id="@+id/report_new_other_txv_characters_count"

@@ -5,7 +5,8 @@
     <dimen name="nav_vertical_space">10dp</dimen>
 
     <!-- Interlineado general -->
-    <dimen name="general_vertical_space">16dp</dimen>
+    <dimen name="general_item_vertical_space">7dp</dimen>
+    <dimen name="general_button_vertical_space">35dp</dimen>
 
     <!-- Dimension de tamaño nulo -->
     <dimen name="general_none">0dp</dimen>

@@ -15,11 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.EstatusEntity;
@@ -40,6 +42,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
+    private final MainConstant mainConstant = new MainConstant();
 
     // **************************** Variables ****************************
 
@@ -74,13 +77,14 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
     private RelativeLayout layoutLoading;
 
     // Mapea los elementos del Fragment
-    TextView reportUpdateHistoryTxvIdReport, reportUpdateHistoryTxvCharacters;
-    Spinner reportUpdateHistorySpnEstatus;
-    EditText reportUpdateHistoryEdtAction;
-    ImageButton reportUpdateHistoryBtnSend;
+    TextView reportAddHistoryTxvTitle, reportAddHistoryTxvCharactersCount;
+    Spinner reportAddHistorySpnEstatus;
+    EditText reportAddHistoryEdtDescription;
+    ImageButton reportAddHistoryBtnSend;
 
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
+    private Integer descriptionMaxLenght = 0;
     private List<EstatusEntity> listEstatus;
 
     // Constructor por default
@@ -117,6 +121,9 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         // Configura el Fragment para ocultar el teclado
         keyboardManager.configureUI(rootView, getActivity());
 
+        // Obtiene el tamaño maximo de la descripcion
+        descriptionMaxLenght = mainConstant.getDescriptionNewReportMaxLenght();
+
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
@@ -125,11 +132,11 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
 
         // Mapea los layouts del Fragment
-        reportUpdateHistoryTxvIdReport = (TextView) rootView.findViewById(R.id.report_update_history_txv_id_report);
-        reportUpdateHistorySpnEstatus = (Spinner) rootView.findViewById(R.id.report_update_history_spn_status);
-        reportUpdateHistoryEdtAction = (EditText) rootView.findViewById(R.id.report_update_history_edt_action);
-        reportUpdateHistoryTxvCharacters = (TextView) rootView.findViewById(R.id.report_update_history_txv_characters);
-        reportUpdateHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_update_history_btn_send);
+        reportAddHistoryTxvTitle = (TextView) rootView.findViewById(R.id.report_add_history_txv_title);
+        reportAddHistorySpnEstatus = (Spinner) rootView.findViewById(R.id.report_add_history_spn_status);
+        reportAddHistoryEdtDescription = (EditText) rootView.findViewById(R.id.report_add_history_edt_description);
+        reportAddHistoryTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_add_history_txv_characters_count);
+        reportAddHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_add_history_btn_send);
 
         // Obtiene el numero de acciones realizadas para el reporte especificado
         Integer numEstatus = listEstatus.size();
@@ -137,15 +144,15 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         // Determina si existen mensajes para desplegar
         if (numEstatus > 0) {
             // Establece el ID del reporte
-            reportUpdateHistoryTxvIdReport.setText("No. Folio: " + idReport.toString());
+            reportAddHistoryTxvTitle.append(" " + idReport.toString());
 
             // Llena el spinner de areas de atencion con los datos correspondientes
             ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, listEstatus);
             estatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            reportUpdateHistorySpnEstatus.setAdapter(estatusAdapter);
+            reportAddHistorySpnEstatus.setAdapter(estatusAdapter);
         }
 
-        reportUpdateHistoryEdtAction.addTextChangedListener(new TextWatcher() {
+        reportAddHistoryEdtDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -153,7 +160,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                reportUpdateHistoryTxvCharacters.setText(String.valueOf(s.length()));
+                reportAddHistoryTxvCharactersCount.setText(String.valueOf(s.length()) + " / " + descriptionMaxLenght);
             }
 
             @Override
@@ -162,7 +169,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
             }
         });
 
-        reportUpdateHistoryEdtAction.setOnKeyListener(new View.OnKeyListener() {
+        reportAddHistoryEdtDescription.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_ENTER){
@@ -172,7 +179,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
             }
         });
 
-        reportUpdateHistoryBtnSend.setOnClickListener(new View.OnClickListener() {
+        reportAddHistoryBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Limpia las listas de error
@@ -187,20 +194,22 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     layoutLoading.setVisibility(View.VISIBLE);
 
                     // Obtiene el "Estatus" seleccionada por el usuario
-                    EstatusEntity estatusEntity = (EstatusEntity) reportUpdateHistorySpnEstatus.getSelectedItem();
+                    EstatusEntity estatusEntity = (EstatusEntity) reportAddHistorySpnEstatus.getSelectedItem();
 
                     if (estatusEntity.getIdEstatus() == 0) {
-                        throw new NoInputDataException("Debe seleccionar un Estatus válido");
+                        throw new NoInputDataException(getString(R.string.general_error_no_estatus));
                     }
 
-                    if (reportUpdateHistoryEdtAction.getText().toString().trim().equals("")) {
-                        throw new NoInputDataException("Debe especificar la acción realizada");
+                    // Obtiene la descripcion
+                    String description = reportAddHistoryEdtDescription.getText().toString().trim();
+                    if (description.equals("")) {
+                        throw new NoInputDataException(getString(R.string.general_error_no_description));
                     }
 
                     // Genera la lista de acciones (solo un elemento)
                     List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
                     BitacoraEntity bitacoraEntity = new BitacoraEntity();
-                    bitacoraEntity.setAccion(reportUpdateHistoryEdtAction.getText().toString().trim());
+                    bitacoraEntity.setAccion(description);
                     listaBitacora.add(bitacoraEntity);
 
                     // Establece los datos por actualizar en el reporte
@@ -220,11 +229,11 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     reporteWebService.execute(peticionWSEntity);
                 } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
-                    messageErrorList.add("Datos no válidos");
+                    messageErrorList.add(getString(R.string.general_error_bad_data));
                     messageDebugList.add(nidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
-                    messageErrorList.add("Error al realizar la petición al Web Service");
+                    messageErrorList.add(getString(R.string.general_error_ws_request_fail));
                     messageDebugList.add(ex.getMessage());
                 } finally {
                     if (messageErrorList.size() > 0) {
@@ -253,6 +262,8 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
             // Muestra los errores en pantalla
             errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
         } else {
+            // Genera aviso para el usuario que indica que su peticion ha sido exitosa
+            Toast.makeText(getContext(), getString(R.string.general_toast_delegate_report_successful), Toast.LENGTH_LONG).show();
             getActivity().onBackPressed();
         }
 

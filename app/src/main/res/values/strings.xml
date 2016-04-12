@@ -3,11 +3,16 @@
     <string name="app_name">Tickets</string>
     <string name="google_app_id">148070650521</string>
 
+    <!-- Cadenas generales para errores de GCM (solo log) -->
+    <string name="log_success_token">Token generado</string>
+    <string name="log_error_token">Error al actualizar Token</string>
+
     <!-- Cadenas generales para errores -->
     <string name="general_error_ws_request_fail">Error al realizar la petición al Web Service</string>
     <string name="general_error_bad_data">Datos no válidos</string>
     <string name="general_error_no_description">Debe especificar la descripción</string>
     <string name="general_error_no_atention_area">Debe especificar el Área de Atención</string>
+    <string name="general_error_no_estatus">Debe especificar un Estatus</string>
 
     <!-- Cadenas generales para notificar al usuario -->
     <string name="general_toast_create_report_successful">El reporte se ha generado de forma correcta</string>
@@ -108,24 +113,4 @@
     <string name="report_add_history_txv_title">@string/general_interface_subtitle</string>
     <string name="report_add_history_txv_status">Estatus:</string>
     <string name="report_add_history_txv_action">Acciones realizadas:</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <string name="log_unsupported_gp">El dispositivo no soporta la aplicación</string>
-    <string name="log_success_token">Token generado</string>
-    <string name="log_error_token">Error al actualizar Token</string>
 </resources>

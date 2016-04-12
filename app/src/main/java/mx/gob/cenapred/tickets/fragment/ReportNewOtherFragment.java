@@ -195,6 +195,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
                     // Muestra el layout de Cargando
                     layoutLoading.setVisibility(View.VISIBLE);
 
+                    // Obtiene la descripcion
                     String description = reportNewOtherEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
                         throw new NoInputDataException(getString(R.string.general_error_no_description));
