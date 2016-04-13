@@ -4,7 +4,8 @@
     <color name="colorPrimary">#C01D20</color>
     <color name="colorPrimaryDark">#7F0F11</color>
     <color name="colorAccent">#C8494C</color>
-    <color name="general_border_normal">#D2D2D2</color>
+    <color name="general_border_normal">#F0F0F0</color>
+    <color name="general_border_focus">@color/colorPrimary</color>
 
     <!-- Colores generales de Fuentes -->
     <color name="general_font_title">#C01D20</color>
@@ -15,13 +16,13 @@
     <color name="menu_background_last">#7F0F11</color>
 
     <!-- Colores para Button personalizado -->
-    <color name="general_button_icon_text_border">@android:color/black</color>
+    <color name="general_button_icon_text_border">@color/general_border_normal</color>
     <color name="general_button_icon_text_text">#444444</color>
     <color name="general_button_icon_text_background_first">#DFDFDF</color>
     <color name="general_button_icon_text_background_last">@android:color/transparent</color>
 
     <!-- Colores para Button predeterminado -->
-    <color name="general_button_text_border">@android:color/black</color>
+    <color name="general_button_text_border">@color/general_border_normal</color>
     <color name="general_button_text_text">#FFFFFF</color>
     <color name="general_button_text_background_first">#7F0F11</color>
     <color name="general_button_text_background_last">#C01D20</color>
@@ -42,7 +43,7 @@
 
     <!-- Colores para EditText predeterminado -->
     <color name="general_edittext_border_normal">@color/general_border_normal</color>
-    <color name="general_edittext_border_focus">@color/colorPrimaryDark</color>
+    <color name="general_edittext_border_focus">@color/general_border_focus</color>
     <color name="general_edittext_background">@android:color/white</color>
     <color name="general_edittext_text">#444444</color>
 
