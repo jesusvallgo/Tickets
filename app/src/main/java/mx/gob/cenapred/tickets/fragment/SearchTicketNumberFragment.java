@@ -48,8 +48,8 @@ public class SearchTicketNumberFragment extends Fragment {
     private List<String> messageDebugList = new ArrayList<String>();
 
     // Mapea los elementos del Fragment
-    private EditText ticketNumberEdtNumber;
-    private ImageButton ticketNumberBtnSearch;
+    private EditText searchTicketNumberEdtNumber;
+    private ImageButton searchTicketNumberBtnSearch;
 
     // Inicializa las variables del Fragment
     private String idReport = "";
@@ -85,10 +85,10 @@ public class SearchTicketNumberFragment extends Fragment {
         keyboardManager.configureUI(rootView, getActivity());
 
         // Mapea los elementos del Fragment
-        ticketNumberEdtNumber = (EditText) rootView.findViewById(R.id.ticket_number_edt_number);
-        ticketNumberBtnSearch = (ImageButton) rootView.findViewById(R.id.ticket_number_btn_search);
+        searchTicketNumberEdtNumber = (EditText) rootView.findViewById(R.id.ticket_number_edt_number);
+        searchTicketNumberBtnSearch = (ImageButton) rootView.findViewById(R.id.ticket_number_btn_search);
 
-        ticketNumberEdtNumber.setOnKeyListener(new View.OnKeyListener() {
+        searchTicketNumberEdtNumber.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -98,7 +98,7 @@ public class SearchTicketNumberFragment extends Fragment {
             }
         });
 
-        ticketNumberBtnSearch.setOnClickListener(new View.OnClickListener() {
+        searchTicketNumberBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tryGetTicket();
@@ -109,7 +109,7 @@ public class SearchTicketNumberFragment extends Fragment {
     }
 
     private void tryGetTicket(){
-        idReport = ticketNumberEdtNumber.getText().toString().trim();
+        idReport = searchTicketNumberEdtNumber.getText().toString().trim();
 
         // Limpia las listas de error
         messageErrorList.clear();

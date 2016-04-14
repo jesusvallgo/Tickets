@@ -30,6 +30,7 @@ import mx.gob.cenapred.tickets.fragment.AboutFragment;
 import mx.gob.cenapred.tickets.fragment.LoadingFragment;
 import mx.gob.cenapred.tickets.fragment.LoginFragment;
 import mx.gob.cenapred.tickets.fragment.LogoutFragment;
+import mx.gob.cenapred.tickets.fragment.MyTicketPendingFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportViewHistoryFragment;
@@ -349,6 +350,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.welcome_btn_ticket_technical_support:
                 fragmentName = "Soporte Técnico";
                 mainCurrentFragment = new TechnicalSupportFragment();
+                addToBackStack = true;
+                break;
+            case R.id.welcome_btn_my_ticket_pending:
+                fragmentName = "Mis pendientes";
+                mainCurrentFragment = new MyTicketPendingFragment();
                 addToBackStack = true;
                 break;
             case R.id.welcome_btn_search_ticket_number:

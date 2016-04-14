@@ -6,6 +6,7 @@ public class ResponseWebServiceEntity {
     private EmpleadoEntity empleado;
     private UsuarioEntity usuario;
     private ReporteEntity reporte;
+    private List<ReporteEntity> listaReporte;
     private List<AreaAtencionEntity> listaAreaAtencion;
     private List<EstatusEntity> listaEstatus;
     private List<MensajeEntity> listaMensajes;
@@ -32,6 +33,14 @@ public class ResponseWebServiceEntity {
 
     public void setReporte(ReporteEntity reporte) {
         this.reporte = reporte;
+    }
+
+    public List<ReporteEntity> getListaReporte() {
+        return listaReporte;
+    }
+
+    public void setListaReporte(List<ReporteEntity> listaReporte) {
+        this.listaReporte = listaReporte;
     }
 
     public List<AreaAtencionEntity> getListaAreaAtencion() {

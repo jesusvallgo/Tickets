@@ -66,7 +66,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     private RelativeLayout layoutLoading;
 
     // Mapea los elementos del Fragment
-    LinearLayout reportDetailLayoutUpdate;
     TextView reportDetailTxvIdReport, reportDetailTxvDate, reportDetailTxvUser, reportDetailTxvArea, reportDetailTxvAreaAtencion, reportDetailTxvDescription, reportDetailTxvEstatus;
 
     // Inicializa las variables del Fragment

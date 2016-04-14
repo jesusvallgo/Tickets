@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_report_detail"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.ReportDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_linear_vertical_margin_match_match"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/my_ticket_pending_lsv_item"
+            style="@style/report_view_history_listview_action_container" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        style="@style/loading_layout_container" />
+</RelativeLayout>
