@@ -44,7 +44,7 @@ public class MenuManager {
         nav_txv_nombre.setText(nombre);
     }
 
-    public void updateWelcomeTab(Activity activity, View view, Integer idRol) {
+    public void updateWelcomeTab(Activity activity, View view, Integer idRol, Integer indexTab) {
         // Mapea el TabHost
         TabHost welcomeTabHost = (TabHost) view.findViewById(R.id.welcomeTabHost);
 
@@ -106,6 +106,9 @@ public class MenuManager {
             title.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.general_main_font_size));
             title.setTextColor(activity.getResources().getColorStateList(R.color.general_tabhost_text));
         }
+
+        // Selecciona el Tab adecuado
+        welcomeTabHost.setCurrentTab(indexTab);
 
         view.findViewById(R.id.welcome_btn_ticket_technical_support).setVisibility(putTicketTechnicalSupport);
         view.findViewById(R.id.welcome_btn_ticket_developers).setVisibility(putTicketDevelopers);

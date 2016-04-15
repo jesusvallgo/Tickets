@@ -15,13 +15,15 @@ public class ReporteItemAdapter extends ArrayAdapter<ReporteEntity> {
     Context myContext;
     int myLayoutResourceID;
     ReporteEntity myData[] = null;
+    Boolean myShowUser;
 
-    public ReporteItemAdapter(Context context, int layoutResourceID, ReporteEntity[] data) {
+    public ReporteItemAdapter(Context context, int layoutResourceID, ReporteEntity[] data, Boolean showUser) {
         super(context, layoutResourceID, data);
 
         this.myContext = context;
         this.myLayoutResourceID = layoutResourceID;
         this.myData = data;
+        this.myShowUser = showUser;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -34,7 +36,8 @@ public class ReporteItemAdapter extends ArrayAdapter<ReporteEntity> {
 
             holder = new ReporteEntityHolder();
             holder.date = (TextView)row.findViewById(R.id.ticket_txv_date);
-            holder.user = (TextView)row.findViewById(R.id.ticket_txv_user);
+            holder.userLabel = (TextView)row.findViewById(R.id.ticket_lbl_user);
+            holder.userDescription = (TextView)row.findViewById(R.id.ticket_txv_user);
             holder.description = (TextView)row.findViewById(R.id.ticket_txv_description);
             row.setTag(holder);
         } else {
@@ -43,15 +46,21 @@ public class ReporteItemAdapter extends ArrayAdapter<ReporteEntity> {
 
         ReporteEntity reporteEntity = myData[position];
         holder.date.setText(reporteEntity.getFecha());
-        holder.user.setText(reporteEntity.getEmpleado().getNombreCompletoPorNombre());
+        holder.userDescription.setText(reporteEntity.getEmpleado().getNombreCompletoPorNombre());
         holder.description.setText(reporteEntity.getDescripcion());
+
+        if(myShowUser == false){
+            holder.userLabel.setVisibility(View.GONE);
+            holder.userDescription.setVisibility(View.GONE);
+        }
 
         return row;
     }
 
     static class ReporteEntityHolder{
         TextView date;
-        TextView user;
+        TextView userLabel;
+        TextView userDescription;
         TextView description;
     }
 }

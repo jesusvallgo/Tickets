@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
@@ -25,7 +26,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     MenuManager menuManager = new MenuManager();
 
     // Elementos del Fragment
+    TabHost welcomeTabHost;
     LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
+
+    Integer indexTab = 0;
 
     // Constructor por default
     public WelcomeFragment() {
@@ -55,9 +59,10 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         appPreferencesManager = new AppPreferencesManager(getContext());
 
         // Agrega los Tabs y botones necesarios
-        menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole());
+        menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole(), indexTab);
 
         // Mapea los elementos del fragment
+        welcomeTabHost = (TabHost) rootView.findViewById(R.id.welcomeTabHost);
         btnTicketTechnicalSupport = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
         btnTicketDevelopers = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_developers);
         btnTicketNetworking = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_networking);
@@ -81,6 +86,9 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     // Metodo onClick para los elementos del Fragmnet
     @Override
     public void onClick(View v) {
+        // Almacena el Tab seleccionado
+        indexTab = welcomeTabHost.getCurrentTab();
+
         // Llama al metodo que manipula las opciones presionadas
         ((MainActivity) getActivity()).manageFragment(v.getId(), null);
     }
