@@ -125,8 +125,8 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
             reportDelegateTxvTitle.append(" " + idReport.toString());
 
             // Llena el spinner de areas de atencion con los datos correspondientes
-            ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_spinner_item, listAtentionArea);
-            areaAtencionAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown);
+            ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listAtentionArea);
+            areaAtencionAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
             reportDelegateSpnAtentionArea.setAdapter(areaAtencionAdapter);
         }
 

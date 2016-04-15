@@ -147,8 +147,8 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
             reportAddHistoryTxvTitle.append(" " + idReport.toString());
 
             // Llena el spinner de areas de atencion con los datos correspondientes
-            ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_spinner_item, listEstatus);
-            estatusAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown);
+            ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listEstatus);
+            estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
             reportAddHistorySpnEstatus.setAdapter(estatusAdapter);
         }
 

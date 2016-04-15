@@ -6,14 +6,13 @@
 
     <LinearLayout
         android:id="@+id/layout_options"
-        style="@style/general_layout_linear_vertical_margin_match_match"
+        style="@style/general_layout_linear_vertical_nomargin_match_match"
         android:visibility="gone">
 
         <ListView
             android:id="@+id/my_ticket_pending_lsv_item"
-            style="@style/report_view_history_listview_action_container" />
+            style="@style/my_ticket_pending_listview_action_container" />
     </LinearLayout>
-
     <include
         android:id="@+id/layout_loading"
         layout="@layout/layout_loading"

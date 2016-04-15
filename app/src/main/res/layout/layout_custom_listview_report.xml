@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_vertical_nomargin_match_wrap">
+
+    <LinearLayout
+        style="@style/ticket_listview_action_item" >
+
+        <TextView
+            android:id="@+id/ticket_lbl_date"
+            style="@style/general_textview_main"
+            android:layout_marginTop="@dimen/general_none"
+            android:text="Fecha:" />
+
+        <TextView
+            android:id="@+id/ticket_txv_date"
+            style="@style/general_textview_description" />
+
+        <TextView
+            android:id="@+id/ticket_lbl_user"
+            style="@style/general_textview_main"
+            android:layout_marginTop="@dimen/general_none"
+            android:text="Usuario:" />
+
+        <TextView
+            android:id="@+id/ticket_txv_user"
+            style="@style/general_textview_description" />
+
+        <TextView
+            android:id="@+id/ticket_lbl_description"
+            style="@style/general_textview_main"
+            android:layout_marginTop="@dimen/general_none"
+            android:text="Descripción:" />
+
+        <TextView
+            android:id="@+id/ticket_txv_description"
+            style="@style/general_textview_description"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+</LinearLayout>

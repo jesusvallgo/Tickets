@@ -259,6 +259,17 @@
         <item name="android:src">@mipmap/ic_send</item>
     </style>
 
+    <!-- Elementos del Fragment de Buscar mis tickets pendientes -->
+    <style name="my_ticket_pending_listview_action_container" parent="general_match_match">
+        <item name="android:divider">@color/general_listview_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="ticket_listview_action_item" parent="general_match_wrap">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/general_padding_size</item>
+    </style>
+
     <!-- Elementos del Fragment de Buscar reporte por numero de folio -->
     <style name="search_ticket_number_edittex_number" parent="general_edittext_large">
         <item name="android:layout_width">@dimen/general_none</item>
@@ -275,7 +286,6 @@
     <!-- Elementos para ListView del Fragment de Bitacora de Acciones -->
     <style name="report_view_history_listview_action_container" parent="general_match_match">
         <item name="android:layout_marginTop">@dimen/general_margin_size</item>
-        <item name="android:divider">@color/general_listview_divider</item>
     </style>
 
     <style name="report_view_history_listview_action_item" parent="general_match_wrap">

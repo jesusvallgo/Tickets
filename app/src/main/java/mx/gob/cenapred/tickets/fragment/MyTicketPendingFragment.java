@@ -5,28 +5,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
-import mx.gob.cenapred.tickets.adapter.BitacoraEntityAdapter;
-import mx.gob.cenapred.tickets.entity.BitacoraEntity;
+import mx.gob.cenapred.tickets.adapter.ReporteItemAdapter;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
+import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.ListadoWebService;
-import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class MyTicketPendingFragment extends Fragment implements WebServiceListener{
     // **************************** Variables ****************************
@@ -102,6 +99,8 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
         // Mapea los elementos del Fragment
         myTicketPendingLsvItem = (ListView) rootView.findViewById(R.id.my_ticket_pending_lsv_item);
 
+        myTicketPendingLsvItem.setOnClickListener();
+
         try {
             // Construye la peticion
             peticionWSEntity.setMetodo("get");
@@ -145,15 +144,15 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             // Muestra los errores en pantalla
             errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         } else if (responseWebServiceEntity.getListaReporte()!=null && responseWebServiceEntity.getListaReporte().size()>0){
-            String[] array = new String[2];
-            array[0] = "0";
-            array[1] = "1";
+            // Convierte la lista en un arreglo
+            ReporteEntity[] arrayReporte = new ReporteEntity[responseWebServiceEntity.getListaReporte().size()];
+            responseWebServiceEntity.getListaReporte().toArray(arrayReporte);
 
             // Genera el adaptador
-            ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array);
+            ReporteItemAdapter reporteItemAdapter = new ReporteItemAdapter(getActivity(),R.layout.layout_custom_listview_report,arrayReporte);
 
             // Carga los errores en el cuerpo del cuadro de dialogo
-            myTicketPendingLsvItem.setAdapter(adapter);
+            myTicketPendingLsvItem.setAdapter(reporteItemAdapter);
         } else{
             // Limpia las listas de error
             messageErrorList.clear();
