@@ -31,6 +31,31 @@
             android:id="@+id/login_btn_send"
             style="@style/general_button_only_text"
             android:text="@string/login_btn_send" />
+
+        <View
+            style="@style/general_view_vertical_divider" />
+
+        <LinearLayout
+            style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+            android:layout_marginTop="20dp"
+            android:weightSum="10">
+            <TextView
+                android:id="@+id/login_txv_register"
+                style="@style/general_textview_link"
+                android:gravity="left"
+                android:layout_width="@dimen/general_none"
+                android:layout_weight="5"
+                android:text="@string/login_txv_register" >
+            </TextView>
+            <TextView
+                android:id="@+id/login_txv_recoverPassword"
+                style="@style/general_textview_link"
+                android:gravity="right"
+                android:layout_width="@dimen/general_none"
+                android:layout_weight="5"
+                android:text="@string/login_txv_recoverPassword" >
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 
     <include

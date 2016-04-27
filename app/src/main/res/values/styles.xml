@@ -78,6 +78,14 @@
         <item name="android:color">#FCFCFC</item>
     </style>
 
+    <!-- Vistas generales -->
+    <style name="general_view_vertical_divider">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/general_listview_divider</item>
+    </style>
+
     <!-- TextView (Label) generales -->
     <style name="general_textview_large" parent="general_item_large">
         <item name="android:layout_marginTop">@dimen/general_item_vertical_space</item>
@@ -94,6 +102,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/general_textview_interface_subtitle</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="general_textview_link" parent="general_item_large">
+        <item name="android:textSize">@dimen/general_main_font_size</item>
+        <item name="android:textColor">@color/general_textview_link</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="general_textview_main" parent="general_item_large">

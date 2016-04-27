@@ -50,4 +50,7 @@
     <!-- Colores para ListView predeterminado -->
     <color name="general_listview_background">#64BABABA</color>
     <color name="general_listview_divider">@color/general_border_normal</color>
+
+    <!-- Colores para ligas generales -->
+    <color name="general_textview_link">#337AB7</color>
 </resources>
