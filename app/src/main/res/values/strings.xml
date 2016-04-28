@@ -45,7 +45,9 @@
     <string name="login_imv_icon">Ícono de aplicación</string>
     <string name="login_txv_username">Usuario</string>
     <string name="login_txv_password">Contraseña</string>
+    <string name="login_txv_email">E-mail</string>
     <string name="login_btn_send">Ingresar</string>
+    <string name="login_btn_request">Solicitar</string>
     <string name="login_txv_register">Registro</string>
     <string name="login_txv_recoverPassword">Recuperar contraseña</string>
 

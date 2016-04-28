@@ -10,26 +10,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
-import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
-import mx.gob.cenapred.tickets.entity.TokenGCMEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
-import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ErrorManager;
-import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
-import mx.gob.cenapred.tickets.webservice.SesionWebService;
+import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.webservice.CuentaWebService;
 
-public class LoginFragment extends Fragment implements WebServiceListener, View.OnClickListener {
+public class RecoverPasswordFragment extends Fragment implements WebServiceListener{
     // **************************** Constantes ****************************
 
     // Instancia a la clase auxiliar para ocultar el teclado
@@ -40,14 +36,11 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     // Para generar la vista del Fragment
     private View rootView;
 
-    // Instancia a la clase de PeticionWSEntity
-    private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
-
     // Instancia a la clase de CredencialesEntity
     private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
-    // Instancia a la clase de TokenGCMEntity
-    private TokenGCMEntity tokenGCMEntity = new TokenGCMEntity();
+    // Instancia a la clase de PeticionWSEntity
+    private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
@@ -57,29 +50,25 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     // Manejador de los errores
     private ErrorManager errorManager = new ErrorManager();
 
-    // Manejador de las preferencias de la aplicacion
-    private AppPreferencesManager appPreferencesManager;
-
     // Instancia para obener el Fragment que se debe pasar a la interfaz
-    private LoginFragment loginFragment = this;
+    private RecoverPasswordFragment recoverPasswordFragment = this;
 
     // Layouts del Fragment
     private LinearLayout layoutOptions;
     private RelativeLayout layoutLoading;
 
     // Mapea los elementos del Fragment
-    private EditText loginEdtUsername, loginEdtPassword;
-    private TextView loginTxvRegister, loginTxvRecoverPassword;
-    private Button loginBtnSend;
+    private EditText loginEdtEmail;
+    private Button loginBtnRequest;
 
     // Constructor por default
-    public LoginFragment() {
+    public RecoverPasswordFragment() {
 
     }
 
     // Generador de instancia de Fragment
-    public static LoginFragment newInstance() {
-        LoginFragment fragment = new LoginFragment();
+    public static RecoverPasswordFragment newInstance() {
+        RecoverPasswordFragment fragment = new RecoverPasswordFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -92,62 +81,42 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Genera la vista para el Fragment
-        rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        rootView = inflater.inflate(R.layout.fragment_register_recoverpassword, container, false);
 
         // Mapea los layouts del Fragment
         layoutOptions = (LinearLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
         // Configura el Fragment para ocultar el teclado
         keyboardManager.configureUI(rootView, getActivity());
 
         // Mapea los elementos del Fragment
-        loginEdtUsername = (EditText) rootView.findViewById(R.id.login_edt_username);
-        loginEdtPassword = (EditText) rootView.findViewById(R.id.login_edt_password);
-        loginTxvRegister = (TextView) rootView.findViewById(R.id.login_txv_register);
-        loginTxvRecoverPassword = (TextView) rootView.findViewById(R.id.login_txv_recoverPassword);
-        loginBtnSend = (Button) rootView.findViewById(R.id.login_btn_send);
+        loginEdtEmail = (EditText) rootView.findViewById(R.id.login_edt_email);
+        loginBtnRequest = (Button) rootView.findViewById(R.id.login_btn_request);
 
-        // Agrega el token del dispositivo a su entidad correspondiente
-        tokenGCMEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
-
-        loginTxvRegister.setOnClickListener(this);
-        loginTxvRecoverPassword.setOnClickListener(this);
-
-        loginEdtPassword.setOnKeyListener(new View.OnKeyListener() {
+        loginEdtEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    tryLogin();
+                    tryConnect();
                 }
                 return false;
             }
         });
 
-        loginBtnSend.setOnClickListener(new View.OnClickListener() {
+        loginBtnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                tryLogin();
+            public void onClick(View view) {
+                tryConnect();
             }
         });
 
         return rootView;
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-
-        // Selecciona el EditText necesario
-        //autoFocus();
-    }
-
-    private void tryLogin() {
+    private void tryConnect() {
         try {
             // Oculta el teclado
             keyboardManager.hideSoftKeyboard(getActivity());
@@ -159,19 +128,17 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             layoutLoading.setVisibility(View.VISIBLE);
 
             // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(loginEdtUsername.getText().toString().trim());
-            credencialesEntity.setPassword(loginEdtPassword.getText().toString());
+            credencialesEntity.setUsername(loginEdtEmail.getText().toString().trim());
 
             // Construye la peticion
-            peticionWSEntity.setMetodo("put");
-            peticionWSEntity.setAccion("add");
+            peticionWSEntity.setMetodo("get");
+            peticionWSEntity.setTipo("update");
             peticionWSEntity.setCredencialesEntity(credencialesEntity);
-            peticionWSEntity.setTokenGCMEntity(tokenGCMEntity);
 
             // Llamada al cliente para validar credenciales y loguearse
-            SesionWebService sesionWebService = new SesionWebService();
-            sesionWebService.webServiceListener = loginFragment;
-            sesionWebService.execute(peticionWSEntity);
+            CuentaWebService cuentaWebService = new CuentaWebService();
+            cuentaWebService.webServiceListener = recoverPasswordFragment;
+            cuentaWebService.execute(peticionWSEntity);
         } catch (Exception ex) {
             // Limpia las listas de error
             messageErrorList.clear();
@@ -193,53 +160,25 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
         }
     }
 
-    // Metodo para determinar el EditText que debe estar seleccionado
-    private void autoFocus() {
-        // Inicializa la variable auxiliar
-        EditText focusEditText;
-
-        // Determina el EditText adecuado
-        if (loginEdtUsername.getText().length() == 0) {
-            focusEditText = loginEdtUsername;
-        } else {
-            focusEditText = loginEdtPassword;
-        }
-
-        // Establece el foco en el EditText adecuado
-        focusEditText.requestFocus();
-
-        // Carga el teclado para el EditText indicado
-        keyboardManager.showSoftKeyboard(focusEditText, getActivity());
-    }
-
-    // Metodo que procesa la respuesta del WebService
     @Override
     public void onCommunicationFinish(ResponseWebServiceEntity responseWebServiceEntity) {
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
             errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
+        } else {
+            messageErrorList.add(0, "El correo electrónico se envio correctamente");
+            messageDebugList.add(0, "Siga las instrucciones para actualizar su contraseña");
+            messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+            responseWebServiceEntity.setListaMensajes(messagesList);
 
-            // Oculta el layout de Cargando
-            layoutLoading.setVisibility(View.GONE);
-
-            // Muestra las opciones del Fragment
-            layoutOptions.setVisibility(View.VISIBLE);
-
-            // Selecciona el EditText necesario
-            autoFocus();
-        } else if (responseWebServiceEntity.getEmpleado() != null) {
-            // Almacena las credenciales de usuario en el dispositivo
-            AppPreferencesManager appPreferencesManager = new AppPreferencesManager(getContext());
-            appPreferencesManager.saveCredentials(credencialesEntity);
-            appPreferencesManager.saveUserData(responseWebServiceEntity.getEmpleado());
-
-            // Redirige al Fragment de bienvenida
-            ((MainActivity) getActivity()).manageFragment(R.id.nav_welcome, null);
+            // Muestra los errores en pantalla
+            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         }
-    }
 
-    @Override
-    public void onClick(View view) {
-        ((MainActivity) getActivity()).manageFragment(view.getId(),null);
+        // Oculta el layout de Cargando
+        layoutLoading.setVisibility(View.GONE);
+
+        // Muestra las opciones del Fragment
+        layoutOptions.setVisibility(View.VISIBLE);
     }
 }

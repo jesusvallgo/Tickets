@@ -31,6 +31,7 @@ import mx.gob.cenapred.tickets.fragment.LoadingFragment;
 import mx.gob.cenapred.tickets.fragment.LoginFragment;
 import mx.gob.cenapred.tickets.fragment.LogoutFragment;
 import mx.gob.cenapred.tickets.fragment.MyTicketPendingFragment;
+import mx.gob.cenapred.tickets.fragment.RecoverPasswordFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDelegateFragment;
 import mx.gob.cenapred.tickets.fragment.ReportDetailFragment;
 import mx.gob.cenapred.tickets.fragment.ReportViewHistoryFragment;
@@ -39,6 +40,7 @@ import mx.gob.cenapred.tickets.fragment.ReportAddHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.RequestPendingFragment;
 import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
 import mx.gob.cenapred.tickets.fragment.SearchTicketNumberFragment;
+import mx.gob.cenapred.tickets.fragment.RegisterFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -366,6 +368,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.welcome_btn_search_ticket_number:
                 fragmentName = "Buscar";
                 mainCurrentFragment = new SearchTicketNumberFragment();
+                addToBackStack = true;
+                break;
+            case R.id.login_txv_register:
+                fragmentName = "Registro";
+                mainCurrentFragment = new RegisterFragment();
+                addToBackStack = true;
+                break;
+            case R.id.login_txv_recoverPassword:
+                fragmentName = "Recuperar contraseña";
+                mainCurrentFragment = new RecoverPasswordFragment();
                 addToBackStack = true;
                 break;
             default:
