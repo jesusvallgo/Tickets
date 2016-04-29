@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
+import mx.gob.cenapred.tickets.preference.AppPreference;
 
 public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
     Context myContext;
@@ -28,6 +29,7 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         MensajeEntityHolder holder = null;
+        Integer icon;
 
         if (row == null) {
             LayoutInflater inflater = ((Activity)myContext).getLayoutInflater();
@@ -42,10 +44,21 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
             holder = (MensajeEntityHolder)row.getTag();
         }
 
-        MensajeEntity mensajeEntitie = myData[position];
-        holder.message_type.setImageResource(R.mipmap.ic_error);
-        holder.message_title.setText(mensajeEntitie.getMensajeTitulo());
-        holder.message_description.setText(mensajeEntitie.getMensajeDescripcion());
+        MensajeEntity mensajeEntity = myData[position];
+        switch (mensajeEntity.getMensajeTipo()){
+            case AppPreference.MESSAGE_ERROR:
+                icon = R.mipmap.ic_error;
+                break;
+            case AppPreference.MESSAGE_SUCCESS:
+                icon = R.mipmap.ic_success;
+                break;
+            default:
+                icon = R.mipmap.ic_error;
+                break;
+        }
+        holder.message_type.setImageResource(icon);
+        holder.message_title.setText(mensajeEntity.getMensajeTitulo());
+        holder.message_description.setText(mensajeEntity.getMensajeDescripcion());
 
         return row;
     }
