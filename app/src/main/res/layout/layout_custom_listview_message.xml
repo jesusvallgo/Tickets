@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+    android:padding="@dimen/message_padding_container"
+    android:weightSum="15">
+
+    <ImageView
+        android:id="@+id/message_image"
+        style="@style/message_imageview_icon"
+        android:layout_weight="2" />
+    <LinearLayout
+        style="@style/message_layout_container"
+        android:layout_weight="13">
+        <TextView
+            android:id="@+id/message_title"
+            style="@style/message_textview_title" />
+        <TextView
+            android:id="@+id/message_description"
+            style="@style/message_textview_description" />
+    </LinearLayout>
+</LinearLayout>

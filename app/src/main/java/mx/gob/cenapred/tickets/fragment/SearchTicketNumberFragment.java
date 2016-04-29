@@ -18,7 +18,7 @@ import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 
@@ -34,7 +34,7 @@ public class SearchTicketNumberFragment extends Fragment {
     private View rootView;
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
@@ -44,8 +44,9 @@ public class SearchTicketNumberFragment extends Fragment {
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Mapea los elementos del Fragment
     private EditText searchTicketNumberEdtNumber;
@@ -112,8 +113,9 @@ public class SearchTicketNumberFragment extends Fragment {
         idReport = searchTicketNumberEdtNumber.getText().toString().trim();
 
         // Limpia las listas de error
-        messageErrorList.clear();
-        messageDebugList.clear();
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
 
         try {
             if (idReport.length() == 9) {
@@ -125,23 +127,26 @@ public class SearchTicketNumberFragment extends Fragment {
             }
         } catch (NoInputDataException nidEx) {
             // Agrega el error a mostrar
-            messageErrorList.add("Datos no válidos");
-            messageDebugList.add(nidEx.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Datos no válidos");
+            messageDescriptionList.add(nidEx.getMessage());
         } catch (NumberFormatException nfEx) {
             // Agrega el error a mostrar
-            messageErrorList.add("Datos no válidos");
-            messageDebugList.add("El Número de folio especificado no puede ser leido correctamente");
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Datos no válidos");
+            messageDescriptionList.add("El Número de folio especificado no puede ser leido correctamente");
         } catch (Exception ex) {
             // Agrega el error a mostrar
-            messageErrorList.add("Error desconocido");
-            messageDebugList.add(ex.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Error desconocido");
+            messageDescriptionList.add(ex.getMessage());
         } finally {
-            if (messageErrorList.size() > 0) {
+            if (messageTitleList.size() > 0) {
                 // Crea la lista de errores
-                messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
 
                 // Despliega los errores encontrados
-                errorManager.displayError(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_DEFAULT);
+                messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_DEFAULT);
             }
         }
     }

@@ -20,7 +20,7 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.CuentaWebService;
@@ -44,11 +44,12 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
+    private List<String> messageTypeList = new ArrayList<String>();
     private List<String> messageErrorList = new ArrayList<String>();
     private List<String> messageDebugList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Instancia para obener el Fragment que se debe pasar a la interfaz
     private RegisterFragment registerFragment = this;
@@ -141,16 +142,18 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
             cuentaWebService.execute(peticionWSEntity);
         } catch (Exception ex) {
             // Limpia las listas de error
+            messageTypeList.clear();
             messageErrorList.clear();
             messageDebugList.clear();
 
             // Agrega el error a mostrar
+            messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
             messageErrorList.add(0, getString(R.string.general_error_ws_request_fail));
             messageDebugList.add(0, ex.getMessage());
         } finally {
             if (messageErrorList.size() > 0) {
                 // Si existen errores genera la estructura adecuada
-                messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
                 ResponseWebServiceEntity responseWebServiceEntity = new ResponseWebServiceEntity();
                 responseWebServiceEntity.setListaMensajes(messagesList);
 
@@ -164,15 +167,16 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
     public void onCommunicationFinish(ResponseWebServiceEntity responseWebServiceEntity) {
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
         } else {
+            messageTypeList.add(0, AppPreference.MESSAGE_SUCCESS);
             messageErrorList.add(0, "El correo electrónico se envio correctamente");
             messageDebugList.add(0, "Siga las instrucciones para generar su cuenta de usuario");
-            messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
             responseWebServiceEntity.setListaMensajes(messagesList);
 
             // Muestra los errores en pantalla
-            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         }
 
         // Oculta el layout de Cargando

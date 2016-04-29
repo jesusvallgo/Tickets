@@ -4,23 +4,32 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MensajeEntity implements Parcelable{
-    private String mensajeError;
-    private String mensajeDebug;
+    private String mensajeTipo;
+    private String mensajeTitulo;
+    private String mensajeDescripcion;
 
-    public String getMensajeError(){
-        return this.mensajeError;
+    public String getMensajeTipo() {
+        return mensajeTipo;
     }
 
-    public String getMensajeDebug() {
-        return this.mensajeDebug;
+    public void setMensajeTipo(String mensajeTipo) {
+        this.mensajeTipo = mensajeTipo;
     }
 
-    public void setMensajeError(String mensajeError) {
-        this.mensajeError = mensajeError;
+    public String getMensajeTitulo() {
+        return mensajeTitulo;
     }
 
-    public void setMensajeDebug(String mensajeDebug) {
-        this.mensajeDebug = mensajeDebug;
+    public void setMensajeTitulo(String mensajeTitulo) {
+        this.mensajeTitulo = mensajeTitulo;
+    }
+
+    public String getMensajeDescripcion() {
+        return mensajeDescripcion;
+    }
+
+    public void setMensajeDescripcion(String mensajeDescripcion) {
+        this.mensajeDescripcion = mensajeDescripcion;
     }
 
     @Override
@@ -30,16 +39,16 @@ public class MensajeEntity implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mensajeError);
-        dest.writeString(mensajeDebug);
+        dest.writeString(mensajeTitulo);
+        dest.writeString(mensajeDescripcion);
     }
 
     public static final Parcelable.Creator<MensajeEntity> CREATOR = new Creator<MensajeEntity>() {
         @Override
         public MensajeEntity createFromParcel(Parcel source) {
             MensajeEntity mMensajeEntity = new MensajeEntity();
-            mMensajeEntity.mensajeError = source.readString();
-            mMensajeEntity.mensajeDebug = source.readString();
+            mMensajeEntity.mensajeTitulo = source.readString();
+            mMensajeEntity.mensajeDescripcion = source.readString();
             return mMensajeEntity;
         }
 

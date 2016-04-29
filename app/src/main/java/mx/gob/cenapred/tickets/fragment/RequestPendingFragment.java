@@ -24,7 +24,7 @@ import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.ListadoWebService;
 
@@ -48,11 +48,12 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
@@ -132,16 +133,18 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
                 listadoWebService.execute(peticionWSEntity);
             } catch (Exception ex) {
                 // Limpia las listas de error
-                messageErrorList.clear();
-                messageDebugList.clear();
+                messageTypeList.clear();
+                messageTitleList.clear();
+                messageDescriptionList.clear();
 
                 // Agrega el error a mostrar
-                messageErrorList.add("Error al realizar la petición al Web Service");
-                messageDebugList.add(ex.getMessage());
+                messageTypeList.add(AppPreference.MESSAGE_ERROR);
+                messageTitleList.add("Error al realizar la petición al Web Service");
+                messageDescriptionList.add(ex.getMessage());
             } finally {
-                if (messageErrorList.size() > 0) {
+                if (messageTitleList.size() > 0) {
                     // Si existen errores genera la estructura adecuada
-                    messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                    messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                     responseWebServiceEntity = new ResponseWebServiceEntity();
                     responseWebServiceEntity.setListaMensajes(messagesList);
 
@@ -162,7 +165,7 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
 
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         } else if (responseWebServiceEntity.getListaReporte() != null && responseWebServiceEntity.getListaReporte().size() > 0) {
             listaReporteCache = responseWebServiceEntity.getListaReporte();
             // Convierte la lista en un arreglo
@@ -176,15 +179,17 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
             requestPendingLsvItem.setAdapter(reporteItemAdapter);
         } else {
             // Limpia las listas de error
-            messageErrorList.clear();
-            messageDebugList.clear();
+            messageTypeList.clear();
+            messageTitleList.clear();
+            messageDescriptionList.clear();
 
             // Agrega el error a mostrar
-            messageErrorList.add("Notificación");
-            messageDebugList.add("No existen reportes pendientes por atender");
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Notificación");
+            messageDescriptionList.add("No existen reportes pendientes por atender");
 
             // Si existen errores genera la estructura adecuada
-            messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
             responseWebServiceEntity = new ResponseWebServiceEntity();
             responseWebServiceEntity.setListaMensajes(messagesList);
 

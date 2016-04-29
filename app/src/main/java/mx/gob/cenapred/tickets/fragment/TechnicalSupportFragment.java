@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,7 +23,7 @@ import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
@@ -49,11 +48,12 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
@@ -191,16 +191,18 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
                 reporteWebService.execute(peticionWSEntity);
             } catch (Exception ex) {
                 // Limpia las listas de error
-                messageErrorList.clear();
-                messageDebugList.clear();
+                messageTypeList.clear();
+                messageTitleList.clear();
+                messageDescriptionList.clear();
 
                 // Agrega el error a mostrar
-                messageErrorList.add(getString(R.string.general_error_ws_request_fail));
-                messageDebugList.add(ex.getMessage());
+                messageTypeList.add(AppPreference.MESSAGE_ERROR);
+                messageTitleList.add(getString(R.string.general_error_ws_request_fail));
+                messageDescriptionList.add(ex.getMessage());
             } finally {
-                if (messageErrorList.size() > 0) {
+                if (messageTypeList.size() > 0) {
                     // Si existen errores genera la estructura adecuada
-                    messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                    messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                     ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
                     respuesta.setListaMensajes(messagesList);
 
@@ -216,7 +218,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
     public void onCommunicationFinish(ResponseWebServiceEntity responseWebServiceEntity) {
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
 
             // Oculta el layout de Cargando
             layoutLoading.setVisibility(View.GONE);

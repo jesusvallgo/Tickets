@@ -19,7 +19,7 @@ import mx.gob.cenapred.tickets.preference.AppPreference;
 /**
  * Created by CENAPRED on 24/02/2016.
  */
-public class ErrorManager {
+public class MessagesManager {
     public MensajeEntity[] createMensajesArray(List<String> mensajeErrorList, List<String> mensajeDebugList) {
         Integer numMensajes = mensajeErrorList.size();
         MensajeEntity[] mensajes = new MensajeEntity[numMensajes];
@@ -27,30 +27,31 @@ public class ErrorManager {
         MensajeEntity mensajeEntity;
         for (Integer i = 0; i < numMensajes; i++) {
             mensajeEntity = new MensajeEntity();
-            mensajeEntity.setMensajeError(mensajeErrorList.get(i));
-            mensajeEntity.setMensajeDebug(mensajeDebugList.get(i));
+            mensajeEntity.setMensajeTitulo(mensajeErrorList.get(i));
+            mensajeEntity.setMensajeDescripcion(mensajeDebugList.get(i));
             mensajes[i] = mensajeEntity;
         }
 
         return mensajes;
     }
 
-    public List<MensajeEntity> createMensajesList(List<String> mensajeErrorList, List<String> mensajeDebugList) {
-        Integer numMensajes = mensajeErrorList.size();
+    public List<MensajeEntity> createMensajesList(List<String> mensajeTypeList, List<String> mensajeTitleList, List<String> mensajeDescriptionList) {
+        Integer numMensajes = mensajeTitleList.size();
         List<MensajeEntity> mensajes = new ArrayList<MensajeEntity>();
 
         MensajeEntity mensajeEntity;
         for (Integer i = 0; i < numMensajes; i++) {
             mensajeEntity = new MensajeEntity();
-            mensajeEntity.setMensajeError(mensajeErrorList.get(i));
-            mensajeEntity.setMensajeDebug(mensajeDebugList.get(i));
+            mensajeEntity.setMensajeTipo(mensajeTypeList.get(i));
+            mensajeEntity.setMensajeTitulo(mensajeTitleList.get(i));
+            mensajeEntity.setMensajeDescripcion(mensajeDescriptionList.get(i));
             mensajes.add(mensajeEntity);
         }
 
         return mensajes;
     }
 
-    public void displayError(final Activity activity, Context context, List<MensajeEntity> mensajesList, final String accion){
+    public void displayMessage(final Activity activity, Context context, List<MensajeEntity> mensajesList, final String accion){
         // Determina si existen mensajes para desplegar
         MensajeEntity[] mensajes;
         if(mensajesList.size()>0){
@@ -60,16 +61,17 @@ public class ErrorManager {
             mensajesList.toArray(mensajes);
         } else {
             mensajes = new MensajeEntity[1];
-            mensajes[0].setMensajeError("Desconocido");
-            mensajes[0].setMensajeDebug("Se desconoce el origen de la llamada");
+            mensajes[0].setMensajeTipo(AppPreference.MESSAGE_ERROR);
+            mensajes[0].setMensajeTitulo("Desconocido");
+            mensajes[0].setMensajeDescripcion("Se desconoce el origen de la llamada");
         }
 
         // Genera el adaptador
-        MensajeEntityAdapter adapter = new MensajeEntityAdapter(activity, R.layout.layout_custom_listview_error, mensajes);
+        MensajeEntityAdapter adapter = new MensajeEntityAdapter(activity, R.layout.layout_custom_listview_message, mensajes);
 
         // Crea el cuerpo del cuadro de dialogo
         LayoutInflater inflater = LayoutInflater.from(context);
-        View customBody = inflater.inflate(R.layout.layout_custom_alertdialog_error, null);
+        View customBody = inflater.inflate(R.layout.layout_custom_alertdialog_message, null);
 
         // Crea el constructor del cuadro de dialogo
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

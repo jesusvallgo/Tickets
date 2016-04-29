@@ -44,8 +44,8 @@
     <dimen name="general_edittext_padding">15dp</dimen>
 
     <!-- Dimensiones para mostrar errores -->
-    <dimen name="error_title_font_size">@dimen/general_main_font_size</dimen>
-    <dimen name="error_description_font_size">@dimen/general_description_font_size</dimen>
-    <dimen name="error_padding_container">@dimen/general_padding_size</dimen>
-    <dimen name="error_padding_item">5dp</dimen>
+    <dimen name="message_title_font_size">@dimen/general_main_font_size</dimen>
+    <dimen name="message_description_font_size">@dimen/general_description_font_size</dimen>
+    <dimen name="message_padding_container">@dimen/general_padding_size</dimen>
+    <dimen name="message_padding_item">5dp</dimen>
 </resources>

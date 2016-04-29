@@ -4,7 +4,7 @@
     <ListView
         android:id="@+id/list_custom_error"
         style="@style/general_match_wrap"
-        android:paddingBottom="@dimen/error_padding_item"
-        android:paddingTop="@dimen/error_padding_item" />
+        android:paddingBottom="@dimen/message_padding_item"
+        android:paddingTop="@dimen/message_padding_item" />
 
 </LinearLayout>

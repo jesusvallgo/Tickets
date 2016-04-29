@@ -202,29 +202,28 @@
         <item name="android:layout_weight">8.5</item>
     </style>
 
-    <!-- Elementos para mostrar errores -->
-    <style name="error_imageview_icon">
+    <!-- Elementos para mostrar mensajes -->
+    <style name="message_imageview_icon">
         <item name="android:description">@string/error_imv_description</item>
         <item name="android:layout_width">@dimen/general_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:src">@mipmap/ic_error</item>
     </style>
-    <style name="error_layout_container">
+    <style name="message_layout_container">
         <item name="android:layout_width">@dimen/general_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
         <item name="android:paddingLeft">15dp</item>
     </style>
-    <style name="error_textview_title" parent="general_item_large">
+    <style name="message_textview_title" parent="general_item_large">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">@dimen/error_title_font_size</item>
+        <item name="android:textSize">@dimen/message_title_font_size</item>
     </style>
 
-    <style name="error_textview_description" parent="general_item_large">
+    <style name="message_textview_description" parent="general_item_large">
         <item name="android:textColor">@color/general_textview_description_text</item>
-        <item name="android:textSize">@dimen/error_description_font_size</item>
+        <item name="android:textSize">@dimen/message_description_font_size</item>
     </style>
 
     <!-- Elementos para el Fragment de Loading -->

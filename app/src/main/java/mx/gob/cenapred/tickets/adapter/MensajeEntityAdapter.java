@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import mx.gob.cenapred.tickets.R;
@@ -33,22 +34,25 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
             row = inflater.inflate(myLayoutResourceID,parent,false);
 
             holder = new MensajeEntityHolder();
-            holder.error_title = (TextView)row.findViewById(R.id.error_title);
-            holder.error_description = (TextView)row.findViewById(R.id.error_description);
+            holder.message_type = (ImageView)row.findViewById(R.id.message_image);
+            holder.message_title = (TextView)row.findViewById(R.id.message_title);
+            holder.message_description = (TextView)row.findViewById(R.id.message_description);
             row.setTag(holder);
         } else {
             holder = (MensajeEntityHolder)row.getTag();
         }
 
         MensajeEntity mensajeEntitie = myData[position];
-        holder.error_title.setText(mensajeEntitie.getMensajeError());
-        holder.error_description.setText(mensajeEntitie.getMensajeDebug());
+        holder.message_type.setImageResource(R.mipmap.ic_error);
+        holder.message_title.setText(mensajeEntitie.getMensajeTitulo());
+        holder.message_description.setText(mensajeEntitie.getMensajeDescripcion());
 
         return row;
     }
 
     static class MensajeEntityHolder{
-        TextView error_title;
-        TextView error_description;
+        ImageView message_type;
+        TextView message_title;
+        TextView message_description;
     }
 }

@@ -3,7 +3,6 @@ package mx.gob.cenapred.tickets.webservice;
 import android.os.AsyncTask;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,19 +23,20 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
-import mx.gob.cenapred.tickets.util.Crypto;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
+import mx.gob.cenapred.tickets.preference.AppPreference;
 
 public class CuentaWebService extends AsyncTask<PeticionWSEntity, Void, ResponseWebServiceEntity> {
     public WebServiceListener webServiceListener = null;
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> mensajes = new ArrayList<MensajeEntity>();
-    private List<String> mensajeErrorList = new ArrayList<String>();
-    private List<String> mensajeDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     @Override
     protected ResponseWebServiceEntity doInBackground(PeticionWSEntity... peticion) {
@@ -83,15 +83,17 @@ public class CuentaWebService extends AsyncTask<PeticionWSEntity, Void, Response
             return responseEntity.getBody();
         } catch (JsonProcessingException jsonEx) {
             // Agrega el error a mostrar
-            mensajeErrorList.add(0, "Error al construir la petición JSON");
-            mensajeDebugList.add(0, jsonEx.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(0, "Error al construir la petición JSON");
+            messageDescriptionList.add(0, jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
-            mensajeErrorList.add(0, "Error al consultar el Web Service");
-            mensajeDebugList.add(0, ex.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(0, "Error al consultar el Web Service");
+            messageDescriptionList.add(0, ex.getMessage());
         } finally {
-            if (mensajeErrorList.size() > 0) {
-                mensajes = errorManager.createMensajesList(mensajeErrorList, mensajeDebugList);
+            if (messageTitleList.size() > 0) {
+                mensajes = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                 responseWebServiceError.setListaMensajes(mensajes);
             }
         }

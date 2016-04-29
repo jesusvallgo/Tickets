@@ -44,7 +44,7 @@ import mx.gob.cenapred.tickets.fragment.RegisterFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MenuManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
@@ -95,14 +95,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Contenedor de datos del Bundle
     private BundleEntity bundleEntity = new BundleEntity();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
@@ -180,18 +181,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startIntent = false;
                 } catch (Exception e) {
                     // Limpia las listas de error
-                    messageErrorList.clear();
-                    messageDebugList.clear();
+                    messageTypeList.clear();
+                    messageTitleList.clear();
+                    messageDescriptionList.clear();
 
                     // Agrega el error a mostrar
-                    messageErrorList.add(0, "Error crítico");
-                    messageDebugList.add(0, e.getMessage());
+                    messageTypeList.add(AppPreference.MESSAGE_ERROR);
+                    messageTitleList.add(0, "Error crítico");
+                    messageDescriptionList.add(0, e.getMessage());
 
                     // Crea la lista de errores
-                    messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                    messagesList = messagesManager.createMensajesList(messageTitleList,messageTitleList, messageDescriptionList);
 
                     // Despliega los errores encontrados
-                    errorManager.displayError(mainActivity, mainContext, messagesList, AppPreference.ALERT_ACTION_FINISH);
+                    messagesManager.displayMessage(mainActivity, mainContext, messagesList, AppPreference.ALERT_ACTION_FINISH);
                 }
             }
         };
@@ -227,19 +230,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     throw new Exception("El dispositivo no soporta Google Play Services.");
                 }
             } catch (Exception ex) {
-                // Limpia las listas de error
-                messageErrorList.clear();
-                messageDebugList.clear();
+                // Limpia las listas de mensajes
+                messageTypeList.clear();
+                messageTitleList.clear();
+                messageDescriptionList.clear();
 
                 // Agrega el error a mostrar
-                messageErrorList.add(0, "Error crítico");
-                messageDebugList.add(0, ex.getMessage());
+                messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
+                messageTitleList.add(0, "Error crítico");
+                messageDescriptionList.add(0, ex.getMessage());
 
                 // Crea la lista de errores
-                messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                messagesList = messagesManager.createMensajesList(messageTypeList,messageTitleList, messageDescriptionList);
 
                 // Despliega los errores encontrados
-                errorManager.displayError(mainActivity, mainContext, messagesList, AppPreference.ALERT_ACTION_FINISH);
+                messagesManager.displayMessage(mainActivity, mainContext, messagesList, AppPreference.ALERT_ACTION_FINISH);
             }
         }
 

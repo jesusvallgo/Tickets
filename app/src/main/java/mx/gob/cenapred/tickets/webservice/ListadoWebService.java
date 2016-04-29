@@ -25,7 +25,8 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
+import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.util.Crypto;
 
 public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, ResponseWebServiceEntity> {
@@ -33,11 +34,12 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> mensajes = new ArrayList<MensajeEntity>();
-    private List<String> mensajeErrorList = new ArrayList<String>();
-    private List<String> mensajeDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     @Override
     protected ResponseWebServiceEntity doInBackground(PeticionWSEntity... peticion) {
@@ -98,15 +100,17 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             return responseEntity.getBody();
         } catch (JsonProcessingException jsonEx) {
             // Agrega el error a mostrar
-            mensajeErrorList.add(0, "Error al construir la petición JSON");
-            mensajeDebugList.add(0, jsonEx.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Error al construir la petición JSON");
+            messageDescriptionList.add(jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
-            mensajeErrorList.add(0, "Error al consultar el Web Service");
-            mensajeDebugList.add(0, ex.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add("Error al consultar el Web Service");
+            messageDescriptionList.add(ex.getMessage());
         } finally {
-            if (mensajeErrorList.size() > 0) {
-                mensajes = errorManager.createMensajesList(mensajeErrorList, mensajeDebugList);
+            if (messageTitleList.size() > 0) {
+                mensajes = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                 responseWebServiceError.setListaMensajes(mensajes);
             }
         }

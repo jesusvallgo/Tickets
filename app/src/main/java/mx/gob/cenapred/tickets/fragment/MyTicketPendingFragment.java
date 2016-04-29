@@ -23,7 +23,7 @@ import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.ErrorManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.ListadoWebService;
 
@@ -47,11 +47,12 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
+    private List<String> messageTypeList = new ArrayList<String>();
     private List<String> messageErrorList = new ArrayList<String>();
     private List<String> messageDebugList = new ArrayList<String>();
 
     // Manejador de los errores
-    private ErrorManager errorManager = new ErrorManager();
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
@@ -131,16 +132,18 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
                 listadoWebService.execute(peticionWSEntity);
             } catch (Exception ex) {
                 // Limpia las listas de error
+                messageTypeList.clear();
                 messageErrorList.clear();
                 messageDebugList.clear();
 
                 // Agrega el error a mostrar
+                messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
                 messageErrorList.add("Error al realizar la petición al Web Service");
                 messageDebugList.add(ex.getMessage());
             } finally {
                 if (messageErrorList.size() > 0) {
                     // Si existen errores genera la estructura adecuada
-                    messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+                    messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
                     responseWebServiceEntity = new ResponseWebServiceEntity();
                     responseWebServiceEntity.setListaMensajes(messagesList);
 
@@ -161,7 +164,7 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
 
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            errorManager.displayError(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         } else if (responseWebServiceEntity.getListaReporte() != null && responseWebServiceEntity.getListaReporte().size() > 0) {
             listaReporteCache = responseWebServiceEntity.getListaReporte();
             // Convierte la lista en un arreglo
@@ -175,15 +178,17 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             myTicketPendingLsvItem.setAdapter(reporteItemAdapter);
         } else {
             // Limpia las listas de error
+            messageTypeList.clear();
             messageErrorList.clear();
             messageDebugList.clear();
 
             // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_SUCCESS);
             messageErrorList.add("Notificación");
             messageDebugList.add("No existen reportes pendientes por atender");
 
             // Si existen errores genera la estructura adecuada
-            messagesList = errorManager.createMensajesList(messageErrorList, messageDebugList);
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
             responseWebServiceEntity = new ResponseWebServiceEntity();
             responseWebServiceEntity.setListaMensajes(messagesList);
 
