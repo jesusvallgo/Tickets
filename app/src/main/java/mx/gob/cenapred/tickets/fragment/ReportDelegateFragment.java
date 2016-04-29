@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
@@ -24,6 +25,7 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.BadInputDataException;
 import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -172,17 +174,17 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                         reporteWebService.webServiceListener = reportDelegateFragment;
                         reporteWebService.execute(peticionWSEntity);
                     } else{
-                        throw new NoInputDataException(getString(R.string.general_message_description_no_atention_area));
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_ATENTION_AREA);
                     }
-                } catch (NoInputDataException nidEx) {
+                } catch (BadInputDataException bidEx) {
                     // Agrega el error a mostrar
-                    messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
-                    messageDescriptionList.add(nidEx.getMessage());
+                    messageTypeList.add(AppPreference.MESSAGE_WARNING);
+                    messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+                    messageDescriptionList.add(bidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
+                    messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
                     messageDescriptionList.add(ex.getMessage());
                 } finally {
                     if (messageTitleList.size() > 0) {

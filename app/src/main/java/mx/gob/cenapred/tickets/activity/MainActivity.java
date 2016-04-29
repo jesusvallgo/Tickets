@@ -446,7 +446,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Obtiene el nombre del Fragment por default
             appBarName = getString(R.string.app_name);
 
-
             // Habilita los gestos del menu
             mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 

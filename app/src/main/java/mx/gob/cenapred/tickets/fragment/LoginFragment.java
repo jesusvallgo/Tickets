@@ -17,16 +17,19 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.entity.TokenGCMEntity;
+import mx.gob.cenapred.tickets.exception.BadInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.SesionWebService;
 
 public class LoginFragment extends Fragment implements WebServiceListener, View.OnClickListener {
@@ -34,6 +37,9 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
 
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
 
     // **************************** Variables ****************************
 
@@ -52,8 +58,8 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
     private List<String> messageTypeList = new ArrayList<>();
-    private List<String> messageErrorList = new ArrayList<>();
-    private List<String> messageDebugList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -72,6 +78,9 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     private EditText loginEdtUsername, loginEdtPassword;
     private TextView loginTxvRegister, loginTxvRecoverPassword;
     private Button loginBtnSend;
+
+    // Variables del fragment
+    private String username = "", password = "";
 
     // Constructor por default
     public LoginFragment() {
@@ -149,9 +158,24 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     }
 
     private void tryLogin() {
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
+
         try {
             // Oculta el teclado
             keyboardManager.hideSoftKeyboard(getActivity());
+
+            // Recupera el valor limpio del campo E-mail
+            username = loginEdtUsername.getText().toString().trim();
+            password = loginEdtPassword.getText().toString();
+
+            // Valida si el contenido del edittext es un usuario valido
+            validaCadenaUtil.validarUsuario(username);
+
+            // Valida si el contenido del edittext es un password valido
+            validaCadenaUtil.validarPassword(password);
 
             // Oculta las opciones del Fragment
             layoutOptions.setVisibility(View.GONE);
@@ -160,8 +184,8 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             layoutLoading.setVisibility(View.VISIBLE);
 
             // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(loginEdtUsername.getText().toString().trim());
-            credencialesEntity.setPassword(loginEdtPassword.getText().toString());
+            credencialesEntity.setUsername(username);
+            credencialesEntity.setPassword(password);
 
             // Construye la peticion
             peticionWSEntity.setMetodo("put");
@@ -173,20 +197,19 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             SesionWebService sesionWebService = new SesionWebService();
             sesionWebService.webServiceListener = loginFragment;
             sesionWebService.execute(peticionWSEntity);
+        } catch (BadInputDataException bidEx) {
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+            messageDescriptionList.add(bidEx.getMessage());
         } catch (Exception ex) {
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageErrorList.clear();
-            messageDebugList.clear();
-
             // Agrega el error a mostrar
-            messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
-            messageErrorList.add(0, getString(R.string.general_message_title_ws_request_fail));
-            messageDebugList.add(0, ex.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
+            messageDescriptionList.add(ex.getMessage());
         } finally {
-            if (messageErrorList.size() > 0) {
+            if (messageTitleList.size() > 0) {
                 // Si existen errores genera la estructura adecuada
-                messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
+                messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                 ResponseWebServiceEntity responseWebServiceEntity = new ResponseWebServiceEntity();
                 responseWebServiceEntity.setListaMensajes(messagesList);
 

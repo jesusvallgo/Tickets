@@ -53,17 +53,14 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
             final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
             //final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
 
-            // Instancia para recuperar las constantes
-            MainConstant mainConstant = new MainConstant();
-
             // Instancia para cifrar cadenas
             Crypto crypto = new Crypto();
 
             // Cifra la cadena JSON que sera enviada a traves de la URL
-            String apiKey = crypto.encryptMessage(jsonCredenciales, mainConstant.getPasswordCrypto());
+            String apiKey = crypto.encryptMessage(jsonCredenciales, MainConstant.PASSWORD_CRYPTO);
 
             // Construye la URL del Web Service a consultar
-            String urlWs = mainConstant.getUrlWS() + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&action=" + peticion[0].getAccion();
+            String urlWs = MainConstant.URL_WS + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&action=" + peticion[0].getAccion();
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -88,7 +85,7 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.PUT, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 default:
-                    throw new Exception("No se ha especificado un método válido.");
+                    throw new Exception(MainConstant.MESSAGE_DESCRIPTION_WS_NO_VALID_METHOD);
             }
 
             // Regresa el contenido de la respuesta del Web Service
@@ -96,12 +93,12 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
         } catch (JsonProcessingException jsonEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al construir la petición JSON");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BUIL_JSON_FAIL);
             messageDescriptionList.add(jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al consultar el Web Service");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_COMMUNICATION_FAIL);
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {

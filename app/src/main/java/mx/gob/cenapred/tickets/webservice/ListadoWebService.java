@@ -55,17 +55,14 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             //final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
             //System.out.println(jsonPet);
 
-            // Instancia para recuperar las constantes
-            MainConstant mainConstant = new MainConstant();
-
             // Instancia para cifrar cadenas
             Crypto crypto = new Crypto();
 
             // Cifra la cadena JSON que sera enviada a traves de la URL
-            String apiKey = crypto.encryptMessage(jsonCredenciales, mainConstant.getPasswordCrypto());
+            String apiKey = crypto.encryptMessage(jsonCredenciales, MainConstant.PASSWORD_CRYPTO);
 
             // Construye la URL del Web Service a consultar
-            String urlWs = mainConstant.getUrlWS() + "listado?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&type=" + peticion[0].getTipo();
+            String urlWs = MainConstant.URL_WS + "listado?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&type=" + peticion[0].getTipo();
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();

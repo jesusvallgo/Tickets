@@ -14,6 +14,7 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
@@ -197,7 +198,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
 
                 // Agrega el error a mostrar
                 messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
+                messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
                 messageDescriptionList.add(ex.getMessage());
             } finally {
                 if (messageTypeList.size() > 0) {

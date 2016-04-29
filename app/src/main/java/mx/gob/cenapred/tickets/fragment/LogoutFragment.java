@@ -11,6 +11,7 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
@@ -41,8 +42,8 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
     private List<String> messageTypeList = new ArrayList<>();
-    private List<String> messageErrorList = new ArrayList<>();
-    private List<String> messageDebugList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -80,6 +81,11 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
+
         try {
             // Construye los campos necesarios de la Entidad Credenciales
             credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
@@ -99,18 +105,14 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
             sesionWebService.webServiceListener = logoutFragment;
             sesionWebService.execute(peticionWSEntity);
         } catch (Exception ex) {
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageErrorList.clear();
-            messageDebugList.clear();
-
             // Agrega el error a mostrar
-            messageErrorList.add(0, getString(R.string.general_message_title_ws_request_fail));
-            messageDebugList.add(0, ex.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
+            messageDescriptionList.add(0, ex.getMessage());
         } finally {
-            if (messageErrorList.size() > 0) {
+            if (messageTitleList.size() > 0) {
                 // Si existen errores genera la estructura adecuada
-                messagesList = messagesManager.createMensajesList(messageTypeList,messageErrorList, messageDebugList);
+                messagesList = messagesManager.createMensajesList(messageTypeList,messageTitleList, messageDescriptionList);
                 ResponseWebServiceEntity responseWebServiceEntity = new ResponseWebServiceEntity();
                 responseWebServiceEntity.setListaMensajes(messagesList);
 

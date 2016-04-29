@@ -29,6 +29,7 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.BadInputDataException;
 import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -42,7 +43,6 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
-    private final MainConstant mainConstant = new MainConstant();
 
     // **************************** Variables ****************************
 
@@ -123,7 +123,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         keyboardManager.configureUI(rootView, getActivity());
 
         // Obtiene el tamaño maximo de la descripcion
-        descriptionMaxLenght = mainConstant.getDescriptionNewReportMaxLenght();
+        descriptionMaxLenght = MainConstant.DESCRIPTION_MAX_LENGHT;
 
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
@@ -200,13 +200,13 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     EstatusEntity estatusEntity = (EstatusEntity) reportAddHistorySpnEstatus.getSelectedItem();
 
                     if (estatusEntity.getIdEstatus() == 0) {
-                        throw new NoInputDataException(getString(R.string.general_message_description_no_estatus));
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_STATUS);
                     }
 
                     // Obtiene la descripcion
                     String description = reportAddHistoryEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
-                        throw new NoInputDataException(getString(R.string.general_message_description_no_description));
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_DESCRIPTION);
                     }
 
                     // Genera la lista de acciones (solo un elemento)
@@ -230,15 +230,15 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     ReporteWebService reporteWebService = new ReporteWebService();
                     reporteWebService.webServiceListener = reportAddHistoryFragment;
                     reporteWebService.execute(peticionWSEntity);
-                } catch (NoInputDataException nidEx) {
+                } catch (BadInputDataException bidEx) {
                     // Agrega el error a mostrar
-                    messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
-                    messageDescriptionList.add(nidEx.getMessage());
+                    messageTypeList.add(AppPreference.MESSAGE_WARNING);
+                    messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+                    messageDescriptionList.add(bidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
+                    messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
                     messageDescriptionList.add(ex.getMessage());
                 } finally {
                     if (messageTitleList.size() > 0) {

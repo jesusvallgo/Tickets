@@ -55,17 +55,14 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             //final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
             //System.out.println(jsonPet);
 
-            // Instancia para recuperar las constantes
-            MainConstant mainConstant = new MainConstant();
-
             // Instancia para cifrar cadenas
             Crypto crypto = new Crypto();
 
             // Cifra la cadena JSON que sera enviada a traves de la URL
-            String apiKey = crypto.encryptMessage(jsonCredenciales, mainConstant.getPasswordCrypto());
+            String apiKey = crypto.encryptMessage(jsonCredenciales, MainConstant.PASSWORD_CRYPTO);
 
             // Construye la URL del Web Service a consultar
-            String urlWs = mainConstant.getUrlWS() + "reporte?apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlWs = MainConstant.URL_WS + "reporte?apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();

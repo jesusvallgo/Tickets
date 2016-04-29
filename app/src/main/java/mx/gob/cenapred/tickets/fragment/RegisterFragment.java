@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
@@ -27,7 +28,7 @@ import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.CuentaWebService;
 
-public class RegisterFragment extends Fragment implements WebServiceListener{
+public class RegisterFragment extends Fragment implements WebServiceListener {
     // **************************** Constantes ****************************
 
     // Instancia a la clase auxiliar para ocultar el teclado
@@ -135,7 +136,7 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
             // Oculta el teclado
             keyboardManager.hideSoftKeyboard(getActivity());
 
-            // Recupera el campo email
+            // Recupera el valor limpio del campo E-mail
             email = loginEdtEmail.getText().toString().trim();
 
             // Valida si el contenido del edittext es un correo electronico institucional
@@ -159,14 +160,14 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
             CuentaWebService cuentaWebService = new CuentaWebService();
             cuentaWebService.webServiceListener = registerFragment;
             cuentaWebService.execute(peticionWSEntity);
-        } catch (BadInputDataException bidEx){
+        } catch (BadInputDataException bidEx) {
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
-            messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
             messageDescriptionList.add(bidEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {
@@ -188,8 +189,8 @@ public class RegisterFragment extends Fragment implements WebServiceListener{
             messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
         } else {
             messageTypeList.add(AppPreference.MESSAGE_SUCCESS);
-            messageTitleList.add(getString(R.string.general_message_title_send_email_success));
-            messageDescriptionList.add(getString(R.string.general_message_description_instruction_register));
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_SEND_MAIL_SUCCESS);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_INSTRUCTION_REGISTER);
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
             responseWebServiceEntity.setListaMensajes(messagesList);
 
