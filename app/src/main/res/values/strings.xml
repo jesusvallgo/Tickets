@@ -7,12 +7,17 @@
     <string name="log_success_token">Token generado</string>
     <string name="log_error_token">Error al actualizar Token</string>
 
-    <!-- Cadenas generales para errores -->
-    <string name="general_error_ws_request_fail">Error al realizar la petición al Web Service</string>
-    <string name="general_error_bad_data">Datos no válidos</string>
-    <string name="general_error_no_description">Debe especificar la descripción</string>
-    <string name="general_error_no_atention_area">Debe especificar el Área de Atención</string>
-    <string name="general_error_no_estatus">Debe especificar un Estatus</string>
+    <!-- Cadenas generales para mensajes -->
+    <string name="general_message_title_send_email_success">E-mail enviado correctamente</string>
+    <string name="general_message_description_instruction_register">Siga las instrucciones para generar su cuenta de usuario</string>
+    <string name="general_message_description_instruction_password">Siga las instrucciones para actualizar su contraseña</string>
+
+    <string name="general_message_title_ws_request_fail">Error al realizar la petición al Web Service</string>
+    <string name="general_message_title_bad_input_data">Datos no válidos</string>
+
+    <string name="general_message_description_no_description">Debe especificar la descripción</string>
+    <string name="general_message_description_no_atention_area">Debe especificar el Área de Atención</string>
+    <string name="general_message_description_no_estatus">Debe especificar un Estatus</string>
 
     <!-- Cadenas generales para notificar al usuario -->
     <string name="general_toast_create_report_successful">El reporte se ha generado de forma correcta</string>
@@ -27,8 +32,8 @@
     <string name="nav_about">Acerca de</string>
     <string name="nav_logout">Cerrar sesión</string>
 
-    <!-- Cadenas para el Fragment de manejo de errores -->
-    <string name="error_imv_description">Icono de error</string>
+    <!-- Cadenas para el Fragment de manejo de mensajes -->
+    <string name="message_imv_description">Icono</string>
 
     <!-- Cadenas para el Fragment de Loading -->
     <string name="loading_img_cenapred">Icono CENAPRED</string>

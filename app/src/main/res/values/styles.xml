@@ -204,10 +204,9 @@
 
     <!-- Elementos para mostrar mensajes -->
     <style name="message_imageview_icon">
-        <item name="android:description">@string/error_imv_description</item>
         <item name="android:layout_width">@dimen/general_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
     <style name="message_layout_container">
         <item name="android:layout_width">@dimen/general_none</item>

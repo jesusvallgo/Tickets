@@ -14,5 +14,6 @@ public class AppPreference {
     public static final String ALERT_ACTION_DEFAULT = "DEFALUT";
 
     public static final String MESSAGE_ERROR = "ERROR";
+    public static final String MESSAGE_WARNING = "WARNING";
     public static final String MESSAGE_SUCCESS = "SUCCESS";
 }

@@ -48,9 +48,9 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -197,7 +197,7 @@ public class TechnicalSupportFragment extends Fragment implements View.OnClickLi
 
                 // Agrega el error a mostrar
                 messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                messageTitleList.add(getString(R.string.general_error_ws_request_fail));
+                messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
                 messageDescriptionList.add(ex.getMessage());
             } finally {
                 if (messageTypeList.size() > 0) {

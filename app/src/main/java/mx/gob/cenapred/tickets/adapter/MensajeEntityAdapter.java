@@ -28,7 +28,7 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        MensajeEntityHolder holder = null;
+        MensajeEntityHolder holder;
         Integer icon;
 
         if (row == null) {
@@ -49,11 +49,14 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
             case AppPreference.MESSAGE_ERROR:
                 icon = R.mipmap.ic_error;
                 break;
+            case AppPreference.MESSAGE_WARNING:
+                icon = R.mipmap.ic_warning;
+                break;
             case AppPreference.MESSAGE_SUCCESS:
                 icon = R.mipmap.ic_success;
                 break;
             default:
-                icon = R.mipmap.ic_error;
+                icon = R.mipmap.ic_cenapred;
                 break;
         }
         holder.message_type.setImageResource(icon);

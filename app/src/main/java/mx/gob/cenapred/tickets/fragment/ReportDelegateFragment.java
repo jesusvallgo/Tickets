@@ -48,9 +48,9 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -91,7 +91,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        idReport = (Integer) getArguments().getInt("idReport", 0);
+        idReport = getArguments().getInt("idReport", 0);
         listAtentionArea = (List<AreaAtencionEntity>) getArguments().getSerializable("listAtentionArea");
         getArguments().remove("listAtentionArea");
     }
@@ -150,7 +150,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                     AreaAtencionEntity areaAtencionEntity = (AreaAtencionEntity) reportDelegateSpnAtentionArea.getSelectedItem();
 
                     // Genera la lista de acciones (solo un elemento)
-                    List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
+                    List<BitacoraEntity> listaBitacora = new ArrayList<>();
                     BitacoraEntity bitacoraEntity = new BitacoraEntity();
                     bitacoraEntity.setAccion(getString(R.string.report_delegate_default_text) + " " + areaAtencionEntity.getAreaAtencion());
                     listaBitacora.add(bitacoraEntity);
@@ -172,17 +172,17 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                         reporteWebService.webServiceListener = reportDelegateFragment;
                         reporteWebService.execute(peticionWSEntity);
                     } else{
-                        throw new NoInputDataException(getString(R.string.general_error_no_atention_area));
+                        throw new NoInputDataException(getString(R.string.general_message_description_no_atention_area));
                     }
                 } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_bad_data));
+                    messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
                     messageDescriptionList.add(nidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_ws_request_fail));
+                    messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
                     messageDescriptionList.add(ex.getMessage());
                 } finally {
                     if (messageTitleList.size() > 0) {

@@ -44,9 +44,9 @@ public class RecoverPasswordFragment extends Fragment implements WebServiceListe
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageErrorList = new ArrayList<>();
+    private List<String> messageDebugList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -148,7 +148,7 @@ public class RecoverPasswordFragment extends Fragment implements WebServiceListe
 
             // Agrega el error a mostrar
             messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
-            messageErrorList.add(0, getString(R.string.general_error_ws_request_fail));
+            messageErrorList.add(0, getString(R.string.general_message_title_ws_request_fail));
             messageDebugList.add(0, ex.getMessage());
         } finally {
             if (messageErrorList.size() > 0) {

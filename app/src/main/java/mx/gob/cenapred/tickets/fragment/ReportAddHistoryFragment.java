@@ -60,9 +60,9 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -105,7 +105,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        idReport = (Integer) getArguments().getInt("idReport", 0);
+        idReport = getArguments().getInt("idReport", 0);
         listEstatus = (List<EstatusEntity>) getArguments().getSerializable("listStatus");
         getArguments().remove("listStatus");
     }
@@ -175,8 +175,9 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_ENTER){
                     return true;
+                } else{
+                    return false;
                 }
-                return false;
             }
         });
 
@@ -199,17 +200,17 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     EstatusEntity estatusEntity = (EstatusEntity) reportAddHistorySpnEstatus.getSelectedItem();
 
                     if (estatusEntity.getIdEstatus() == 0) {
-                        throw new NoInputDataException(getString(R.string.general_error_no_estatus));
+                        throw new NoInputDataException(getString(R.string.general_message_description_no_estatus));
                     }
 
                     // Obtiene la descripcion
                     String description = reportAddHistoryEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
-                        throw new NoInputDataException(getString(R.string.general_error_no_description));
+                        throw new NoInputDataException(getString(R.string.general_message_description_no_description));
                     }
 
                     // Genera la lista de acciones (solo un elemento)
-                    List<BitacoraEntity> listaBitacora = new ArrayList<BitacoraEntity>();
+                    List<BitacoraEntity> listaBitacora = new ArrayList<>();
                     BitacoraEntity bitacoraEntity = new BitacoraEntity();
                     bitacoraEntity.setAccion(description);
                     listaBitacora.add(bitacoraEntity);
@@ -232,12 +233,12 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                 } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_bad_data));
+                    messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
                     messageDescriptionList.add(nidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_ws_request_fail));
+                    messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
                     messageDescriptionList.add(ex.getMessage());
                 } finally {
                     if (messageTitleList.size() > 0) {

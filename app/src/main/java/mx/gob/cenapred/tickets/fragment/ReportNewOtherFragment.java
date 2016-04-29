@@ -60,9 +60,9 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -103,7 +103,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        idAtentionArea = (Integer) getArguments().getInt("idAtentionArea", 0);
+        idAtentionArea = getArguments().getInt("idAtentionArea", 0);
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -142,8 +142,8 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(getString(R.string.general_error_bad_data));
-            messageDescriptionList.add(getString(R.string.general_error_no_atention_area));
+            messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
+            messageDescriptionList.add(getString(R.string.general_message_description_no_atention_area));
 
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
@@ -179,8 +179,9 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_ENTER){
                     return true;
+                } else{
+                    return false;
                 }
-                return false;
             }
         });
 
@@ -202,7 +203,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
                     // Obtiene la descripcion
                     String description = reportNewOtherEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
-                        throw new NoInputDataException(getString(R.string.general_error_no_description));
+                        throw new NoInputDataException(getString(R.string.general_message_description_no_description));
                     }
 
                     // Construye los campos necesarios de la Entidad Reporte
@@ -221,12 +222,12 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
                 } catch (NoInputDataException nidEx) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_bad_data));
+                    messageTitleList.add(getString(R.string.general_message_title_bad_input_data));
                     messageDescriptionList.add(nidEx.getMessage());
                 } catch (Exception ex) {
                     // Agrega el error a mostrar
                     messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                    messageTitleList.add(getString(R.string.general_error_ws_request_fail));
+                    messageTitleList.add(getString(R.string.general_message_title_ws_request_fail));
                     messageDescriptionList.add(ex.getMessage());
                 } finally {
                     if (messageTitleList.size() > 0) {
