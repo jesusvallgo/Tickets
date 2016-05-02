@@ -12,6 +12,7 @@ import android.widget.TextView;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.HtmlUtil;
 
 public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
     Context myContext;
@@ -59,9 +60,14 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
                 icon = R.mipmap.ic_cenapred;
                 break;
         }
+        // Utilidades HTML
+        HtmlUtil htmlUtil = new HtmlUtil();
+
+        String contenido = htmlUtil.parseUL(mensajeEntity.getMensajeDescripcion());
+
         holder.message_type.setImageResource(icon);
         holder.message_title.setText(mensajeEntity.getMensajeTitulo());
-        holder.message_description.setText(mensajeEntity.getMensajeDescripcion());
+        holder.message_description.setText(contenido);
 
         return row;
     }
