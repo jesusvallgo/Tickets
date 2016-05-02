@@ -1,0 +1,9 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_vertical_nomargin_match_wrap">
+
+    <TextView
+        android:id="@+id/confirmation_description"
+        style="@style/confirmation_textview_description"
+        android:layout_margin="@dimen/general_margin_size"/>
+
+</LinearLayout>

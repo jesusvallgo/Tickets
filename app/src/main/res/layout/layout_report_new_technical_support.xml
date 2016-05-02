@@ -1,0 +1,81 @@
+<LinearLayout
+    style="@style/general_layout_linear_vertical_margin_match_match"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_low_toner"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_low_toner" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_paper_jam"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_paper_jam" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_virus"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_virus" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_crash_os"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_crash_os" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_password_lost"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_password_lost" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_domain_lost"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_domain_lost" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/technical_support_btn_other"
+        style="@style/general_button_icon_text_container">
+        <ImageView
+            style="@style/general_button_icon_text_icon"
+            android:src="@mipmap/ic_cenapred" />
+        <TextView
+            style="@style/general_button_icon_text_text"
+            android:text="@string/technical_support_btn_other" />
+    </LinearLayout>
+</LinearLayout>

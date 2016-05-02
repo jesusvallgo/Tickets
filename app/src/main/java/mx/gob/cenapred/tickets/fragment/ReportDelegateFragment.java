@@ -174,7 +174,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                         reporteWebService.webServiceListener = reportDelegateFragment;
                         reporteWebService.execute(peticionWSEntity);
                     } else{
-                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_ATENTION_AREA);
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_ATTENTION_AREA);
                     }
                 } catch (BadInputDataException bidEx) {
                     // Agrega el error a mostrar

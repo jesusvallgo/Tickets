@@ -38,7 +38,7 @@ import mx.gob.cenapred.tickets.fragment.ReportViewHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.ReportNewOtherFragment;
 import mx.gob.cenapred.tickets.fragment.ReportAddHistoryFragment;
 import mx.gob.cenapred.tickets.fragment.RequestPendingFragment;
-import mx.gob.cenapred.tickets.fragment.TechnicalSupportFragment;
+import mx.gob.cenapred.tickets.fragment.ReportNewShortcutFragment;
 import mx.gob.cenapred.tickets.fragment.SearchTicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.RegisterFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 updateMenu = true;
                 break;
             case R.id.fragment_report_other:
-                bundle.putInt("idAtentionArea", bundleEntity.getIdAreaAtencion());
+                bundle.putInt("idAttentionArea", bundleEntity.getIdAreaAtencion());
                 mainCurrentFragment = new ReportNewOtherFragment();
                 addToBackStack = true;
                 break;
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_report_delegate:
                 fragmentName = "Turnar";
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
-                bundle.putSerializable("listAtentionArea", (Serializable) bundleEntity.getListAreaAtencion());
+                bundle.putSerializable("listAttentionArea", (Serializable) bundleEntity.getListAreaAtencion());
                 mainCurrentFragment = new ReportDelegateFragment();
                 addToBackStack = true;
                 break;
@@ -357,7 +357,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.welcome_btn_ticket_technical_support:
                 fragmentName = "Soporte Técnico";
-                mainCurrentFragment = new TechnicalSupportFragment();
+                bundle.putInt("idAttentionArea",AppPreference.BUNDLE_TECHNICAL_SUPPORT);
+                mainCurrentFragment = new ReportNewShortcutFragment();
                 addToBackStack = true;
                 break;
             case R.id.welcome_btn_my_ticket_pending:

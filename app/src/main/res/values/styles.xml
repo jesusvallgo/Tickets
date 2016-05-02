@@ -225,6 +225,12 @@
         <item name="android:textSize">@dimen/message_description_font_size</item>
     </style>
 
+    <!-- Elementos para mostrar confirmacion de usuario -->
+    <style name="confirmation_textview_description" parent="general_item_large">
+        <item name="android:textColor">@color/general_textview_description_text</item>
+        <item name="android:textSize">@dimen/message_description_font_size</item>
+    </style>
+
     <!-- Elementos para el Fragment de Loading -->
     <style name="loading_layout_container" parent="general_match_wrap">
         <item name="android:layout_centerVertical">true</item>

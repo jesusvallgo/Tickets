@@ -63,7 +63,8 @@ public class MensajeEntityAdapter extends ArrayAdapter<MensajeEntity> {
         // Utilidades HTML
         HtmlUtil htmlUtil = new HtmlUtil();
 
-        String contenido = htmlUtil.parseUL(mensajeEntity.getMensajeDescripcion());
+        // Genera el contenido del mensaje
+        CharSequence contenido = htmlUtil.parseSimpleUL(mensajeEntity.getMensajeDescripcion());
 
         holder.message_type.setImageResource(icon);
         holder.message_title.setText(mensajeEntity.getMensajeTitulo());

@@ -44,7 +44,7 @@ public class ValidaCadenaUtil {
 
     public void validarPassword(String cadena) throws BadInputDataException{
         if( !esPassword(cadena) ){
-            throw new BadInputDataException("La contraseña debe cumplir con las siguientes caracteristicas:<ul><li>Ser alfanumérica</li><li>Longitud mínima de 8</li><li>Longitud máxima de 15</li></ul>");
+            throw new BadInputDataException("La contraseña debe cumplir con las siguientes caracteristicas:<ul><li>Contener al menos una mayúscula</li><li>Contener al menos una minúscula</li><li>Contener al menos un dígito</li><li>Longitud mínima de 8</li><li>Longitud máxima de 15</li></ul>");
         }
     }
 }

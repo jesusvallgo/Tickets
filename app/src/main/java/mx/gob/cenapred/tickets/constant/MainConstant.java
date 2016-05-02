@@ -11,7 +11,7 @@ public class MainConstant {
     public static final String MESSAGE_DESCRIPTION_INSTRUCTION_PASSWORD = "Siga las instrucciones para actualizar su contraseña";
 
     public static final String MESSAGE_TITLE_BAD_INPUT_DATA = "Datos de entrada no válidos";
-    public static final String MESSAGE_DESCRIPTION_NO_ATENTION_AREA = "Debe especificar el Área de Atención";
+    public static final String MESSAGE_DESCRIPTION_NO_ATTENTION_AREA = "Debe especificar el Área de Atención";
     public static final String MESSAGE_DESCRIPTION_NO_DESCRIPTION = "Debe especificar la descripción";
     public static final String MESSAGE_DESCRIPTION_NO_STATUS = "Debe especificar un Estatus";
 
@@ -20,4 +20,11 @@ public class MainConstant {
     public static final String MESSAGE_TITLE_WS_REQUEST_FAIL = "Error al realizar la petición al Web Service";
     public static final String MESSAGE_TITLE_WS_COMMUNICATION_FAIL = "Error al consultar Web Service";
     public static final String MESSAGE_DESCRIPTION_WS_NO_VALID_METHOD = "No se ha especificado un método válido";
+
+    public static final String MESSAGE_POSITIVE = "De acuerdo";
+
+    public static final String CONFIRMATION_TITLE_NEW_REPORT = "Confirmación";
+    public static final String CONFIRMATION_DESCRIPTION_NEW_REPORT = "Esta a punto de generar una Solicitud de Servicio";
+    public static final String CONFIRMATION_POSITIVE_NEW_REPORT = "Aceptar";
+    public static final String CONFIRMATION_NEGATIVE_NEW_REPORT = "Cancelar";
 }

@@ -13,6 +13,7 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.adapter.MensajeEntityAdapter;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 
@@ -84,7 +85,7 @@ public class MessagesManager {
         listError.setAdapter(adapter);
 
         // Agrega el boton para cerrar el cuadro de dialogo
-        builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(MainConstant.MESSAGE_POSITIVE, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (accion){

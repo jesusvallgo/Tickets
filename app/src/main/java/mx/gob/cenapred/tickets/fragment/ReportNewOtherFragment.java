@@ -29,7 +29,6 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
-import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
@@ -83,8 +82,9 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     ImageButton reportNewOtherBtnSend;
 
     // Inicializa las variables del Fragment
-    private Integer idAtentionArea = 0;
+    private Integer idAttentionArea = 0;
     private Integer descriptionMaxLenght = 0;
+    private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
 
     // Constructor por default
     public ReportNewOtherFragment() {
@@ -103,7 +103,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        idAtentionArea = getArguments().getInt("idAtentionArea", 0);
+        idAttentionArea = getArguments().getInt("idAttentionArea", 0);
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -134,7 +134,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
         reportNewOtherBtnSend = (ImageButton) rootView.findViewById(R.id.report_new_other_btn_send);
 
         // Determina si existen mensajes para desplegar
-        if (idAtentionArea == 0) {
+        if (idAttentionArea == 0) {
             // Limpia las listas de error
             messageTypeList.clear();
             messageTitleList.clear();
@@ -143,17 +143,19 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
-            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ATENTION_AREA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ATTENTION_AREA);
 
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
             ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
             respuesta.setListaMensajes(messagesList);
 
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
             // Llama al metodo que procesa la respuesta
             onCommunicationFinish(respuesta);
         } else {
-            areaAtencionEntity.setIdAreaAtencion(idAtentionArea);
+            areaAtencionEntity.setIdAreaAtencion(idAttentionArea);
         }
 
         reportNewOtherEdtDescription.setFilters(new InputFilter[] {new InputFilter.LengthFilter(descriptionMaxLenght)});
@@ -254,7 +256,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
         } else {
             // Genera aviso para el usuario que indica que su peticion ha sido exitosa
             Toast.makeText(getContext(), getString(R.string.general_toast_create_report_successful), Toast.LENGTH_LONG).show();

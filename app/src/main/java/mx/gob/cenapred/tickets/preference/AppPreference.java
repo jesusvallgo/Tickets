@@ -16,4 +16,6 @@ public class AppPreference {
     public static final String MESSAGE_ERROR = "ERROR";
     public static final String MESSAGE_WARNING = "WARNING";
     public static final String MESSAGE_SUCCESS = "SUCCESS";
+
+    public static final Integer BUNDLE_TECHNICAL_SUPPORT = 1;
 }
