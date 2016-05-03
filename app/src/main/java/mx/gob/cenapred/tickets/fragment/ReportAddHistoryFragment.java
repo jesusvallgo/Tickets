@@ -223,13 +223,13 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     EstatusEntity estatusEntity = (EstatusEntity) reportAddHistorySpnEstatus.getSelectedItem();
 
                     if (estatusEntity.getIdEstatus() == 0) {
-                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_STATUS);
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_STATUS);
                     }
 
                     // Obtiene la descripcion
                     String description = reportAddHistoryEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
-                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_DESCRIPTION);
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_DESCRIPTION);
                     }
 
                     // Genera la lista de acciones (solo un elemento)

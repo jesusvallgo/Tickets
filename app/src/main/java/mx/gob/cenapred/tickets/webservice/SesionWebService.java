@@ -49,18 +49,8 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
         ResponseWebServiceEntity responseWebServiceError = new ResponseWebServiceEntity();
 
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            //final String jsonPet = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-
-            // Instancia para cifrar cadenas
-            Crypto crypto = new Crypto();
-
-            // Cifra la cadena JSON que sera enviada a traves de la URL
-            String apiKey = crypto.encryptMessage(jsonCredenciales, MainConstant.PASSWORD_CRYPTO);
-
             // Construye la URL del Web Service a consultar
-            String urlWs = MainConstant.URL_WS + "sesion?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&action=" + peticion[0].getAccion();
+            String urlWs = MainConstant.URL_WS + "sesion?apiKey=" + URLEncoder.encode(peticion[0].getApiKey(), "UTF-8") + "&action=" + peticion[0].getAccion();
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -90,11 +80,6 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
 
             // Regresa el contenido de la respuesta del Web Service
             return responseEntity.getBody();
-        } catch (JsonProcessingException jsonEx) {
-            // Agrega el error a mostrar
-            messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_BUILD_JSON_FAIL);
-            messageDescriptionList.add(jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);

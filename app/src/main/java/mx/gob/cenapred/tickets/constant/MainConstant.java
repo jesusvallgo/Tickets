@@ -11,20 +11,27 @@ public class MainConstant {
     public static final String MESSAGE_DESCRIPTION_INSTRUCTION_PASSWORD = "Siga las instrucciones para actualizar su contraseña";
 
     public static final String MESSAGE_TITLE_BAD_INPUT_DATA = "Datos de entrada no válidos";
-    public static final String MESSAGE_DESCRIPTION_NO_ATTENTION_AREA = "Debe especificar el Área de Atención";
-    public static final String MESSAGE_DESCRIPTION_NO_DESCRIPTION = "Debe especificar la descripción";
-    public static final String MESSAGE_DESCRIPTION_NO_STATUS = "Debe especificar un Estatus";
+    public static final String MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA = "Debe especificar el Área de Atención";
+    public static final String MESSAGE_DESCRIPTION_EMPTY_DESCRIPTION = "Debe especificar la descripción";
+    public static final String MESSAGE_DESCRIPTION_EMPTY_STATUS = "Debe especificar un Estatus";
+    public static final String MESSAGE_DESCRIPTION_EMPTY_API_KEY = "Es necesario iniciar sesión en la aplicación";
     public static final String MESSAGE_DESCRIPTION_BAD_NUMBER_FORMAT = "El Número de folio no puede ser leido correctamente";
     public static final String MESSAGE_DESCRIPTION_NO_ID_REPORT = "No existe el número de folio";
     public static final String MESSAGE_DESCRIPTION_NO_LIST_HISTORY = "No existe un historial de acciones";
     public static final String MESSAGE_DESCRIPTION_NO_LIST_ATTENTION_AREA = "No existe un lista de área de atención";
     public static final String MESSAGE_DESCRIPTION_NO_LIST_STATUS = "No existe una lista de estatus";
+    public static final String MESSAGE_DESCRIPTION_NO_PENDINDG_REPORT = "No existen reportes por atender";
+
+    public static final String MESSAGE_TITLE_NO_USER_LOGIN = "Sesión";
 
     public static final String MESSAGE_TITLE_NO_INPUT_DATA = "Sin datos";
 
     public static final String MESSAGE_TITLE_BUILD_JSON_FAIL = "Error al construir la petición JSON";
 
     public static final String MESSAGE_TITLE_UNKNOWKN_FAIL = "Error no identificado";
+
+    public static final String MESSAGE_TITLE_NOTIFICATION = "Notificación";
+
 
     public static final String MESSAGE_TITLE_WS_REQUEST_FAIL = "Error al realizar la petición al Web Service";
     public static final String MESSAGE_TITLE_WS_COMMUNICATION_FAIL = "Error al consultar Web Service";

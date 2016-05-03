@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     // Busca si se tienen almacenadas las credenciales de usuario
-                    if (appPreferencesManager.getCredentials() == true) {
+                    if (appPreferencesManager.getLoginStatus() == true) {
                         // Abre el fragment predeterminado de inicio
                         manageFragment(R.id.nav_welcome, null);
                     } else {

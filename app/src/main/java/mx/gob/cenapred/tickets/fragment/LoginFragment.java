@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,14 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.entity.TokenGCMEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.util.ApiKeyUtil;
 import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.SesionWebService;
 
@@ -80,7 +85,7 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
     private Button loginBtnSend;
 
     // Variables del fragment
-    private String username = "", password = "";
+    private String username = "", password = "", apiKey = "";
 
     // Constructor por default
     public LoginFragment() {
@@ -177,26 +182,44 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             // Valida si el contenido del edittext es un password valido
             validaCadenaUtil.validarPassword(password);
 
+            // Construye los campos necesarios de la Entidad Credenciales
+            credencialesEntity.setUsername(username);
+            credencialesEntity.setPassword(password);
+
+            // Instancia para generar el APIKEY
+            ApiKeyUtil apiKeyUtil = new ApiKeyUtil();
+            apiKey = apiKeyUtil.createApiKey(credencialesEntity);
+            validaCadenaUtil.validarApiKey(apiKey);
+
             // Oculta las opciones del Fragment
             layoutOptions.setVisibility(View.GONE);
 
             // Muestra el layout de Cargando
             layoutLoading.setVisibility(View.VISIBLE);
 
-            // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(username);
-            credencialesEntity.setPassword(password);
-
             // Construye la peticion
             peticionWSEntity.setMetodo("put");
             peticionWSEntity.setAccion("add");
-            peticionWSEntity.setCredencialesEntity(credencialesEntity);
+            peticionWSEntity.setApiKey(apiKey);
             peticionWSEntity.setTokenGCMEntity(tokenGCMEntity);
 
             // Llamada al cliente para validar credenciales y loguearse
             SesionWebService sesionWebService = new SesionWebService();
             sesionWebService.webServiceListener = loginFragment;
             sesionWebService.execute(peticionWSEntity);
+        } catch (JsonProcessingException jsonEx){
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BUILD_JSON_FAIL);
+            messageDescriptionList.add(jsonEx.getMessage());
+        } catch (NoUserLoginException nulEx){
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        } catch (NoInputDataException nidEx){
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(nidEx.getMessage());
         } catch (BadInputDataException bidEx) {
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
@@ -256,7 +279,7 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
         } else if (responseWebServiceEntity.getEmpleado() != null) {
             // Almacena las credenciales de usuario en el dispositivo
             AppPreferencesManager appPreferencesManager = new AppPreferencesManager(getContext());
-            appPreferencesManager.saveCredentials(credencialesEntity);
+            appPreferencesManager.saveCredentials(apiKey);
             appPreferencesManager.saveUserData(responseWebServiceEntity.getEmpleado());
 
             // Redirige al Fragment de bienvenida

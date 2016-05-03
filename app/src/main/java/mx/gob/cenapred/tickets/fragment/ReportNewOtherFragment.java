@@ -135,6 +135,9 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
         // Determina si existen mensajes para desplegar
         if (idAttentionArea == 0) {
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
             // Limpia las listas de error
             messageTypeList.clear();
             messageTitleList.clear();
@@ -142,15 +145,13 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
-            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ATTENTION_AREA);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
 
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
             ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
             respuesta.setListaMensajes(messagesList);
-
-            alertAction = AppPreference.ALERT_ACTION_GOBACK;
 
             // Llama al metodo que procesa la respuesta
             onCommunicationFinish(respuesta);
@@ -205,7 +206,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
                     // Obtiene la descripcion
                     String description = reportNewOtherEdtDescription.getText().toString().trim();
                     if (description.equals("")) {
-                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_DESCRIPTION);
+                        throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_DESCRIPTION);
                     }
 
                     // Construye los campos necesarios de la Entidad Reporte

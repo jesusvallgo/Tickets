@@ -131,6 +131,9 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
 
                 break;
             default:
+                // Indica que debe regresar al Fragment anterior
+                alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
                 // Limpia las listas de error
                 messageTypeList.clear();
                 messageTitleList.clear();
@@ -138,12 +141,16 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
 
                 // Agrega el error a mostrar
                 messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
-                messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ATTENTION_AREA);
+                messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+                messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
 
                 // Si existen errores genera la estructura adecuada
                 messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
-                messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_GOBACK);
+                ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
+                respuesta.setListaMensajes(messagesList);
+
+                // Llama al metodo que procesa la respuesta
+                onCommunicationFinish(respuesta);
 
                 break;
         }
@@ -180,11 +187,11 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
     @Override
     public void onCommunicationFinish(ResponseWebServiceEntity responseWebServiceEntity) {
         if (responseWebServiceEntity.getListaMensajes() != null) {
-            // Muestra los errores en pantalla
-            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
-
             // Oculta el layout de Cargando
             layoutLoading.setVisibility(View.GONE);
+
+            // Muestra los errores en pantalla
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
 
             // Muestra las opciones del Fragment
             layoutOptions.setVisibility(View.VISIBLE);

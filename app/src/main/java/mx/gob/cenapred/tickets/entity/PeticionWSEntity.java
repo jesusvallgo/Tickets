@@ -5,7 +5,7 @@ public class PeticionWSEntity {
     private String accion;
     private String tipo;
     private String filtro;
-    private CredencialesEntity credencialesEntity;
+    private String apiKey;
     private TokenGCMEntity tokenGCMEntity;
     private ReporteEntity reporteEntity;
 
@@ -41,12 +41,12 @@ public class PeticionWSEntity {
         this.filtro = filtro;
     }
 
-    public CredencialesEntity getCredencialesEntity() {
-        return credencialesEntity;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setCredencialesEntity(CredencialesEntity credencialesEntity) {
-        this.credencialesEntity = credencialesEntity;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public TokenGCMEntity getTokenGCMEntity() {

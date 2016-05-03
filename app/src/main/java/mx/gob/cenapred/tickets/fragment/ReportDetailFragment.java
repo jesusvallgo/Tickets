@@ -17,16 +17,20 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportDetailFragment extends Fragment implements WebServiceListener {
@@ -37,9 +41,6 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
     // Instancia a la clase de PeticionWSEntity
     private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Instancias a la clases para especificar el tipo de reporte
     private ReporteEntity reporteEntity = new ReporteEntity();
@@ -72,7 +73,8 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     // Inicializa las variables del Fragment
     private Integer idReport = 0;
     private Boolean addToBackStack = false;
-    private String alertAction;
+    private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
+    private String apiKey = "";
 
     private MenuItem menuItemHistory, menuItemDelegate, menuItemUpdate;
     private Boolean menuItemHistoryVisible = false, menuItemDelegateVisible = false, menuItemUpdateVisible = false;
@@ -96,6 +98,11 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         super.onCreate(savedInstanceState);
         idReport = (Integer) getArguments().getInt("idReport", 0);
         addToBackStack = (Boolean) getArguments().getBoolean("addToBackStack", false);
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -110,9 +117,7 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
-        // Construye los campos necesarios de la Entidad Credenciales
-        credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-        credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
+        apiKey = appPreferencesManager.getApiKey();
 
         // Mapea los elementos del Fragment
         reportDetailTxvIdReport = (TextView) rootView.findViewById(R.id.report_detail_txv_id_report);
@@ -124,27 +129,39 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         reportDetailTxvEstatus = (TextView) rootView.findViewById(R.id.report_detail_txv_estatus);
 
         try {
+            // Instancia al validador
+            ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
+            // Valida si existe una sesion de usuario
+            validaCadenaUtil.validarApiKey(apiKey);
+
+            // Valida si se recibio un numero de folio
+            validaCadenaUtil.validarFolio(idReport.toString());
+
             // Construye los campos necesarios de la Entidad Reporte
             reporteEntity.setIdReporte(idReport);
 
             // Construye la peticion
             peticionWSEntity.setMetodo("get");
-            peticionWSEntity.setCredencialesEntity(credencialesEntity);
+            peticionWSEntity.setApiKey(apiKey);
             peticionWSEntity.setReporteEntity(reporteEntity);
 
             // Llamada al cliente para consultar los detalles del reporte
             ReporteWebService reporteWebService = new ReporteWebService();
             reporteWebService.webServiceListener = reportDetailFragment;
             reporteWebService.execute(peticionWSEntity);
+        } catch (NoInputDataException nidEx){
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(nidEx.getMessage());
+        } catch (BadInputDataException bidEx){
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+            messageDescriptionList.add(bidEx.getMessage());
         } catch (Exception ex) {
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageTitleList.clear();
-            messageDescriptionList.clear();
-
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al realizar la petición al Web Service");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
             messageDescriptionList.add(ex.getMessage());
             ex.printStackTrace();
         } finally {

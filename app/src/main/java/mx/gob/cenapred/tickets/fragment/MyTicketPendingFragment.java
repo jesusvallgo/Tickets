@@ -15,19 +15,27 @@ import java.util.List;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.adapter.ReporteItemAdapter;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ListadoWebService;
 
 public class MyTicketPendingFragment extends Fragment implements WebServiceListener {
+    // **************************** Constantes ****************************
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -48,8 +56,8 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
     private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageErrorList = new ArrayList<String>();
-    private List<String> messageDebugList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -66,6 +74,9 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
 
     // Mapea los elementos del Fragment
     ListView myTicketPendingLsvItem;
+
+    // Variables del fragment
+    private String apiKey = "";
 
     // Constructor por default
     public MyTicketPendingFragment() {
@@ -84,6 +95,11 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -116,34 +132,35 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             // Manejador de los datos de la sesion de usuario
             appPreferencesManager = new AppPreferencesManager(getContext());
 
-            // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-            credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
-
             try {
+                // Recupera el APIKEY almacenada en el dispositivo
+                apiKey = appPreferencesManager.getApiKey();
+
+                // Valida el APIKEY
+                validaCadenaUtil.validarApiKey(apiKey);
+
                 // Construye la peticion
                 peticionWSEntity.setMetodo("get");
                 peticionWSEntity.setTipo("myPending");
-                peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                peticionWSEntity.setApiKey(apiKey);
 
                 // Llamada al cliente para consultar los detalles del reporte
                 ListadoWebService listadoWebService = new ListadoWebService();
                 listadoWebService.webServiceListener = myTicketPendingFragment;
                 listadoWebService.execute(peticionWSEntity);
+            } catch (NoUserLoginException nulEx){
+                messageTypeList.add(AppPreference.MESSAGE_WARNING);
+                messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+                messageDescriptionList.add(nulEx.getMessage());
             } catch (Exception ex) {
-                // Limpia las listas de error
-                messageTypeList.clear();
-                messageErrorList.clear();
-                messageDebugList.clear();
-
                 // Agrega el error a mostrar
-                messageTypeList.add(0, AppPreference.MESSAGE_ERROR);
-                messageErrorList.add("Error al realizar la petición al Web Service");
-                messageDebugList.add(ex.getMessage());
+                messageTypeList.add(AppPreference.MESSAGE_ERROR);
+                messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
+                messageDescriptionList.add(ex.getMessage());
             } finally {
-                if (messageErrorList.size() > 0) {
+                if (messageTitleList.size() > 0) {
                     // Si existen errores genera la estructura adecuada
-                    messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
+                    messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
                     responseWebServiceEntity = new ResponseWebServiceEntity();
                     responseWebServiceEntity.setListaMensajes(messagesList);
 
@@ -177,18 +194,13 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             // Carga los errores en el cuerpo del cuadro de dialogo
             myTicketPendingLsvItem.setAdapter(reporteItemAdapter);
         } else {
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageErrorList.clear();
-            messageDebugList.clear();
-
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_SUCCESS);
-            messageErrorList.add("Notificación");
-            messageDebugList.add("No existen reportes pendientes por atender");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NOTIFICATION);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_PENDINDG_REPORT);
 
             // Si existen errores genera la estructura adecuada
-            messagesList = messagesManager.createMensajesList(messageTypeList, messageErrorList, messageDebugList);
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
             responseWebServiceEntity = new ResponseWebServiceEntity();
             responseWebServiceEntity.setListaMensajes(messagesList);
 
