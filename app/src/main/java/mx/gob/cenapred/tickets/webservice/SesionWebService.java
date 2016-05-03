@@ -93,7 +93,7 @@ public class SesionWebService extends AsyncTask<PeticionWSEntity, Void, Response
         } catch (JsonProcessingException jsonEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_BUIL_JSON_FAIL);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BUILD_JSON_FAIL);
             messageDescriptionList.add(jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar

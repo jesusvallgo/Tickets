@@ -13,7 +13,11 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.adapter.BitacoraEntityAdapter;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
+import mx.gob.cenapred.tickets.entity.MensajeEntity;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
+import mx.gob.cenapred.tickets.preference.AppPreference;
 
 public class ReportViewHistoryFragment extends Fragment {
     // **************************** Variables ****************************
@@ -24,6 +28,15 @@ public class ReportViewHistoryFragment extends Fragment {
     // Mapea los elementos del Fragment
     TextView reportHistoryTxvTitle;
     ListView reportHistoryLsvAction;
+
+    // Variables para almacenar los posibles errores
+    private List<MensajeEntity> messagesList;
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
+
+    // Manejador de los errores
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Inicializa las variables del Fragment
     private List<BitacoraEntity> listHistoryAction = new ArrayList<BitacoraEntity>();
@@ -47,6 +60,11 @@ public class ReportViewHistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         listHistoryAction = (List<BitacoraEntity>) getArguments().getSerializable("listHistoryAction");
         getArguments().remove("listHistoryAction");
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -76,7 +94,14 @@ public class ReportViewHistoryFragment extends Fragment {
             // Carga los errores en el cuerpo del cuadro de dialogo
             reportHistoryLsvAction.setAdapter(adapter);
         } else {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_LIST_HISTORY);
 
+            // Si existen errores genera la estructura adecuada
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+            messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_GOBACK);
         }
 
         return rootView;

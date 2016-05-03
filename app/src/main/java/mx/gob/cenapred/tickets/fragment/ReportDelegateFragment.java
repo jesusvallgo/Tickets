@@ -26,7 +26,6 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
-import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
@@ -94,8 +93,13 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         idReport = getArguments().getInt("idReport", 0);
-        listAtentionArea = (List<AreaAtencionEntity>) getArguments().getSerializable("listAtentionArea");
-        getArguments().remove("listAtentionArea");
+        listAtentionArea = (List<AreaAtencionEntity>) getArguments().getSerializable("listAttentionArea");
+        getArguments().remove("listAttentionArea");
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -119,18 +123,37 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         reportDelegateSpnAtentionArea = (Spinner) rootView.findViewById(R.id.report_delegate_spn_atention_area);
         reportDelegateBtnAction = (Button) rootView.findViewById(R.id.report_delegate_btn_action);
 
+        // Determina si se recibio el numero de folio
+        if( idReport>0 ){
+            // Establece el ID del reporte
+            reportDelegateTxvTitle.append(" " + idReport.toString());
+        } else {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ID_REPORT);
+        }
+
         // Obtiene el numero de acciones realizadas para el reporte especificado
         Integer numAreaAtencion = listAtentionArea.size();
 
         // Determina si existen mensajes para desplegar
         if (numAreaAtencion > 0) {
-            // Establece el ID del reporte
-            reportDelegateTxvTitle.append(" " + idReport.toString());
-
             // Llena el spinner de areas de atencion con los datos correspondientes
             ArrayAdapter areaAtencionAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listAtentionArea);
             areaAtencionAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
             reportDelegateSpnAtentionArea.setAdapter(areaAtencionAdapter);
+        } else {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_LIST_ATTENTION_AREA);
+        }
+
+        if( messageTitleList.size()>0 ){
+            // Si existen errores genera la estructura adecuada
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+            messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_GOBACK);
         }
 
         reportDelegateBtnAction.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +185,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                     reporteEntity.setAreaAtencion(areaAtencionEntity);
                     reporteEntity.setBitacora(listaBitacora);
 
-                    if( areaAtencionEntity.getIdAreaAtencion()!= 0){
+                    if (areaAtencionEntity.getIdAreaAtencion() != 0) {
                         // Construye la peticion
                         peticionWSEntity.setMetodo("put");
                         peticionWSEntity.setAccion("delegate");
@@ -173,7 +196,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
                         ReporteWebService reporteWebService = new ReporteWebService();
                         reporteWebService.webServiceListener = reportDelegateFragment;
                         reporteWebService.execute(peticionWSEntity);
-                    } else{
+                    } else {
                         throw new BadInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_ATTENTION_AREA);
                     }
                 } catch (BadInputDataException bidEx) {

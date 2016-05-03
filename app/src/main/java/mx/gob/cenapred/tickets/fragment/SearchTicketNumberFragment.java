@@ -14,13 +14,15 @@ import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
-import mx.gob.cenapred.tickets.exception.NoInputDataException;
+import mx.gob.cenapred.tickets.exception.BadInputDataException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 
 public class SearchTicketNumberFragment extends Fragment {
     // **************************** Constantes ****************************
@@ -109,7 +111,7 @@ public class SearchTicketNumberFragment extends Fragment {
         return rootView;
     }
 
-    private void tryGetTicket(){
+    private void tryGetTicket() {
         idReport = searchTicketNumberEdtNumber.getText().toString().trim();
 
         // Limpia las listas de error
@@ -118,27 +120,34 @@ public class SearchTicketNumberFragment extends Fragment {
         messageDescriptionList.clear();
 
         try {
-            if (idReport.length() == 9) {
-                bundleEntity.setIdReportBundle(Integer.parseInt(idReport));
-                bundleEntity.setAddToBackStack(true);
-                ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
-            } else {
-                throw new NoInputDataException("Es necesario especificar un Número de Folio de 9 dígitos");
-            }
-        } catch (NoInputDataException nidEx) {
+            // Instancia al validador de datos de entrada
+            ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
+            // Validacion del numero de folio
+            validaCadenaUtil.validarFolio(idReport);
+
+            // Transforma el numero de folio a su tipo correspondiente
+            bundleEntity.setIdReportBundle(Integer.parseInt(idReport));
+
+            // Indica que debe poder regresar en el backstack
+            bundleEntity.setAddToBackStack(true);
+
+            // Cambia de Fragment
+            ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
+        } catch (BadInputDataException bidEx) {
             // Agrega el error a mostrar
-            messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Datos no válidos");
-            messageDescriptionList.add(nidEx.getMessage());
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+            messageDescriptionList.add(bidEx.getMessage());
         } catch (NumberFormatException nfEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Datos no válidos");
-            messageDescriptionList.add("El Número de folio especificado no puede ser leido correctamente");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_BAD_NUMBER_FORMAT);
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error desconocido");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_UNKNOWKN_FAIL);
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {

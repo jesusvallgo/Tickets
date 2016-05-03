@@ -30,11 +30,10 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
-import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
@@ -108,6 +107,11 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         idReport = getArguments().getInt("idReport", 0);
         listEstatus = (List<EstatusEntity>) getArguments().getSerializable("listStatus");
         getArguments().remove("listStatus");
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -139,18 +143,37 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         reportAddHistoryTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_add_history_txv_characters_count);
         reportAddHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_add_history_btn_send);
 
+        // Determina si se recibio el numero de folio
+        if( idReport>0 ){
+            // Establece el ID del reporte
+            reportAddHistoryTxvTitle.append(" " + idReport.toString());
+        } else {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ID_REPORT);
+        }
+
         // Obtiene el numero de acciones realizadas para el reporte especificado
         Integer numEstatus = listEstatus.size();
 
         // Determina si existen mensajes para desplegar
         if (numEstatus > 0) {
-            // Establece el ID del reporte
-            reportAddHistoryTxvTitle.append(" " + idReport.toString());
-
             // Llena el spinner de areas de atencion con los datos correspondientes
             ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listEstatus);
             estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
             reportAddHistorySpnEstatus.setAdapter(estatusAdapter);
+        } else {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_LIST_STATUS);
+        }
+
+        if( messageTitleList.size()>0 ){
+            // Si existen errores genera la estructura adecuada
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+            messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_GOBACK);
         }
 
         reportAddHistoryEdtDescription.addTextChangedListener(new TextWatcher() {
