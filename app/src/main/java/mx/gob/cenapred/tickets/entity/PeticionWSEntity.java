@@ -6,6 +6,7 @@ public class PeticionWSEntity {
     private String tipo;
     private String filtro;
     private String apiKey;
+    private String email;
     private TokenGCMEntity tokenGCMEntity;
     private ReporteEntity reporteEntity;
 
@@ -47,6 +48,14 @@ public class PeticionWSEntity {
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public TokenGCMEntity getTokenGCMEntity() {

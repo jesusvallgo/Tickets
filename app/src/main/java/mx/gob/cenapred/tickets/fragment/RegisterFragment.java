@@ -21,6 +21,7 @@ import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
@@ -41,9 +42,6 @@ public class RegisterFragment extends Fragment implements WebServiceListener {
 
     // Para generar la vista del Fragment
     private View rootView;
-
-    // Instancia a la clase de CredencialesEntity
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Instancia a la clase de PeticionWSEntity
     private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
@@ -148,18 +146,19 @@ public class RegisterFragment extends Fragment implements WebServiceListener {
             // Muestra el layout de Cargando
             layoutLoading.setVisibility(View.VISIBLE);
 
-            // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(email);
-
             // Construye la peticion
             peticionWSEntity.setMetodo("get");
             peticionWSEntity.setTipo("create");
-            peticionWSEntity.setCredencialesEntity(credencialesEntity);
+            peticionWSEntity.setEmail(email);
 
             // Llamada al cliente para validar credenciales y loguearse
             CuentaWebService cuentaWebService = new CuentaWebService();
             cuentaWebService.webServiceListener = registerFragment;
             cuentaWebService.execute(peticionWSEntity);
+        } catch (NoInputDataException nidEx){
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(nidEx.getMessage());
         } catch (BadInputDataException bidEx) {
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);

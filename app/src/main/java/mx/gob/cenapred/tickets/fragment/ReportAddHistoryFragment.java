@@ -30,11 +30,13 @@ import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportAddHistoryFragment extends Fragment implements WebServiceListener {
@@ -43,6 +45,9 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
 
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -50,9 +55,6 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
     // Instancia a la clase de PeticionWSEntity
     private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Instancias a la clases para especificar el tipo de reporte
     private ReporteEntity reporteEntity = new ReporteEntity();
@@ -86,6 +88,9 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
     private Integer idReport = 0;
     private Integer descriptionMaxLenght = 0;
     private List<EstatusEntity> listEstatus;
+
+    // Variables del fragment
+    private String apiKey = "";
 
     // Constructor por default
     public ReportAddHistoryFragment() {
@@ -123,6 +128,13 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         layoutOptions = (LinearLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
 
+        // Mapea los layouts del Fragment
+        reportAddHistoryTxvTitle = (TextView) rootView.findViewById(R.id.report_add_history_txv_title);
+        reportAddHistorySpnEstatus = (Spinner) rootView.findViewById(R.id.report_add_history_spn_status);
+        reportAddHistoryEdtDescription = (EditText) rootView.findViewById(R.id.report_add_history_edt_description);
+        reportAddHistoryTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_add_history_txv_characters_count);
+        reportAddHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_add_history_btn_send);
+
         // Configura el Fragment para ocultar el teclado
         keyboardManager.configureUI(rootView, getActivity());
 
@@ -132,16 +144,18 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
-        // Construye los campos necesarios de la Entidad Credenciales
-        credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-        credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
+        // Recupera el APIKEY almacenada en el dispositivo
+        apiKey = appPreferencesManager.getApiKey();
 
-        // Mapea los layouts del Fragment
-        reportAddHistoryTxvTitle = (TextView) rootView.findViewById(R.id.report_add_history_txv_title);
-        reportAddHistorySpnEstatus = (Spinner) rootView.findViewById(R.id.report_add_history_spn_status);
-        reportAddHistoryEdtDescription = (EditText) rootView.findViewById(R.id.report_add_history_edt_description);
-        reportAddHistoryTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_add_history_txv_characters_count);
-        reportAddHistoryBtnSend = (ImageButton) rootView.findViewById(R.id.report_add_history_btn_send);
+        // Valida el APIKEY
+        try {
+            validaCadenaUtil.validarApiKey(apiKey);
+        } catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        }
 
         // Determina si se recibio el numero de folio
         if( idReport>0 ){
@@ -246,7 +260,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
                     // Construye la peticion
                     peticionWSEntity.setMetodo("put");
                     peticionWSEntity.setAccion("history");
-                    peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                    peticionWSEntity.setApiKey(apiKey);
                     peticionWSEntity.setReporteEntity(reporteEntity);
 
                     // Llamada al cliente para actualizar el reporte correspondiente
