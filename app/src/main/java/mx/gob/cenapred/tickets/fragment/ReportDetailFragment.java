@@ -19,7 +19,6 @@ import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
@@ -34,6 +33,11 @@ import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportDetailFragment extends Fragment implements WebServiceListener {
+    // **************************** Constantes ****************************
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -96,8 +100,8 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        idReport = (Integer) getArguments().getInt("idReport", 0);
-        addToBackStack = (Boolean) getArguments().getBoolean("addToBackStack", false);
+        idReport = getArguments().getInt("idReport", 0);
+        addToBackStack = getArguments().getBoolean("addToBackStack", false);
 
         // Limpia las listas de error
         messageTypeList.clear();
@@ -114,25 +118,23 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         layoutOptions = (LinearLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
-        apiKey = appPreferencesManager.getApiKey();
-
         // Mapea los elementos del Fragment
         reportDetailTxvIdReport = (TextView) rootView.findViewById(R.id.report_detail_txv_id_report);
         reportDetailTxvDate = (TextView) rootView.findViewById(R.id.report_detail_txv_date);
         reportDetailTxvUser = (TextView) rootView.findViewById(R.id.report_detail_txv_user);
         reportDetailTxvArea = (TextView) rootView.findViewById(R.id.report_detail_txv_area);
-        reportDetailTxvAreaAtencion = (TextView) rootView.findViewById(R.id.report_detail_txv_area_atencion);
+        reportDetailTxvAreaAtencion = (TextView) rootView.findViewById(R.id.report_detail_txv_attention_area);
         reportDetailTxvDescription = (TextView) rootView.findViewById(R.id.report_detail_txv_description);
         reportDetailTxvEstatus = (TextView) rootView.findViewById(R.id.report_detail_txv_estatus);
 
-        try {
-            // Instancia al validador
-            ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
 
-            // Valida si existe una sesion de usuario
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
             validaCadenaUtil.validarApiKey(apiKey);
 
             // Valida si se recibio un numero de folio

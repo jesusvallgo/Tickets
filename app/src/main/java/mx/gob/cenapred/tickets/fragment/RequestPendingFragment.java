@@ -16,19 +16,26 @@ import java.util.List;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.adapter.ReporteItemAdapter;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ListadoWebService;
 
 public class RequestPendingFragment extends Fragment implements WebServiceListener {
+    // **************************** Constantes ****************************
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -42,9 +49,6 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
 
     // Lista Cache de Reportes
     private List<ReporteEntity> listaReporteCache = new ArrayList<ReporteEntity>();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
@@ -68,6 +72,9 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
     // Mapea los elementos del Fragment
     ListView requestPendingLsvItem;
 
+    // Variables del fragment
+    private String apiKey = "";
+
     // Constructor por default
     public RequestPendingFragment() {
 
@@ -85,6 +92,11 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -117,26 +129,27 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
             // Manejador de los datos de la sesion de usuario
             appPreferencesManager = new AppPreferencesManager(getContext());
 
-            // Construye los campos necesarios de la Entidad Credenciales
-            credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-            credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
-
             try {
+                // Recupera el APIKEY almacenada en el dispositivo
+                apiKey = appPreferencesManager.getApiKey();
+
+                // Valida el APIKEY
+                validaCadenaUtil.validarApiKey(apiKey);
+
                 // Construye la peticion
                 peticionWSEntity.setMetodo("get");
                 peticionWSEntity.setTipo("requestPending");
-                peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                peticionWSEntity.setApiKey(apiKey);
 
                 // Llamada al cliente para consultar los detalles del reporte
                 ListadoWebService listadoWebService = new ListadoWebService();
                 listadoWebService.webServiceListener = requestPendingFragment;
                 listadoWebService.execute(peticionWSEntity);
+            } catch (NoUserLoginException nulEx){
+                messageTypeList.add(AppPreference.MESSAGE_WARNING);
+                messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+                messageDescriptionList.add(nulEx.getMessage());
             } catch (Exception ex) {
-                // Limpia las listas de error
-                messageTypeList.clear();
-                messageTitleList.clear();
-                messageDescriptionList.clear();
-
                 // Agrega el error a mostrar
                 messageTypeList.add(AppPreference.MESSAGE_ERROR);
                 messageTitleList.add("Error al realizar la petición al Web Service");
@@ -178,15 +191,10 @@ public class RequestPendingFragment extends Fragment implements WebServiceListen
             // Carga los errores en el cuerpo del cuadro de dialogo
             requestPendingLsvItem.setAdapter(reporteItemAdapter);
         } else {
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageTitleList.clear();
-            messageDescriptionList.clear();
-
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Notificación");
-            messageDescriptionList.add("No existen reportes pendientes por atender");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NOTIFICATION);
+            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_PENDINDG_REPORT);
 
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);

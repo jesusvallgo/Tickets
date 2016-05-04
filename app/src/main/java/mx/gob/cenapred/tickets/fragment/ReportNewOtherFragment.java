@@ -23,17 +23,19 @@ import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
-import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportNewOtherFragment extends Fragment implements WebServiceListener {
@@ -42,6 +44,9 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
 
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -49,9 +54,6 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
     // Instancia a la clase de PeticionWSEntity
     private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Instancias a la clases para especificar el tipo de reporte
     private ReporteEntity reporteEntity = new ReporteEntity();
@@ -85,6 +87,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     private Integer idAttentionArea = 0;
     private Integer descriptionMaxLenght = 0;
     private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
+    private String apiKey = "";
 
     // Constructor por default
     public ReportNewOtherFragment() {
@@ -104,6 +107,11 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         idAttentionArea = getArguments().getInt("idAttentionArea", 0);
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -115,6 +123,11 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
         layoutOptions = (LinearLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
 
+        // Mapea los layouts del Fragment
+        reportNewOtherEdtDescription = (EditText) rootView.findViewById(R.id.report_new_other_edt_description);
+        reportNewOtherTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_new_other_txv_characters_count);
+        reportNewOtherBtnSend = (ImageButton) rootView.findViewById(R.id.report_new_other_btn_send);
+
         // Configura el Fragment para ocultar el teclado
         keyboardManager.configureUI(rootView, getActivity());
 
@@ -124,29 +137,35 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
-        // Construye los campos necesarios de la Entidad Credenciales
-        credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-        credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
 
-        // Mapea los layouts del Fragment
-        reportNewOtherEdtDescription = (EditText) rootView.findViewById(R.id.report_new_other_edt_description);
-        reportNewOtherTxvCharactersCount = (TextView) rootView.findViewById(R.id.report_new_other_txv_characters_count);
-        reportNewOtherBtnSend = (ImageButton) rootView.findViewById(R.id.report_new_other_btn_send);
+            // Valida el ApiKey
+            validaCadenaUtil.validarApiKey(apiKey);
 
-        // Determina si existen mensajes para desplegar
-        if (idAttentionArea == 0) {
-            // Indica que debe regresar al Fragment anterior
-            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+            // Determina si existen mensajes para desplegar
+            if (idAttentionArea == 0) {
+                throw new NoInputDataException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
+            }
 
-            // Limpia las listas de error
-            messageTypeList.clear();
-            messageTitleList.clear();
-            messageDescriptionList.clear();
-
+            // Establece el ID del Area de Atencion
+            areaAtencionEntity.setIdAreaAtencion(idAttentionArea);
+        } catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        } catch (NoInputDataException nidEx){
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
-            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
+            messageDescriptionList.add(nidEx.getMessage());
+        }
+
+        if( messageTitleList.size()>0 ){
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
 
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
@@ -155,8 +174,6 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
             // Llama al metodo que procesa la respuesta
             onCommunicationFinish(respuesta);
-        } else {
-            areaAtencionEntity.setIdAreaAtencion(idAttentionArea);
         }
 
         reportNewOtherEdtDescription.setFilters(new InputFilter[] {new InputFilter.LengthFilter(descriptionMaxLenght)});
@@ -215,7 +232,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
                     // Construye la peticion
                     peticionWSEntity.setMetodo("post");
-                    peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                    peticionWSEntity.setApiKey(apiKey);
                     peticionWSEntity.setReporteEntity(reporteEntity);
 
                     // Llamada al cliente para actualizar el reporte correspondiente

@@ -3,15 +3,8 @@ package mx.gob.cenapred.tickets.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import mx.gob.cenapred.tickets.constant.MainConstant;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.EmpleadoEntity;
 import mx.gob.cenapred.tickets.preference.AppPreference;
-import mx.gob.cenapred.tickets.util.ApiKeyUtil;
-import mx.gob.cenapred.tickets.util.Crypto;
 
 public class AppPreferencesManager {
     private SharedPreferences sharedPreferences;
@@ -65,7 +58,7 @@ public class AppPreferencesManager {
 
     // Metodo para obtener el APIKEY
     public String getApiKey(){
-        return this.sharedPreferences.getString(AppPreference.USER_PASSWORD, "");
+        return this.sharedPreferences.getString(AppPreference.API_KEY, "");
     }
 
     // Metodo para obtener el NOMBRE

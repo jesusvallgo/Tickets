@@ -8,16 +8,33 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
+import mx.gob.cenapred.tickets.constant.MainConstant;
+import mx.gob.cenapred.tickets.entity.MensajeEntity;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MenuManager;
+import mx.gob.cenapred.tickets.manager.MessagesManager;
+import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 
 public class WelcomeFragment extends Fragment implements View.OnClickListener {
+    // **************************** Constantes ****************************
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
     private View rootView;
+
+    // Manejador de los errores
+    private MessagesManager messagesManager = new MessagesManager();
 
     // Manejador de las preferencias de la aplicacion
     AppPreferencesManager appPreferencesManager;
@@ -25,11 +42,17 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
     // Manejador del menu de usuario
     MenuManager menuManager = new MenuManager();
 
+    // Variables para almacenar los posibles errores
+    private List<MensajeEntity> messagesList;
+    private List<String> messageTypeList = new ArrayList<String>();
+    private List<String> messageTitleList = new ArrayList<String>();
+    private List<String> messageDescriptionList = new ArrayList<String>();
+
     // Elementos del Fragment
     TabHost welcomeTabHost;
     LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
-
     Integer indexTab = 0;
+    private String apiKey = "";
 
     // Constructor por default
     public WelcomeFragment() {
@@ -55,12 +78,6 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         // Genera la vista para el Fragment
         rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
-        // Agrega los Tabs y botones necesarios
-        menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole(), indexTab);
-
         // Mapea los elementos del fragment
         welcomeTabHost = (TabHost) rootView.findViewById(R.id.welcomeTabHost);
         btnTicketTechnicalSupport = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
@@ -70,6 +87,33 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         btnSearchTicketNumber = (LinearLayout) rootView.findViewById(R.id.welcome_btn_search_ticket_number);
         btnRequestPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_request_pending);
         btnStadisticsGeneral = (LinearLayout) rootView.findViewById(R.id.welcome_btn_stadistics_general);
+
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
+
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
+            validaCadenaUtil.validarApiKey(apiKey);
+
+            // Agrega los Tabs y botones necesarios
+            menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole(), indexTab);
+        }  catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        }
+
+        if( messageTitleList.size()>0 ){
+            // Crea la lista de errores
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+
+            // Despliega los errores encontrados
+            messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_FINISH);
+        }
 
         // Agrega el evento onClick a los elementos del Fragment
         btnTicketTechnicalSupport.setOnClickListener(this);

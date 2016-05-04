@@ -14,11 +14,11 @@
             android:text="@string/report_delegate_txv_title" />
 
         <TextView
-            android:id="@+id/report_delegate_txv_atention_area"
+            android:id="@+id/report_delegate_txv_attention_area"
             style="@style/general_textview_main"
-            android:text="@string/report_delegate_txv_atention_area" />
+            android:text="@string/report_delegate_txv_attention_area" />
         <Spinner
-            android:id="@+id/report_delegate_spn_atention_area"
+            android:id="@+id/report_delegate_spn_attention_area"
             style="@style/general_spinner_large" />
 
         <Button

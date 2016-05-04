@@ -354,6 +354,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 mainCurrentFragment = new LogoutFragment();
+                addToBackStack = true;
                 break;
             case R.id.welcome_btn_ticket_technical_support:
                 fragmentName = "Soporte Técnico";

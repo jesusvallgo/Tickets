@@ -89,7 +89,7 @@
     <string name="report_detail_txv_date">Fecha del reporte:</string>
     <string name="report_detail_txv_user">Usuario:</string>
     <string name="report_detail_txv_area">Área del usuario:</string>
-    <string name="report_detail_txv_atention_area">Área de atención:</string>
+    <string name="report_detail_txv_attention_area">Área de atención:</string>
     <string name="report_detail_txv_description">Descripción:</string>
     <string name="report_detail_txv_estatus">Estatus:</string>
 
@@ -103,7 +103,7 @@
     <string name="report_delegate_default_text">Reporte turnado a</string>
     <string name="report_delegate_txv_title">@string/general_interface_subtitle</string>
     <string name="report_delegate_txv_delegate_title">Turnar reporte</string>
-    <string name="report_delegate_txv_atention_area">Área de atención:</string>
+    <string name="report_delegate_txv_attention_area">Área de atención:</string>
     <string name="report_delegate_txv_action">Turnar</string>
 
     <!-- Cadenas para el Fragment de Seguimiento al reporte -->

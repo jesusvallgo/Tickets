@@ -2,8 +2,6 @@ package mx.gob.cenapred.tickets.webservice;
 
 import android.os.AsyncTask;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,17 +16,13 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.gob.cenapred.tickets.R;
-import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
-import mx.gob.cenapred.tickets.exception.BadInputDataException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
-import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 
 public class CuentaWebService extends AsyncTask<PeticionWSEntity, Void, ResponseWebServiceEntity> {
     public WebServiceListener webServiceListener = null;
@@ -52,7 +46,7 @@ public class CuentaWebService extends AsyncTask<PeticionWSEntity, Void, Response
 
         try {
             // Construye la URL del Web Service a consultar
-            String urlWs = MainConstant.URL_WS + "cuenta?email=" + URLEncoder.encode(peticion[0].getCredencialesEntity().getUsername(), "UTF-8") + "&type=" + peticion[0].getTipo();
+            String urlWs = MainConstant.URL_WS + "cuenta?email=" + URLEncoder.encode(peticion[0].getEmail(), "UTF-8") + "&type=" + peticion[0].getTipo();
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();

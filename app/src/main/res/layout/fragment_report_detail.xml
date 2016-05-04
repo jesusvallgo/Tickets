@@ -46,12 +46,12 @@
             style="@style/general_textview_description" />
 
         <TextView
-            android:id="@+id/report_detail_lbl_area_atencion"
+            android:id="@+id/report_detail_lbl_attention_area"
             style="@style/general_textview_main"
-            android:text="@string/report_detail_txv_atention_area" />
+            android:text="@string/report_detail_txv_attention_area" />
 
         <TextView
-            android:id="@+id/report_detail_txv_area_atencion"
+            android:id="@+id/report_detail_txv_attention_area"
             style="@style/general_textview_description" />
 
         <TextView

@@ -23,13 +23,13 @@ import java.util.List;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.EstatusEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -90,6 +90,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
     private List<EstatusEntity> listEstatus;
 
     // Variables del fragment
+    private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
     private String apiKey = "";
 
     // Constructor por default
@@ -144,50 +145,60 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
-        // Recupera el APIKEY almacenada en el dispositivo
-        apiKey = appPreferencesManager.getApiKey();
-
-        // Valida el APIKEY
         try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
             validaCadenaUtil.validarApiKey(apiKey);
+
+            // Valida el numero de folio
+            validaCadenaUtil.validarFolio(idReport.toString());
+
+            // Establece el ID del reporte
+            reportAddHistoryTxvTitle.append(" " + idReport.toString());
+
+            // Obtiene el numero de acciones realizadas para el reporte especificado
+            Integer numEstatus = listEstatus.size();
+
+            // Determina si existen mensajes para desplegar
+            if (numEstatus > 0) {
+                // Llena el spinner de areas de atencion con los datos correspondientes
+                ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listEstatus);
+                estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
+                reportAddHistorySpnEstatus.setAdapter(estatusAdapter);
+            } else {
+                // Agrega el error a mostrar
+                throw new NoInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_LIST_STATUS);
+            }
         } catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
             messageDescriptionList.add(nulEx.getMessage());
-        }
-
-        // Determina si se recibio el numero de folio
-        if( idReport>0 ){
-            // Establece el ID del reporte
-            reportAddHistoryTxvTitle.append(" " + idReport.toString());
-        } else {
+        } catch (NoInputDataException nidEx){
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
             messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
-            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_ID_REPORT);
-        }
-
-        // Obtiene el numero de acciones realizadas para el reporte especificado
-        Integer numEstatus = listEstatus.size();
-
-        // Determina si existen mensajes para desplegar
-        if (numEstatus > 0) {
-            // Llena el spinner de areas de atencion con los datos correspondientes
-            ArrayAdapter estatusAdapter = new ArrayAdapter(getContext(), R.layout.layout_custom_spinner_item, listEstatus);
-            estatusAdapter.setDropDownViewResource(R.layout.layout_custom_spinner_dropdown);
-            reportAddHistorySpnEstatus.setAdapter(estatusAdapter);
-        } else {
+            messageDescriptionList.add(nidEx.getMessage());
+        } catch (BadInputDataException bidEx){
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
-            messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_NO_LIST_STATUS);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_BAD_INPUT_DATA);
+            messageDescriptionList.add(bidEx.getMessage());
         }
 
         if( messageTitleList.size()>0 ){
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
             // Si existen errores genera la estructura adecuada
             messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
-            messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_GOBACK);
+            ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
+            respuesta.setListaMensajes(messagesList);
+
+            // Llama al metodo que procesa la respuesta
+            onCommunicationFinish(respuesta);
         }
 
         reportAddHistoryEdtDescription.addTextChangedListener(new TextWatcher() {
@@ -302,7 +313,7 @@ public class ReportAddHistoryFragment extends Fragment implements WebServiceList
 
         if (responseWebServiceEntity.getListaMensajes() != null) {
             // Muestra los errores en pantalla
-            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_DEFAULT);
+            messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
         } else {
             // Genera aviso para el usuario que indica que su peticion ha sido exitosa
             Toast.makeText(getContext(), getString(R.string.general_toast_delegate_report_successful), Toast.LENGTH_LONG).show();

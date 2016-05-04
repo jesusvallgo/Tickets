@@ -18,6 +18,8 @@ import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.exception.BadInputDataException;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
@@ -29,6 +31,9 @@ public class SearchTicketNumberFragment extends Fragment {
 
     // Instancia a la clase auxiliar para ocultar el teclado
     private final KeyboardManager keyboardManager = new KeyboardManager();
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
 
     // **************************** Variables ****************************
 
@@ -55,7 +60,8 @@ public class SearchTicketNumberFragment extends Fragment {
     private ImageButton searchTicketNumberBtnSearch;
 
     // Inicializa las variables del Fragment
-    private String idReport = "";
+    private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
+    private String idReport = "", apiKey = "";
 
     // Constructor por default
     public SearchTicketNumberFragment() {
@@ -81,15 +87,35 @@ public class SearchTicketNumberFragment extends Fragment {
         // Genera la vista para el Fragment
         rootView = inflater.inflate(R.layout.fragment_search_ticket_number, container, false);
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
         // Configura el Fragment para ocultar el teclado
         keyboardManager.configureUI(rootView, getActivity());
 
         // Mapea los elementos del Fragment
         searchTicketNumberEdtNumber = (EditText) rootView.findViewById(R.id.ticket_number_edt_number);
         searchTicketNumberBtnSearch = (ImageButton) rootView.findViewById(R.id.ticket_number_btn_search);
+
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
+
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
+            validaCadenaUtil.validarApiKey(apiKey);
+        }  catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        }
+
+        if( messageTitleList.size()>0 ){
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
+            this.displayMessage(messageTypeList,messageTitleList,messageDescriptionList);
+        }
 
         searchTicketNumberEdtNumber.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -120,9 +146,6 @@ public class SearchTicketNumberFragment extends Fragment {
         messageDescriptionList.clear();
 
         try {
-            // Instancia al validador de datos de entrada
-            ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
-
             // Validacion del numero de folio
             validaCadenaUtil.validarFolio(idReport);
 
@@ -134,6 +157,11 @@ public class SearchTicketNumberFragment extends Fragment {
 
             // Cambia de Fragment
             ((MainActivity) getActivity()).manageFragment(R.id.fragment_report_detail, bundleEntity);
+        } catch (NoInputDataException nidEx){
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(nidEx.getMessage());
         } catch (BadInputDataException bidEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
@@ -151,12 +179,16 @@ public class SearchTicketNumberFragment extends Fragment {
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {
-                // Crea la lista de errores
-                messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
-
-                // Despliega los errores encontrados
-                messagesManager.displayMessage(getActivity(), getContext(), messagesList, AppPreference.ALERT_ACTION_DEFAULT);
+                this.displayMessage(messageTypeList,messageTitleList,messageDescriptionList);
             }
         }
+    }
+
+    private void displayMessage(List<String> messageTypeList, List<String> messageTitleList, List<String> messageDescriptionList){
+        // Crea la lista de errores
+        messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+
+        // Despliega los errores encontrados
+        messagesManager.displayMessage(getActivity(), getContext(), messagesList, alertAction);
     }
 }

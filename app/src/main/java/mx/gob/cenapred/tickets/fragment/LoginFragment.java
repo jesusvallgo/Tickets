@@ -115,18 +115,18 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
         layoutOptions = (LinearLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
-        // Configura el Fragment para ocultar el teclado
-        keyboardManager.configureUI(rootView, getActivity());
-
         // Mapea los elementos del Fragment
         loginEdtUsername = (EditText) rootView.findViewById(R.id.login_edt_username);
         loginEdtPassword = (EditText) rootView.findViewById(R.id.login_edt_password);
         loginTxvRegister = (TextView) rootView.findViewById(R.id.login_txv_register);
         loginTxvRecoverPassword = (TextView) rootView.findViewById(R.id.login_txv_recoverPassword);
         loginBtnSend = (Button) rootView.findViewById(R.id.login_btn_send);
+
+        // Configura el Fragment para ocultar el teclado
+        keyboardManager.configureUI(rootView, getActivity());
+
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
 
         // Agrega el token del dispositivo a su entidad correspondiente
         tokenGCMEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
@@ -174,6 +174,8 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
 
             // Recupera el valor limpio del campo E-mail
             username = loginEdtUsername.getText().toString().trim();
+
+            // Recupera el valor del campo password
             password = loginEdtPassword.getText().toString();
 
             // Valida si el contenido del edittext es un usuario valido

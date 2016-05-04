@@ -2,9 +2,6 @@ package mx.gob.cenapred.tickets.webservice;
 
 import android.os.AsyncTask;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,7 +24,6 @@ import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
-import mx.gob.cenapred.tickets.util.Crypto;
 
 public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, ResponseWebServiceEntity> {
     public WebServiceListener webServiceListener = null;
@@ -50,19 +46,8 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         ResponseWebServiceEntity responseWebServiceError = new ResponseWebServiceEntity();
 
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            final String jsonCredenciales = mapper.writeValueAsString(peticion[0].getCredencialesEntity());
-            //final String jsonPet = mapper.writeValueAsString(peticion[0].getReporteEntity());
-            //System.out.println(jsonPet);
-
-            // Instancia para cifrar cadenas
-            Crypto crypto = new Crypto();
-
-            // Cifra la cadena JSON que sera enviada a traves de la URL
-            String apiKey = crypto.encryptMessage(jsonCredenciales, MainConstant.PASSWORD_CRYPTO);
-
             // Construye la URL del Web Service a consultar
-            String urlWs = MainConstant.URL_WS + "listado?apiKey=" + URLEncoder.encode(apiKey, "UTF-8") + "&type=" + peticion[0].getTipo();
+            String urlWs = MainConstant.URL_WS + "listado?apiKey=" + URLEncoder.encode(peticion[0].getApiKey(), "UTF-8") + "&type=" + peticion[0].getTipo();
 
             // Construye las cabeceras HTTP
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -95,11 +80,6 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
 
             // Regresa el contenido de la respuesta del Web Service
             return responseEntity.getBody();
-        } catch (JsonProcessingException jsonEx) {
-            // Agrega el error a mostrar
-            messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al construir la petición JSON");
-            messageDescriptionList.add(jsonEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);

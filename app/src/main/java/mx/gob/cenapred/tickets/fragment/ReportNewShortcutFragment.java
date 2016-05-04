@@ -18,20 +18,27 @@ import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
-import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
 import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.listener.ConfirmationTicketListener;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ConfirmationManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
+import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
 public class ReportNewShortcutFragment extends Fragment implements View.OnClickListener, WebServiceListener, ConfirmationTicketListener {
+    // **************************** Constantes ****************************
+
+    // Instancia a la clase para validar datos de entrada
+    private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
+
     // **************************** Variables ****************************
 
     // Para generar la vista del Fragment
@@ -39,9 +46,6 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
 
     // Instancia a la clase de PeticionWSEntity
     private PeticionWSEntity peticionWSEntity = new PeticionWSEntity();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
 
     // Instancias a la clases para especificar el tipo de reporte
     private ReporteEntity reporteEntity = new ReporteEntity();
@@ -75,6 +79,7 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
     // Variables del fragment
     private Integer idAttentionArea, idLayout;
     private String alertAction = AppPreference.ALERT_ACTION_DEFAULT;
+    private String apiKey = "";
 
     // Constructor por default
     public ReportNewShortcutFragment() {
@@ -94,6 +99,11 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         idAttentionArea = getArguments().getInt("idAttentionArea", 0);
+
+        // Limpia las listas de error
+        messageTypeList.clear();
+        messageTitleList.clear();
+        messageDescriptionList.clear();
     }
 
     // Metodo onCreateView de acuerdo al ciclo de vida de un Fragment
@@ -104,6 +114,35 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
         // Mapea los layouts del Fragment
         layoutOptions = (FrameLayout) rootView.findViewById(R.id.layout_options);
         layoutLoading = (RelativeLayout) rootView.findViewById(R.id.layout_loading);
+
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
+
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
+            validaCadenaUtil.validarApiKey(apiKey);
+
+            // Determina si existen mensajes para desplegar
+            if (idAttentionArea == 0) {
+                throw new NoInputDataException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
+            }
+
+            // Establece el ID del Area de Atencion
+            areaAtencionEntity.setIdAreaAtencion(idAttentionArea);
+        } catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageDescriptionList.add(nulEx.getMessage());
+        } catch (NoInputDataException nidEx){
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
+            messageDescriptionList.add(nidEx.getMessage());
+        }
 
         // Determina el contenido del FrameLayout
         switch (idAttentionArea) {
@@ -131,39 +170,21 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
 
                 break;
             default:
-                // Indica que debe regresar al Fragment anterior
-                alertAction = AppPreference.ALERT_ACTION_GOBACK;
-
-                // Limpia las listas de error
-                messageTypeList.clear();
-                messageTitleList.clear();
-                messageDescriptionList.clear();
-
-                // Agrega el error a mostrar
-                messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_INPUT_DATA);
-                messageDescriptionList.add(MainConstant.MESSAGE_DESCRIPTION_EMPTY_ATTENTION_AREA);
-
-                // Si existen errores genera la estructura adecuada
-                messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
-                ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
-                respuesta.setListaMensajes(messagesList);
-
-                // Llama al metodo que procesa la respuesta
-                onCommunicationFinish(respuesta);
-
                 break;
         }
 
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
+        if( messageTitleList.size()>0 ){
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
 
-        // Construye los campos necesarios de la Entidad Credenciales
-        credencialesEntity.setUsername(appPreferencesManager.getUserLogin());
-        credencialesEntity.setPassword(appPreferencesManager.getUserPassword());
+            // Si existen errores genera la estructura adecuada
+            messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+            ResponseWebServiceEntity respuesta = new ResponseWebServiceEntity();
+            respuesta.setListaMensajes(messagesList);
 
-        // Construye los campos necesarios de la Entidad AreaAtencion (ID de Soporte Tecnico)
-        areaAtencionEntity.setIdAreaAtencion(idAttentionArea);
+            // Llama al metodo que procesa la respuesta
+            onCommunicationFinish(respuesta);
+        }
 
         return rootView;
     }
@@ -247,7 +268,7 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
 
                 // Construye la peticion
                 peticionWSEntity.setMetodo("post");
-                peticionWSEntity.setCredencialesEntity(credencialesEntity);
+                peticionWSEntity.setApiKey(apiKey);
                 peticionWSEntity.setReporteEntity(reporteEntity);
 
                 // Llamada al cliente para agregar el reporte correspondiente
