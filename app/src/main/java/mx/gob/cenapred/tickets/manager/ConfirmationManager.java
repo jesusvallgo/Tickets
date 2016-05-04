@@ -28,14 +28,14 @@ public class ConfirmationManager {
         builder.setView(customBody);
 
         // Agrega el boton para cerrar el cuadro de dialogo
-        builder.setPositiveButton(MainConstant.CONFIRMATION_POSITIVE_NEW_REPORT, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(MainConstant.CONFIRMATION_BUTTON_POSITIVE, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onClickButton(view, Boolean.TRUE);
             }
         });
 
-        builder.setNegativeButton(MainConstant.CONFIRMATION_NEGATIVE_NEW_REPORT, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(MainConstant.CONFIRMATION_BUTTON_NEGATIVE, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onClickButton(view,Boolean.FALSE);

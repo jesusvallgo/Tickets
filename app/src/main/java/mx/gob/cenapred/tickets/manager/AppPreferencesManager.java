@@ -40,8 +40,11 @@ public class AppPreferencesManager {
         // Almacena el NOMBRE
         this.sharedPreferences.edit().putString(AppPreference.USER_NAME, empleadoEntity.getNombreCompletoPorNombre()).apply();
 
-        // Almacena el ROL
-        this.sharedPreferences.edit().putInt(AppPreference.USER_ROLE, empleadoEntity.getUsuario().getRol().getIdRol()).apply();
+        // Almacena el ID ROL
+        this.sharedPreferences.edit().putInt(AppPreference.USER_ROLE_ID, empleadoEntity.getUsuario().getRol().getIdRol()).apply();
+
+        // Almacena el NOMBRE ROL
+        this.sharedPreferences.edit().putString(AppPreference.USER_ROLE_NAME, empleadoEntity.getUsuario().getRol().getRol()).apply();
     }
 
     // Metodo para limpiar las credenciales de usuario en el dispositivo
@@ -53,7 +56,10 @@ public class AppPreferencesManager {
         this.sharedPreferences.edit().putString(AppPreference.USER_NAME, "").apply();
 
         // Limpia el ROL
-        this.sharedPreferences.edit().putInt(AppPreference.USER_ROLE, 0).apply();
+        this.sharedPreferences.edit().putInt(AppPreference.USER_ROLE_ID, 0).apply();
+
+        // Limpia el NOMBRE ROL
+        this.sharedPreferences.edit().putString(AppPreference.USER_ROLE_NAME, "").apply();
     }
 
     // Metodo para obtener el APIKEY
@@ -67,8 +73,13 @@ public class AppPreferencesManager {
     }
 
     // Metodo para obtener el ROL
-    public Integer getUserRole() {
-        return this.sharedPreferences.getInt(AppPreference.USER_ROLE, 0);
+    public Integer getUserRoleId() {
+        return this.sharedPreferences.getInt(AppPreference.USER_ROLE_ID, 0);
+    }
+
+    // Metodo para obtener el ROL
+    public String getUserRoleName() {
+        return this.sharedPreferences.getString(AppPreference.USER_ROLE_NAME, "");
     }
 
     // Metodo para obtener el TOKEN DEL DISPOSITIVO

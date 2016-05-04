@@ -51,9 +51,9 @@ public class SearchTicketNumberFragment extends Fragment {
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Mapea los elementos del Fragment
     private EditText searchTicketNumberEdtNumber;
@@ -106,7 +106,7 @@ public class SearchTicketNumberFragment extends Fragment {
         }  catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         }
 

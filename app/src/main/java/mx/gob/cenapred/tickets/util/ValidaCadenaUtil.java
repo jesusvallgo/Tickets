@@ -80,7 +80,7 @@ public class ValidaCadenaUtil {
 
     public void validarApiKey(String cadena) throws NoUserLoginException {
         if (cadena.compareTo("")==0){
-            throw new NoUserLoginException(MainConstant.MESSAGE_DESCRIPTION_EMPTY_API_KEY);
+            throw new NoUserLoginException(MainConstant.MESSAGE_DESCRIPTION_NO_API_KEY);
         }
     }
 }

@@ -31,18 +31,23 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
     public WebServiceListener webServiceListener = null;
 
     // Variables para almacenar los posibles errores
-    private List<MensajeEntity> mensajes = new ArrayList<MensajeEntity>();
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<MensajeEntity> mensajes = new ArrayList<>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
 
     @Override
+    protected void onPreExecute(){
+        webServiceListener.communicationStatus(Boolean.TRUE);
+    }
+
+    @Override
     protected ResponseWebServiceEntity doInBackground(PeticionWSEntity... peticion) {
         // Inicializa la respuesta del Web Service
-        ResponseEntity<ResponseWebServiceEntity> responseEntity = null;
+        ResponseEntity<ResponseWebServiceEntity> responseEntity;
 
         // Inicializa la respuesta de error
         ResponseWebServiceEntity responseWebServiceError = new ResponseWebServiceEntity();
@@ -64,7 +69,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
             // Inicializa la entidad que sera enviada como peticion al Web Service
-            HttpEntity<ReporteEntity> requestEntity = null;
+            HttpEntity<ReporteEntity> requestEntity;
 
             // Construye y envia la peticion de acuerdo al metodo indicado por el usuario
             // Regresa un arreglo de tipo MensajeEntitie que contendra los posibles errores
@@ -76,11 +81,11 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                     break;
                 case "put":
                     urlWs += "&action=" + peticion[0].getAccion();
-                    requestEntity = new HttpEntity<ReporteEntity>(peticion[0].getReporteEntity(), httpHeaders);
+                    requestEntity = new HttpEntity<>(peticion[0].getReporteEntity(), httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.PUT, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 case "post":
-                    requestEntity = new HttpEntity<ReporteEntity>(peticion[0].getReporteEntity(), httpHeaders);
+                    requestEntity = new HttpEntity<>(peticion[0].getReporteEntity(), httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.POST, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 default:
@@ -112,6 +117,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
     @Override
     protected void onPostExecute(ResponseWebServiceEntity responseWebServiceEntity) {
         super.onPostExecute(responseWebServiceEntity);
+        webServiceListener.communicationStatus(Boolean.FALSE);
         webServiceListener.onCommunicationFinish(responseWebServiceEntity);
     }
 }

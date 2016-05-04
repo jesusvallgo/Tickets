@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.AreaAtencionEntity;
 import mx.gob.cenapred.tickets.entity.BitacoraEntity;
@@ -155,7 +156,7 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
         } catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         } catch (NoInputDataException nidEx){
             // Agrega el error a mostrar
@@ -266,12 +267,17 @@ public class ReportDelegateFragment extends Fragment implements WebServiceListen
             messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
         } else{
             // Genera aviso para el usuario que indica que su peticion ha sido exitosa
-            Toast.makeText(getContext(), getString(R.string.general_toast_delegate_report_successful), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), MainConstant.TOAST_REPORT_DELEGATE_SUCCESS, Toast.LENGTH_LONG).show();
 
             getActivity().onBackPressed();
         }
 
         // Muestra las opciones del Fragment
         layoutOptions.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 }

@@ -3,6 +3,9 @@ package mx.gob.cenapred.tickets.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -47,17 +50,11 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
     // Instancia a la clase ResponseWebServiceEntity
     private ResponseWebServiceEntity responseWebServiceEntity = new ResponseWebServiceEntity();
 
-    // Lista Cache de Reportes
-    private List<ReporteEntity> listaReporteCache = new ArrayList<ReporteEntity>();
-
-    // Instancia a la clase para especificar las credenciales de usuario
-    private CredencialesEntity credencialesEntity = new CredencialesEntity();
-
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -76,7 +73,10 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
     ListView myTicketPendingLsvItem;
 
     // Variables del fragment
+    private MenuItem menuItemCount;
     private String apiKey = "";
+    private List<ReporteEntity> listReportCache = new ArrayList<>();
+    private Integer numReport = 0;
 
     // Constructor por default
     public MyTicketPendingFragment() {
@@ -125,52 +125,67 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             }
         });
 
-        if( listaReporteCache != null && listaReporteCache.size()>0 ){
-            responseWebServiceEntity.setListaReporte(listaReporteCache);
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
+
+        if( listReportCache != null && listReportCache.size()>0 ){
+            numReport = listReportCache.size();
+            responseWebServiceEntity.setListaReporte(listReportCache);
             onCommunicationFinish(responseWebServiceEntity);
         } else {
-            // Manejador de los datos de la sesion de usuario
-            appPreferencesManager = new AppPreferencesManager(getContext());
-
-            try {
-                // Recupera el APIKEY almacenada en el dispositivo
-                apiKey = appPreferencesManager.getApiKey();
-
-                // Valida el APIKEY
-                validaCadenaUtil.validarApiKey(apiKey);
-
-                // Construye la peticion
-                peticionWSEntity.setMetodo("get");
-                peticionWSEntity.setTipo("myPending");
-                peticionWSEntity.setApiKey(apiKey);
-
-                // Llamada al cliente para consultar los detalles del reporte
-                ListadoWebService listadoWebService = new ListadoWebService();
-                listadoWebService.webServiceListener = myTicketPendingFragment;
-                listadoWebService.execute(peticionWSEntity);
-            } catch (NoUserLoginException nulEx){
-                messageTypeList.add(AppPreference.MESSAGE_WARNING);
-                messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
-                messageDescriptionList.add(nulEx.getMessage());
-            } catch (Exception ex) {
-                // Agrega el error a mostrar
-                messageTypeList.add(AppPreference.MESSAGE_ERROR);
-                messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
-                messageDescriptionList.add(ex.getMessage());
-            } finally {
-                if (messageTitleList.size() > 0) {
-                    // Si existen errores genera la estructura adecuada
-                    messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
-                    responseWebServiceEntity = new ResponseWebServiceEntity();
-                    responseWebServiceEntity.setListaMensajes(messagesList);
-
-                    // Llama al metodo que procesa la respuesta
-                    onCommunicationFinish(responseWebServiceEntity);
-                }
-            }
+            tryRefresh();
         }
 
         return rootView;
+    }
+
+    private void tryRefresh(){
+        try {
+            // Muestra el layout de Cargando
+            layoutLoading.setVisibility(View.VISIBLE);
+
+            // Oculta el layout de opciones del Fragment
+            layoutOptions.setVisibility(View.GONE);
+
+            // Destruye el menu de opciones del Fragment
+            setHasOptionsMenu(false);
+
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el APIKEY
+            validaCadenaUtil.validarApiKey(apiKey);
+
+            // Construye la peticion
+            peticionWSEntity.setMetodo("get");
+            peticionWSEntity.setTipo("myPending");
+            peticionWSEntity.setApiKey(apiKey);
+
+            // Llamada al cliente para consultar los detalles del reporte
+            ListadoWebService listadoWebService = new ListadoWebService();
+            listadoWebService.webServiceListener = myTicketPendingFragment;
+            listadoWebService.execute(peticionWSEntity);
+        } catch (NoUserLoginException nulEx){
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_WARNING);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
+            messageDescriptionList.add(nulEx.getMessage());
+        } catch (Exception ex) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_REQUEST_FAIL);
+            messageDescriptionList.add(ex.getMessage());
+        } finally {
+            if (messageTitleList.size() > 0) {
+                // Si existen errores genera la estructura adecuada
+                messagesList = messagesManager.createMensajesList(messageTypeList, messageTitleList, messageDescriptionList);
+                responseWebServiceEntity = new ResponseWebServiceEntity();
+                responseWebServiceEntity.setListaMensajes(messagesList);
+
+                // Llama al metodo que procesa la respuesta
+                onCommunicationFinish(responseWebServiceEntity);
+            }
+        }
     }
 
     // Metodo que procesa la respuesta del WebService
@@ -183,7 +198,8 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             // Muestra los errores en pantalla
             messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         } else if (responseWebServiceEntity.getListaReporte() != null && responseWebServiceEntity.getListaReporte().size() > 0) {
-            listaReporteCache = responseWebServiceEntity.getListaReporte();
+            numReport = responseWebServiceEntity.getListaReporte().size();
+            listReportCache = responseWebServiceEntity.getListaReporte();
             // Convierte la lista en un arreglo
             ReporteEntity[] arrayReporte = new ReporteEntity[responseWebServiceEntity.getListaReporte().size()];
             responseWebServiceEntity.getListaReporte().toArray(arrayReporte);
@@ -208,6 +224,43 @@ public class MyTicketPendingFragment extends Fragment implements WebServiceListe
             onCommunicationFinish(responseWebServiceEntity);
         }
 
+        // Muestra las opciones del Fragment
         layoutOptions.setVisibility(View.VISIBLE);
+
+        // Indica que el Fragment cuenta con menu de opciones
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.report_count_menu, menu);
+
+        // Mapea el item del menu
+        menuItemCount = menu.findItem(R.id.item_count);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        menuItemCount.setTitle(numReport.toString());
+        menuItemCount.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_refresh:
+                tryRefresh();
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 }

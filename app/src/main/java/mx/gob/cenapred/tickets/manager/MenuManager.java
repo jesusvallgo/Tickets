@@ -1,6 +1,7 @@
 package mx.gob.cenapred.tickets.manager;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -12,15 +13,18 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.constant.MainConstant;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 
 public class MenuManager {
     public void updateMenuOptions(NavigationView mainNavigationView, AppPreferencesManager appPreferencesManager) {
-        String nombre = appPreferencesManager.getUserName();
-        Integer idImgAvatar = R.mipmap.ic_avatar, idPerfil = appPreferencesManager.getUserRole();
+        String nombre = appPreferencesManager.getUserName(), rol = appPreferencesManager.getUserRoleName();
+        Integer idImgAvatar = R.mipmap.ic_avatar, idRol = appPreferencesManager.getUserRoleId();
 
         Boolean welcome = false, logout = false;
-        switch (idPerfil) {
+        switch (idRol) {
             case 1:
+                rol = "";
                 welcome = true;
                 logout = true;
                 break;
@@ -42,9 +46,11 @@ public class MenuManager {
         nav_img_icon.setImageResource(idImgAvatar);
         TextView nav_txv_nombre = (TextView) headerView.findViewById(R.id.nav_txv_nombre);
         nav_txv_nombre.setText(nombre);
+        TextView nav_txv_rol = (TextView) headerView.findViewById(R.id.nav_txv_rol);
+        nav_txv_rol.setText(rol);
     }
 
-    public void updateWelcomeTab(Activity activity, View view, Integer idRol, Integer indexTab) {
+    public void updateWelcomeTab(Activity activity, View view, Integer idRol, Integer indexTab) throws NoInputDataException {
         // Mapea el TabHost
         TabHost welcomeTabHost = (TabHost) view.findViewById(R.id.welcomeTabHost);
 
@@ -92,6 +98,8 @@ public class MenuManager {
                 break;
             case 3:
                 break;
+            default:
+                throw new NoInputDataException(MainConstant.MESSAGE_DESCRIPTION_NO_ROL);
         }
 
         for (Integer i = 0; i < welcomeTabHost.getTabWidget().getChildCount(); i++) {
@@ -104,7 +112,11 @@ public class MenuManager {
             title.setHorizontallyScrolling(false);
             title.setSingleLine();
             title.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.general_main_font_size));
-            title.setTextColor(activity.getResources().getColorStateList(R.color.general_tabhost_text));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                title.setTextColor(activity.getResources().getColorStateList(R.color.general_tabhost_text, activity.getTheme()));
+            } else {
+                title.setTextColor(activity.getResources().getColorStateList(R.color.general_tabhost_text));
+            }
         }
 
         // Selecciona el Tab adecuado

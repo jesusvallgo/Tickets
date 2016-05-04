@@ -21,7 +21,6 @@
             <EditText
                 android:id="@+id/ticket_number_edt_number"
                 style="@style/search_ticket_number_edittex_number"
-                android:text="160328003"
                 android:layout_weight="8" />
 
             <ImageButton

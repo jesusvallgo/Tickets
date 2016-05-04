@@ -113,7 +113,7 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
             sesionWebService.execute(peticionWSEntity);
         } catch (NoUserLoginException nulEx){
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         } catch (Exception ex) {
             // Agrega el error a mostrar
@@ -141,12 +141,13 @@ public class LogoutFragment extends Fragment implements WebServiceListener {
             // Muestra los errores en pantalla
             messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), AppPreference.ALERT_ACTION_GOBACK);
         } else {
-            // Limpia las credenciales de usuario del dispositivo
-            AppPreferencesManager appPreferencesManager = new AppPreferencesManager(getContext());
-            appPreferencesManager.clearCredentials();
-
             // Redirige al Fragment de login
             ((MainActivity) getActivity()).manageFragment(R.id.fragment_login, null);
         }
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 }

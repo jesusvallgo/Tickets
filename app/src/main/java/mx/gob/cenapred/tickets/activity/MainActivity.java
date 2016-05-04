@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -95,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Contenedor de datos del Bundle
     private BundleEntity bundleEntity = new BundleEntity();
@@ -123,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Variable para capturar o especificar el ID de Reporte
     private Integer idReport;
+
+    // Variable para determinar si se encuentra en una tarea pendiente
+    public Boolean asyncTaskRunning = Boolean.FALSE;
 
     // Acciones que se realizan al crear la actividad
     @Override
@@ -170,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     // Busca si se tienen almacenadas las credenciales de usuario
-                    if (appPreferencesManager.getLoginStatus() == true) {
+                    if (appPreferencesManager.getLoginStatus() ) {
                         // Abre el fragment predeterminado de inicio
                         manageFragment(R.id.nav_welcome, null);
                     } else {
@@ -279,7 +283,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Sobreescribe el metodo que reacciona ante la tecla "atras"
     @Override
     public void onBackPressed() {
-        if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if( asyncTaskRunning){
+            Toast.makeText(getApplicationContext(),"Tarea en ejecución", Toast.LENGTH_SHORT).show();
+        } else if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             // Si el menu esta desplegado, cierra el menu
             mainDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
@@ -307,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_login:
                 fragmentName = "Login";
                 mainCurrentFragment = new LoginFragment();
+                clearBackStack = true;
                 updateMenu = true;
                 break;
             case R.id.fragment_report_other:
@@ -401,6 +408,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_container, mainCurrentFragment);
+
+            System.out.println(fragmentManager.getBackStackEntryCount());
 
             if (addToBackStack) {
                 // Si es necesario, agrega a la pila de Fragments

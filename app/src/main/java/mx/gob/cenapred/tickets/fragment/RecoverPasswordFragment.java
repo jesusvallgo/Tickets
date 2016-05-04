@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.CredencialesEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
@@ -202,5 +203,10 @@ public class RecoverPasswordFragment extends Fragment implements WebServiceListe
 
         // Muestra las opciones del Fragment
         layoutOptions.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 }

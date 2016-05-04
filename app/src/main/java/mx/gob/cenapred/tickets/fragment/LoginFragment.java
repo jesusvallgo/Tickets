@@ -128,6 +128,9 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
 
+        // Limpia las credenciales de usuario del dispositivo
+        appPreferencesManager.clearCredentials();
+
         // Agrega el token del dispositivo a su entidad correspondiente
         tokenGCMEntity.setTokenDispositivo(appPreferencesManager.getDeviceToken());
 
@@ -216,7 +219,7 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             messageDescriptionList.add(jsonEx.getMessage());
         } catch (NoUserLoginException nulEx){
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         } catch (NoInputDataException nidEx){
             messageTypeList.add(AppPreference.MESSAGE_WARNING);
@@ -287,6 +290,11 @@ public class LoginFragment extends Fragment implements WebServiceListener, View.
             // Redirige al Fragment de bienvenida
             ((MainActivity) getActivity()).manageFragment(R.id.nav_welcome, null);
         }
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 
     @Override

@@ -23,4 +23,11 @@
         android:paddingTop="@dimen/nav_vertical_space"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textAlignment="center" />
+    <TextView
+        android:id="@+id/nav_txv_rol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_vertical_space"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAlignment="center" />
 </LinearLayout>

@@ -54,9 +54,9 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Manejador de los errores
     private MessagesManager messagesManager = new MessagesManager();
@@ -200,12 +200,12 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
         } else if (responseWebServiceEntity.getReporte() != null) {
             // Llena los campos con la informacion correspondiente
             reportDetailTxvIdReport.setText(responseWebServiceEntity.getReporte().getIdReporte().toString());
-            reportDetailTxvDate.setText(responseWebServiceEntity.getReporte().getFecha().toString());
-            reportDetailTxvUser.setText(responseWebServiceEntity.getReporte().getEmpleado().getNombreCompletoPorNombre().toString());
-            reportDetailTxvArea.setText(responseWebServiceEntity.getReporte().getEmpleado().getArea().getArea().toString());
-            reportDetailTxvAreaAtencion.setText(responseWebServiceEntity.getReporte().getAreaAtencion().getAreaAtencion().toString());
-            reportDetailTxvDescription.setText(responseWebServiceEntity.getReporte().getDescripcion().toString());
-            reportDetailTxvEstatus.setText(responseWebServiceEntity.getReporte().getEstatus().getEstatus().toString());
+            reportDetailTxvDate.setText(responseWebServiceEntity.getReporte().getFecha());
+            reportDetailTxvUser.setText(responseWebServiceEntity.getReporte().getEmpleado().getNombreCompletoPorNombre());
+            reportDetailTxvArea.setText(responseWebServiceEntity.getReporte().getEmpleado().getArea().getArea());
+            reportDetailTxvAreaAtencion.setText(responseWebServiceEntity.getReporte().getAreaAtencion().getAreaAtencion());
+            reportDetailTxvDescription.setText(responseWebServiceEntity.getReporte().getDescripcion());
+            reportDetailTxvEstatus.setText(responseWebServiceEntity.getReporte().getEstatus().getEstatus());
 
             if (responseWebServiceEntity.getReporte().getBitacora().size() > 0) {
                 // Habilita la bandera para mostrar la opcion de "Ver Historial" del reporte
@@ -220,7 +220,7 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             // Si existen datos del usuario
             if (responseWebServiceEntity.getUsuario() != null) {
                 // Si es un usuario con perfil de "Atencion a incidentes" y ademas, el reporte puede ser editado
-                if (responseWebServiceEntity.getUsuario().getRol().getIdRol() == 2 && responseWebServiceEntity.getReporte().getEstatus().getEditable() == true) {
+                if (responseWebServiceEntity.getUsuario().getRol().getIdRol() == 2 && responseWebServiceEntity.getReporte().getEstatus().getEditable() ) {
 
                     // Si existen datos de "Area de Atencion"
                     if( responseWebServiceEntity.getListaAreaAtencion() != null ){
@@ -256,8 +256,14 @@ public class ReportDetailFragment extends Fragment implements WebServiceListener
             // Muestra las opciones del Fragment
             layoutOptions.setVisibility(View.VISIBLE);
 
+            // Indica que el Fragment cuenta con menu de opciones
             setHasOptionsMenu(true);
         }
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 
     @Override

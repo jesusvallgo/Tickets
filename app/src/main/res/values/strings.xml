@@ -7,10 +7,6 @@
     <string name="log_success_token">Token generado</string>
     <string name="log_error_token">Error al actualizar Token</string>
 
-    <!-- Cadenas generales para notificar al usuario -->
-    <string name="general_toast_create_report_successful">El reporte se ha generado de forma correcta</string>
-    <string name="general_toast_delegate_report_successful">El reporte se ha actualizado de forma correcta</string>
-
     <!-- Cadenas para el menu de navegacion -->
     <string name="nav_drawer_open">Abre menu de navegación</string>
     <string name="nav_drawer_close">Cierra menu de navegación</string>

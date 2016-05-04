@@ -51,7 +51,7 @@ public class ReportViewHistoryFragment extends Fragment {
     private AppPreferencesManager appPreferencesManager;
 
     // Inicializa las variables del Fragment
-    private List<BitacoraEntity> listHistoryAction = new ArrayList<BitacoraEntity>();
+    private List<BitacoraEntity> listHistoryAction = new ArrayList<>();
     private String apiKey = "";
 
     // Constructor por default
@@ -122,7 +122,7 @@ public class ReportViewHistoryFragment extends Fragment {
         } catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         } catch (NoInputDataException nidEx){
             // Agrega el error a mostrar

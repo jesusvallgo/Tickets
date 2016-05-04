@@ -17,9 +17,6 @@ import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 
-/**
- * Created by CENAPRED on 24/02/2016.
- */
 public class MessagesManager {
     public MensajeEntity[] createMensajesArray(List<String> mensajeErrorList, List<String> mensajeDebugList) {
         Integer numMensajes = mensajeErrorList.size();
@@ -38,7 +35,7 @@ public class MessagesManager {
 
     public List<MensajeEntity> createMensajesList(List<String> mensajeTypeList, List<String> mensajeTitleList, List<String> mensajeDescriptionList) {
         Integer numMensajes = mensajeTitleList.size();
-        List<MensajeEntity> mensajes = new ArrayList<MensajeEntity>();
+        List<MensajeEntity> mensajes = new ArrayList<>();
 
         MensajeEntity mensajeEntity;
         for (Integer i = 0; i < numMensajes; i++) {
@@ -85,7 +82,7 @@ public class MessagesManager {
         listError.setAdapter(adapter);
 
         // Agrega el boton para cerrar el cuadro de dialogo
-        builder.setPositiveButton(MainConstant.MESSAGE_POSITIVE, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(MainConstant.MESSAGE_BUTTON_POSITIVE, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (accion){

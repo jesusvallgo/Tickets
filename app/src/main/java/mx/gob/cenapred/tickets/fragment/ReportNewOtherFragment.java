@@ -154,7 +154,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
         } catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
         } catch (NoInputDataException nidEx){
             // Agrega el error a mostrar
@@ -277,7 +277,7 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
             messagesManager.displayMessage(getActivity(), getContext(), responseWebServiceEntity.getListaMensajes(), alertAction);
         } else {
             // Genera aviso para el usuario que indica que su peticion ha sido exitosa
-            Toast.makeText(getContext(), getString(R.string.general_toast_create_report_successful), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), MainConstant.TOAST_REPORT_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
 
             // Redirige al Fragment de bienvenida
             ((MainActivity) getActivity()).manageFragment(R.id.nav_welcome, null);
@@ -285,5 +285,10 @@ public class ReportNewOtherFragment extends Fragment implements WebServiceListen
 
         // Muestra las opciones del Fragment
         layoutOptions.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void communicationStatus(Boolean running) {
+        ((MainActivity) getActivity()).asyncTaskRunning = running;
     }
 }

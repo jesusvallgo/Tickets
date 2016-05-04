@@ -15,6 +15,7 @@ import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
+import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.MenuManager;
@@ -44,9 +45,9 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
-    private List<String> messageTypeList = new ArrayList<String>();
-    private List<String> messageTitleList = new ArrayList<String>();
-    private List<String> messageDescriptionList = new ArrayList<String>();
+    private List<String> messageTypeList = new ArrayList<>();
+    private List<String> messageTitleList = new ArrayList<>();
+    private List<String> messageDescriptionList = new ArrayList<>();
 
     // Elementos del Fragment
     TabHost welcomeTabHost;
@@ -99,12 +100,17 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
             validaCadenaUtil.validarApiKey(apiKey);
 
             // Agrega los Tabs y botones necesarios
-            menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRole(), indexTab);
+            menuManager.updateWelcomeTab(getActivity(), rootView, appPreferencesManager.getUserRoleId(), indexTab);
         }  catch (NoUserLoginException nulEx) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_USER_LOGIN);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
             messageDescriptionList.add(nulEx.getMessage());
+        } catch (NoInputDataException nidEx){
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
+            messageDescriptionList.add(nidEx.getMessage());
         }
 
         if( messageTitleList.size()>0 ){
