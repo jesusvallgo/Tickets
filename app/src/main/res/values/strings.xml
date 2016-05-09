@@ -43,7 +43,7 @@
     <!-- Cadenas para el Fragment de Welcome -->
     <string name="welcome_title_create_ticket">Generar</string>
     <string name="welcome_btn_ticket_technical_support">Soporte Técnico</string>
-    <string name="welcome_btn_ticket_developers">Desarrollo de Sistemas</string>
+    <string name="welcome_btn_ticket_development">Desarrollo de Sistemas</string>
     <string name="welcome_btn_ticket_networking">Redes y Enlaces</string>
 
     <string name="welcome_title_search_ticket">Buscar</string>

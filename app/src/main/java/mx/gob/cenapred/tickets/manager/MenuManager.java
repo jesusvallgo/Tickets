@@ -72,21 +72,21 @@ public class MenuManager {
         addNewTab(welcomeTabHost, "searchTicket", activity.getString(R.string.welcome_title_search_ticket), R.id.welcomeTabSearchTicket);
 
         // Banderas para elementos de "Generar"
-        Integer putTicketTechnicalSupport = View.GONE, putTicketDevelopers = View.GONE, putTicketNetworking = View.GONE;
+        Integer putTicketTechnicalSupport = View.GONE, putTicketDevelopment = View.GONE, putTicketNetworking = View.GONE;
         Integer getMyTicketPending = View.GONE, getSearchTicketNumber = View.GONE, getRequestPending = View.GONE;
         Integer getStadisticsGeneral = View.GONE;
 
         switch (idRol) {
             case 1:
                 putTicketTechnicalSupport = View.VISIBLE;
-                putTicketDevelopers = View.VISIBLE;
+                putTicketDevelopment = View.VISIBLE;
                 putTicketNetworking = View.VISIBLE;
                 getMyTicketPending = View.VISIBLE;
                 getSearchTicketNumber = View.VISIBLE;
                 break;
             case 2:
                 putTicketTechnicalSupport = View.VISIBLE;
-                putTicketDevelopers = View.VISIBLE;
+                putTicketDevelopment = View.VISIBLE;
                 putTicketNetworking = View.VISIBLE;
                 getMyTicketPending = View.VISIBLE;
                 getSearchTicketNumber = View.VISIBLE;
@@ -123,7 +123,7 @@ public class MenuManager {
         welcomeTabHost.setCurrentTab(indexTab);
 
         view.findViewById(R.id.welcome_btn_ticket_technical_support).setVisibility(putTicketTechnicalSupport);
-        view.findViewById(R.id.welcome_btn_ticket_developers).setVisibility(putTicketDevelopers);
+        view.findViewById(R.id.welcome_btn_ticket_development).setVisibility(putTicketDevelopment);
         view.findViewById(R.id.welcome_btn_ticket_networking).setVisibility(putTicketNetworking);
         view.findViewById(R.id.welcome_btn_my_ticket_pending).setVisibility(getMyTicketPending);
         view.findViewById(R.id.welcome_btn_search_ticket_number).setVisibility(getSearchTicketNumber);

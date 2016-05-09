@@ -51,7 +51,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
 
     // Elementos del Fragment
     TabHost welcomeTabHost;
-    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopers, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
+    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopment, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
     Integer indexTab = 0;
     private String apiKey = "";
 
@@ -82,7 +82,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         // Mapea los elementos del fragment
         welcomeTabHost = (TabHost) rootView.findViewById(R.id.welcomeTabHost);
         btnTicketTechnicalSupport = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_technical_support);
-        btnTicketDevelopers = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_developers);
+        btnTicketDevelopment = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_development);
         btnTicketNetworking = (LinearLayout) rootView.findViewById(R.id.welcome_btn_ticket_networking);
         btnMyTicketPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_my_ticket_pending);
         btnSearchTicketNumber = (LinearLayout) rootView.findViewById(R.id.welcome_btn_search_ticket_number);
@@ -123,7 +123,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
 
         // Agrega el evento onClick a los elementos del Fragment
         btnTicketTechnicalSupport.setOnClickListener(this);
-        btnTicketDevelopers.setOnClickListener(this);
+        btnTicketDevelopment.setOnClickListener(this);
         btnTicketNetworking.setOnClickListener(this);
         btnMyTicketPending.setOnClickListener(this);
         btnSearchTicketNumber.setOnClickListener(this);
