@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.fragment.AboutFragment;
@@ -284,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         if( asyncTaskRunning){
-            Toast.makeText(getApplicationContext(),"Tarea en ejecución", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), MainConstant.TOAST_ASYNKTASK_RUNNING, Toast.LENGTH_SHORT).show();
         } else if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             // Si el menu esta desplegado, cierra el menu
             mainDrawerLayout.closeDrawer(GravityCompat.START);

@@ -59,6 +59,7 @@ public class MainConstant {
 
 
     // Constantes para avisos TOAST
+    public static final String TOAST_ASYNKTASK_RUNNING = "No es posible regresar mientras una tarea se ejecuta";
     public static final String TOAST_REPORT_CREATE_SUCCESS = "El reporte se ha generado de forma correcta";
     public static final String TOAST_REPORT_UPDATE_SUCCESS = "El reporte se ha actualizado de forma correcta";
     public static final String TOAST_REPORT_DELEGATE_SUCCESS = "El reporte se ha turnado de forma correcta";
