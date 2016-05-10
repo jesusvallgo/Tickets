@@ -7,7 +7,7 @@
         style="@style/general_button_icon_text_container">
         <ImageView
             style="@style/general_button_icon_text_icon"
-            android:src="@mipmap/ic_cenapred" />
+            android:src="@mipmap/ic_low_toner" />
         <TextView
             style="@style/general_button_icon_text_text"
             android:text="@string/technical_support_btn_low_toner" />
@@ -18,7 +18,7 @@
         style="@style/general_button_icon_text_container">
         <ImageView
             style="@style/general_button_icon_text_icon"
-            android:src="@mipmap/ic_cenapred" />
+            android:src="@mipmap/ic_paper_jam" />
         <TextView
             style="@style/general_button_icon_text_text"
             android:text="@string/technical_support_btn_paper_jam" />
