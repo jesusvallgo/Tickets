@@ -51,7 +51,7 @@
         style="@style/general_button_icon_text_container">
         <ImageView
             style="@style/general_button_icon_text_icon"
-            android:src="@mipmap/ic_cenapred" />
+            android:src="@mipmap/ic_password_lost" />
         <TextView
             style="@style/general_button_icon_text_text"
             android:text="@string/technical_support_btn_password_lost" />
