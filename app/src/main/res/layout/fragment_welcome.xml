@@ -74,7 +74,7 @@
                         style="@style/general_button_icon_text_container">
                         <ImageView
                             style="@style/general_button_icon_text_icon"
-                            android:src="@mipmap/ic_cenapred" />
+                            android:src="@mipmap/ic_search_ticket_number" />
                         <TextView
                             style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_search_ticket_number" />
@@ -84,7 +84,7 @@
                         style="@style/general_button_icon_text_container">
                         <ImageView
                             style="@style/general_button_icon_text_icon"
-                            android:src="@mipmap/ic_cenapred" />
+                            android:src="@mipmap/ic_request_pending" />
                         <TextView
                             style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_request_pending" />
