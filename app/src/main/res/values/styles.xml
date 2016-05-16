@@ -173,7 +173,7 @@
     <style name="general_button_only_icon" parent="general_wrap_wrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:padding">7dp</item>
+        <item name="android:padding">2dp</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:adjustViewBounds">true</item>
         <item name="android:background">@drawable/general_button_text</item>
