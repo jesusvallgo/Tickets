@@ -99,7 +99,7 @@
                         style="@style/general_button_icon_text_container">
                         <ImageView
                             style="@style/general_button_icon_text_icon"
-                            android:src="@mipmap/ic_stadistics" />
+                            android:src="@mipmap/ic_stadistics_custom" />
                         <TextView
                             style="@style/general_button_icon_text_text"
                             android:text="@string/welcome_btn_stadistics_general" />
