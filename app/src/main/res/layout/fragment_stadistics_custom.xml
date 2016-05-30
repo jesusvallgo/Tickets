@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_stadistics_custom"
+    style="@style/general_layout_relative_nomargin_match_match"
+    tools:context=".fragment.StadisticsCustomFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_options"
+        style="@style/general_layout_linear_vertical_margin_match_match">
+
+        <TextView
+            android:id="@+id/report_delegate_txv_title"
+            style="@style/general_textview_interface_subtitle"
+            android:text="@string/report_delegate_txv_title" />
+
+        <TextView
+            android:id="@+id/report_delegate_txv_attention_area"
+            style="@style/general_textview_main"
+            android:text="@string/report_delegate_txv_attention_area" />
+        <Spinner
+            android:id="@+id/report_delegate_spn_attention_area"
+            style="@style/general_spinner_large" />
+
+        <Button
+            android:id="@+id/report_delegate_btn_action"
+            style="@style/general_button_only_text"
+            android:text="@string/report_delegate_txv_action" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        style="@style/loading_layout_container"
+        android:visibility="gone" />
+</RelativeLayout>
