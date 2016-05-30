@@ -74,7 +74,7 @@ public class MenuManager {
         // Banderas para elementos de "Generar"
         Integer putTicketTechnicalSupport = View.GONE, putTicketDevelopment = View.GONE, putTicketNetworking = View.GONE;
         Integer getMyTicketPending = View.GONE, getSearchTicketNumber = View.GONE, getRequestPending = View.GONE;
-        Integer getStadisticsGeneral = View.GONE;
+        Integer getStadisticsCustom = View.GONE;
 
         switch (idRol) {
             case 1:
@@ -91,7 +91,7 @@ public class MenuManager {
                 getMyTicketPending = View.VISIBLE;
                 getSearchTicketNumber = View.VISIBLE;
                 getRequestPending = View.VISIBLE;
-                getStadisticsGeneral = View.VISIBLE;
+                getStadisticsCustom = View.VISIBLE;
 
                 // Crea la pestaña para "Estadisticas"
                 addNewTab(welcomeTabHost, "stadistics", activity.getString(R.string.welcome_title_stadistics), R.id.welcomeTabStadistics);
@@ -128,7 +128,7 @@ public class MenuManager {
         view.findViewById(R.id.welcome_btn_my_ticket_pending).setVisibility(getMyTicketPending);
         view.findViewById(R.id.welcome_btn_search_ticket_number).setVisibility(getSearchTicketNumber);
         view.findViewById(R.id.welcome_btn_request_pending).setVisibility(getRequestPending);
-        view.findViewById(R.id.welcome_btn_stadistics_general).setVisibility(getStadisticsGeneral);
+        view.findViewById(R.id.welcome_btn_stadistics_custom).setVisibility(getStadisticsCustom);
     }
 
     private void addNewTab(TabHost tabHost, String tag, String text, Integer idContent) {

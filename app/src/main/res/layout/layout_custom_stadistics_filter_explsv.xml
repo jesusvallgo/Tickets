@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_vertical_nomargin_match_wrap">
+
+    <TextView
+        android:id="@+id/filter_lbl_name"
+        style="@style/general_explsv_title" />
+
+</LinearLayout>

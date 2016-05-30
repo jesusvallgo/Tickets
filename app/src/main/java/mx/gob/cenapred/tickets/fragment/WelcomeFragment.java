@@ -51,7 +51,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
 
     // Elementos del Fragment
     TabHost welcomeTabHost;
-    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopment, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsGeneral;
+    LinearLayout btnTicketTechnicalSupport, btnTicketDevelopment, btnTicketNetworking, btnMyTicketPending, btnSearchTicketNumber, btnRequestPending, btnStadisticsCustom;
     Integer indexTab = 0;
     private String apiKey = "";
 
@@ -87,7 +87,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         btnMyTicketPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_my_ticket_pending);
         btnSearchTicketNumber = (LinearLayout) rootView.findViewById(R.id.welcome_btn_search_ticket_number);
         btnRequestPending = (LinearLayout) rootView.findViewById(R.id.welcome_btn_request_pending);
-        btnStadisticsGeneral = (LinearLayout) rootView.findViewById(R.id.welcome_btn_stadistics_general);
+        btnStadisticsCustom = (LinearLayout) rootView.findViewById(R.id.welcome_btn_stadistics_custom);
 
         // Manejador de los datos de la sesion de usuario
         appPreferencesManager = new AppPreferencesManager(getContext());
@@ -128,7 +128,7 @@ public class WelcomeFragment extends Fragment implements View.OnClickListener {
         btnMyTicketPending.setOnClickListener(this);
         btnSearchTicketNumber.setOnClickListener(this);
         btnRequestPending.setOnClickListener(this);
-        btnStadisticsGeneral.setOnClickListener(this);
+        btnStadisticsCustom.setOnClickListener(this);
 
         return rootView;
     }

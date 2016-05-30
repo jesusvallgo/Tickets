@@ -52,7 +52,7 @@
     <string name="welcome_btn_request_pending">Solicitudes por atender</string>
 
     <string name="welcome_title_stadistics">Estadísticas</string>
-    <string name="welcome_btn_stadistics_general">Personalizada</string>
+    <string name="welcome_btn_stadistics_custom">Personalizada</string>
 
     <!-- Cadenas comunes para Crear de Reportes -->
     <string name="general_btn_other">Otro</string>

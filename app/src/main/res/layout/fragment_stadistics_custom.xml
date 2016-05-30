@@ -8,23 +8,16 @@
         android:id="@+id/layout_options"
         style="@style/general_layout_linear_vertical_margin_match_match">
 
-        <TextView
-            android:id="@+id/report_delegate_txv_title"
-            style="@style/general_textview_interface_subtitle"
-            android:text="@string/report_delegate_txv_title" />
+        <ExpandableListView
+            android:id="@+id/stadistics_custom_exp_lsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/general_listview_divider"
+            android:dividerHeight="@dimen/general_border_size"
+            android:groupIndicator="@null">
 
-        <TextView
-            android:id="@+id/report_delegate_txv_attention_area"
-            style="@style/general_textview_main"
-            android:text="@string/report_delegate_txv_attention_area" />
-        <Spinner
-            android:id="@+id/report_delegate_spn_attention_area"
-            style="@style/general_spinner_large" />
+        </ExpandableListView>
 
-        <Button
-            android:id="@+id/report_delegate_btn_action"
-            style="@style/general_button_only_text"
-            android:text="@string/report_delegate_txv_action" />
     </LinearLayout>
 
     <include

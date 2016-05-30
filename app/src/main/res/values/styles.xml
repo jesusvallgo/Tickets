@@ -121,6 +121,12 @@
         <item name="android:textColor">@color/general_textview_description_text</item>
     </style>
 
+    <style name="general_explsv_title" parent="general_item_large">
+        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
+        <item name="android:layout_marginBottom">@dimen/general_margin_size</item>
+        <item name="android:textSize">@dimen/general_main_font_size</item>
+    </style>
+
     <!-- Elementos para Spinner general -->
     <style name="general_dropdown_style" parent="Widget.AppCompat.ListView.DropDown">
         <item name="android:divider">@color/general_spinner_divider</item>

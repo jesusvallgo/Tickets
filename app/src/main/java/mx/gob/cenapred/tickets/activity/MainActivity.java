@@ -43,6 +43,7 @@ import mx.gob.cenapred.tickets.fragment.RequestPendingFragment;
 import mx.gob.cenapred.tickets.fragment.ReportNewShortcutFragment;
 import mx.gob.cenapred.tickets.fragment.SearchTicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.RegisterFragment;
+import mx.gob.cenapred.tickets.fragment.StadisticsCustomFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -383,6 +384,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.welcome_btn_search_ticket_number:
                 fragmentName = "Buscar";
                 mainCurrentFragment = new SearchTicketNumberFragment();
+                addToBackStack = true;
+                break;
+            case R.id.welcome_btn_stadistics_custom:
+                fragmentName = "Filtros";
+                mainCurrentFragment = new StadisticsCustomFragment();
                 addToBackStack = true;
                 break;
             case R.id.login_txv_register:
