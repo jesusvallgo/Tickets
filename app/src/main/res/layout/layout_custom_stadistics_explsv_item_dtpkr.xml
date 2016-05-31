@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/general_layout_linear_horizontal_nomargin_match_wrap"
+    android:paddingLeft="@dimen/general_padding_size"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/item_name"
+        style="@style/general_explsv_item"
+        android:layout_weight="5" />
+    <TextView
+        android:id="@+id/item_value"
+        style="@style/general_textview_large"
+        android:layout_weight="5" />
+</LinearLayout>

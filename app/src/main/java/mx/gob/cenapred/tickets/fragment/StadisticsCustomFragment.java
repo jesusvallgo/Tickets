@@ -1,31 +1,21 @@
 package mx.gob.cenapred.tickets.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import mx.gob.cenapred.tickets.R;
-import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.adapter.StadisticsCustomFilterAdapter;
-import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
+import mx.gob.cenapred.tickets.entity.CustomFilterItemEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
-import mx.gob.cenapred.tickets.exception.BadInputDataException;
-import mx.gob.cenapred.tickets.exception.NoInputDataException;
-import mx.gob.cenapred.tickets.exception.NoUserLoginException;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
@@ -93,6 +83,14 @@ public class StadisticsCustomFragment extends Fragment {
 
         ExpandableListView expandableListView = (ExpandableListView) rootView.findViewById(R.id.stadistics_custom_exp_lsv);
         expandableListView.setAdapter(new StadisticsCustomFilterAdapter(getActivity()));
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                CustomFilterItemEntity item = (CustomFilterItemEntity) parent.getExpandableListAdapter().getChild(groupPosition,childPosition);
+                Toast.makeText(getContext(), "Clic en " + item.getLabel(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
 
         /*

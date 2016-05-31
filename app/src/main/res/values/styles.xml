@@ -121,10 +121,18 @@
         <item name="android:textColor">@color/general_textview_description_text</item>
     </style>
 
-    <style name="general_explsv_title" parent="general_item_large">
+    <style name="general_explsv_group" parent="general_item_large">
         <item name="android:layout_marginTop">@dimen/general_margin_size</item>
         <item name="android:layout_marginBottom">@dimen/general_margin_size</item>
         <item name="android:textSize">@dimen/general_main_font_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/general_textview_interface_subtitle</item>
+    </style>
+    <style name="general_explsv_item" parent="general_item_large">
+        <item name="android:layout_marginTop">@dimen/general_margin_size</item>
+        <item name="android:layout_marginBottom">@dimen/general_margin_size</item>
+        <item name="android:textSize">@dimen/general_main_font_size</item>
+        <item name="android:textColor">@color/general_textview_main_text</item>
     </style>
 
     <!-- Elementos para Spinner general -->

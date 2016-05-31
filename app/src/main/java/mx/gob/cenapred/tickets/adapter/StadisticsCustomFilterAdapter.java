@@ -20,15 +20,7 @@ public class StadisticsCustomFilterAdapter extends BaseExpandableListAdapter {
     private CustomFilterItemEntity customFilterItemEntity;
 
     // Contenedor de filtros
-    List<CustomFilterEntity> filters = new ArrayList<>();
-
-    private String[][] children = {
-            { "Arnold", "Barry", "Chuck", "David" },
-            { "Ace", "Bandit", "Cha-Cha", "Deuce" },
-            { "Fluffy", "Snuggles" },
-            { "Goldy", "Bubbles" }
-    };
-
+    private List<CustomFilterEntity> filters = new ArrayList<>();
 
     public StadisticsCustomFilterAdapter(Activity activity){
         this.activity = activity;
@@ -94,8 +86,8 @@ public class StadisticsCustomFilterAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View groupView = convertView.inflate(activity,R.layout.layout_custom_stadistics_filter_explsv,null);
-        TextView labelFilter = (TextView) groupView.findViewById(R.id.filter_lbl_name);
+        View groupView = convertView.inflate(activity,R.layout.layout_custom_stadistics_explsv_group,null);
+        TextView labelFilter = (TextView) groupView.findViewById(R.id.group_name);
         labelFilter.setText(getGroup(groupPosition).toString());
         return groupView;
     }
@@ -106,13 +98,13 @@ public class StadisticsCustomFilterAdapter extends BaseExpandableListAdapter {
         CustomFilterItemEntity item = (CustomFilterItemEntity) getChild(groupPosition, childPosition);
         switch (item.getType()){
             case "DatePicker":
-                layout = R.layout.layout_custom_stadistics_filter_explsv;
+                layout = R.layout.layout_custom_stadistics_explsv_item_dtpkr;
                 break;
         }
 
         View childView = convertView.inflate(activity, layout, null);
 
-        TextView labelChild = (TextView) childView.findViewById(R.id.filter_lbl_name);
+        TextView labelChild = (TextView) childView.findViewById(R.id.item_name);
         labelChild.setText(item.getLabel());
         return childView;
     }

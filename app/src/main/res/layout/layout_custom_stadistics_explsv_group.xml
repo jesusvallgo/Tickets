@@ -3,7 +3,7 @@
     style="@style/general_layout_linear_vertical_nomargin_match_wrap">
 
     <TextView
-        android:id="@+id/filter_lbl_name"
-        style="@style/general_explsv_title" />
+        android:id="@+id/group_name"
+        style="@style/general_explsv_group" />
 
 </LinearLayout>
