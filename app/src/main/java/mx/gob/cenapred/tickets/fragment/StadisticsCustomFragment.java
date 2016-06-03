@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import mx.gob.cenapred.tickets.R;
+import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.adapter.StadisticsCustomFilterAdapter;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CustomFilterEntity;
@@ -206,10 +207,13 @@ public class StadisticsCustomFragment extends Fragment {
                 }
 
                 if(filter.compareTo("")!=0){
-                    filter = "filter={" + filter + "}";
+                    filter = "{" + filter + "}";
                 }
 
-                System.out.println(filter);
+                BundleEntity bundleEntity = new BundleEntity();
+                bundleEntity.setFiltro(filter);
+
+                ((MainActivity)getActivity()).manageFragment(R.id.fragment_stadistics_view,bundleEntity);
             }
         });
 

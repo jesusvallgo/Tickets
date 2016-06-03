@@ -89,7 +89,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.POST, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 default:
-                    throw new Exception("No se ha especificado un método válido.");
+                    throw new Exception(MainConstant.MESSAGE_DESCRIPTION_WS_NO_VALID_METHOD);
             }
 
             // Regresa el contenido de la respuesta del Web Service
@@ -102,7 +102,7 @@ public class ReporteWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al consultar el Web Service");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_COMMUNICATION_FAIL);
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {

@@ -74,14 +74,14 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             switch (peticion[0].getMetodo()) {
                 case "get":
                     if (peticion[0].getTipo().compareTo("stadistics")==0 && peticion[0].getFiltro().compareTo("")!=0){
-                        urlWs+="&filter=" + peticion[0].getFiltro();
+                        urlWs+="&filter=" + URLEncoder.encode(peticion[0].getFiltro(), "UTF-8");
                     }
                     System.out.println(urlWs);
                     requestEntity = new HttpEntity<>(httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.GET, requestEntity, ResponseWebServiceEntity.class);
                     break;
                 default:
-                    throw new Exception("No se ha especificado un método válido.");
+                    throw new Exception(MainConstant.MESSAGE_DESCRIPTION_WS_NO_VALID_METHOD);
             }
 
             // Regresa el contenido de la respuesta del Web Service
@@ -89,7 +89,7 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
         } catch (Exception ex) {
             // Agrega el error a mostrar
             messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add("Error al consultar el Web Service");
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_WS_COMMUNICATION_FAIL);
             messageDescriptionList.add(ex.getMessage());
         } finally {
             if (messageTitleList.size() > 0) {

@@ -44,6 +44,7 @@ import mx.gob.cenapred.tickets.fragment.ReportNewShortcutFragment;
 import mx.gob.cenapred.tickets.fragment.SearchTicketNumberFragment;
 import mx.gob.cenapred.tickets.fragment.RegisterFragment;
 import mx.gob.cenapred.tickets.fragment.StadisticsCustomFragment;
+import mx.gob.cenapred.tickets.fragment.StadisticsViewFragment;
 import mx.gob.cenapred.tickets.fragment.WelcomeFragment;
 import mx.gob.cenapred.tickets.gcm.RegistrationIntentService;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -350,6 +351,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bundle.putInt("idReport", bundleEntity.getIdReportBundle());
                 bundle.putSerializable("listStatus", (Serializable) bundleEntity.getListEstatus());
                 mainCurrentFragment = new ReportAddHistoryFragment();
+                addToBackStack = true;
+                break;
+            case R.id.fragment_stadistics_view:
+                fragmentName = "Resultado";
+                bundle.putString("filter", bundleEntity.getFiltro());
+                mainCurrentFragment = new StadisticsViewFragment();
                 addToBackStack = true;
                 break;
             case R.id.nav_welcome:
