@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_login:
                 fragmentName = "Login";
                 mainCurrentFragment = new LoginFragment();
-                mainCurrentFragment = new StadisticsCustomFragment();
+                //mainCurrentFragment = new StadisticsCustomFragment();
                 clearBackStack = true;
                 updateMenu = true;
                 break;

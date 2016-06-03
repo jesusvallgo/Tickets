@@ -4,14 +4,17 @@
     android:paddingLeft="@dimen/general_padding_size"
     android:weightSum="10">
 
+    <CheckBox
+        android:id="@+id/item_value"
+        style="@style/general_explsv_item"
+        android:focusable="false"
+        android:clickable="false"
+        android:layout_width="0dp"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/item_name"
         style="@style/general_explsv_item"
         android:layout_width="0dp"
-        android:layout_weight="5" />
-    <TextView
-        android:id="@+id/item_value"
-        style="@style/general_textview_large"
-        android:layout_width="0dp"
-        android:layout_weight="5" />
+        android:layout_weight="9" />
 </LinearLayout>

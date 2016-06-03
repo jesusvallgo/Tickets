@@ -1,18 +1,26 @@
 package mx.gob.cenapred.tickets.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFilterEntity {
-    private String filter;
+    private String id;
+    private String label;
     private List<CustomFilterItemEntity> itemList;
 
-    public String getFilter() {
-        return filter;
+    public String getId() {
+        return id;
     }
 
-    public void setFilter(String filter) {
-        this.filter = filter;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public List<CustomFilterItemEntity> getItemList() {

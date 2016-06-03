@@ -6,10 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import java.util.List;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.adapter.StadisticsCustomFilterAdapter;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
+import mx.gob.cenapred.tickets.entity.CustomFilterEntity;
 import mx.gob.cenapred.tickets.entity.CustomFilterItemEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
@@ -96,37 +98,38 @@ public class StadisticsCustomFragment extends Fragment {
         final ExpandableListView expandableListView = (ExpandableListView) rootView.findViewById(R.id.stadistics_custom_exp_lsv);
         StadisticsCustomFilterAdapter stadisticsCustomFilterAdapter = new StadisticsCustomFilterAdapter(getActivity());
 
-        final DatePickerManager datePickerDialog = new DatePickerManager(
-                getContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateSelected = String.valueOf(year) + "-";
-                        if (monthOfYear<10){
-                            dateSelected += "0";
-                        }
-                        dateSelected += String.valueOf(monthOfYear) + "-";
-                        if (dayOfMonth<10) {
-                            dateSelected += "0";
-                        }
-                        dateSelected += String.valueOf(dayOfMonth);
-
-                        txvDate.setText(dateSelected);
-                    }
-                },
-                year, month, day);
-
-
         expandableListView.setAdapter(stadisticsCustomFilterAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                CustomFilterItemEntity item = (CustomFilterItemEntity) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+                final CustomFilterItemEntity item = (CustomFilterItemEntity) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
                 switch (item.getType()) {
                     case "DatePicker":
+                        DatePickerManager datePickerDialog = new DatePickerManager(
+                                getContext(),
+                                new DatePickerDialog.OnDateSetListener() {
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                        monthOfYear++;
+                                        dateSelected = String.valueOf(year) + "-";
+                                        if (monthOfYear < 10) {
+                                            dateSelected += "0";
+                                        }
+                                        dateSelected += String.valueOf(monthOfYear) + "-";
+                                        if (dayOfMonth < 10) {
+                                            dateSelected += "0";
+                                        }
+                                        dateSelected += String.valueOf(dayOfMonth);
+
+                                        txvDate.setText(dateSelected);
+                                        item.setValue(dateSelected);
+                                    }
+                                },
+                                year, month, day,
+                                item);
                         txvDate = (TextView) v.findViewById(R.id.item_value);
                         String[] dateArray = txvDate.getText().toString().split("-");
-                        if( dateArray.length == 3 ){
+                        if (dateArray.length == 3) {
                             year = Integer.parseInt(dateArray[0]);
                             month = Integer.parseInt(dateArray[1]);
                             day = Integer.parseInt(dateArray[2]);
@@ -135,12 +138,80 @@ public class StadisticsCustomFragment extends Fragment {
 
                         datePickerDialog.show();
                         break;
+                    case "CheckBox":
+                        CheckBox checkBox = (CheckBox) v.findViewById(R.id.item_value);
+                        Boolean value;
+                        if (checkBox.isChecked()) {
+                            value = Boolean.FALSE;
+                        } else {
+                            value = Boolean.TRUE;
+                        }
+                        checkBox.setChecked(value);
+                        item.setValue(value.toString());
+                        break;
                 }
 
                 return true;
             }
         });
 
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int groupExpanded = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (groupExpanded != groupPosition){
+                    expandableListView.collapseGroup(groupExpanded);
+                }
+                groupExpanded = groupPosition;
+            }
+        });
+
+        Button btnGetStadistics = (Button) rootView.findViewById(R.id.stadistics_custom_btn_get);
+        btnGetStadistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filter = "";
+                for (int i = 0; i < expandableListView.getExpandableListAdapter().getGroupCount(); i++) {
+                    CustomFilterEntity filterEntity = (CustomFilterEntity) expandableListView.getExpandableListAdapter().getGroup(i);
+                    CustomFilterItemEntity filterItemEntity = null;
+                    String filterItem = "";
+
+                    for (int j = 0; j < expandableListView.getExpandableListAdapter().getChildrenCount(i); j++) {
+                        filterItemEntity = (CustomFilterItemEntity) expandableListView.getExpandableListAdapter().getChild(i, j);
+
+                        if (filterItemEntity.getValue() != null && filterItemEntity.getValue() != "") {
+                            if (filterEntity.getId().compareTo("fechas") == 0) {
+                                if (filter.compareTo("") != 0) {
+                                    filter += ";";
+                                }
+                                filter += filterItemEntity.getId() + "[" + filterItemEntity.getValue() + "]";
+                            } else {
+                                if (filterItem.compareTo("") != 0) {
+                                    filterItem += ",";
+                                }
+                                filterItem += filterItemEntity.getId();
+                                //filter += filterEntity.getId() + "," + filterItemEntity.getValue();
+                            }
+                        }
+                    }
+
+                    if (filterItem.compareTo("") != 0) {
+                        if (filter.compareTo("") != 0) {
+                            filter += ";";
+                        }
+
+                        filter += filterEntity.getId() + "[" + filterItem + "]";
+
+                    }
+                }
+
+                if(filter.compareTo("")!=0){
+                    filter = "filter={" + filter + "}";
+                }
+
+                System.out.println(filter);
+            }
+        });
 
         /*
         // Configura el Fragment para ocultar el teclado

@@ -10,14 +10,19 @@
 
         <ExpandableListView
             android:id="@+id/stadistics_custom_exp_lsv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/general_match_match"
+            android:layout_weight="1"
             android:divider="@color/general_listview_divider"
             android:dividerHeight="@dimen/general_border_size"
+            android:childDivider="#00000000"
             android:groupIndicator="@null">
 
         </ExpandableListView>
 
+        <Button
+            android:id="@+id/stadistics_custom_btn_get"
+            style="@style/general_button_only_text"
+            android:text="Consultar" />
     </LinearLayout>
 
     <include

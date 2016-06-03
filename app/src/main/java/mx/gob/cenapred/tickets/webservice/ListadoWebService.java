@@ -2,8 +2,6 @@ package mx.gob.cenapred.tickets.webservice;
 
 import android.os.AsyncTask;
 
-import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,7 +16,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
 import mx.gob.cenapred.tickets.entity.PeticionWSEntity;
@@ -79,6 +76,7 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
                     if (peticion[0].getTipo().compareTo("stadistics")==0 && peticion[0].getFiltro().compareTo("")!=0){
                         urlWs+="&filter=" + peticion[0].getFiltro();
                     }
+                    System.out.println(urlWs);
                     requestEntity = new HttpEntity<>(httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.GET, requestEntity, ResponseWebServiceEntity.class);
                     break;
