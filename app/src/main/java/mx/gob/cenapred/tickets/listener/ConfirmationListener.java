@@ -2,6 +2,6 @@ package mx.gob.cenapred.tickets.listener;
 
 import android.view.View;
 
-public interface ConfirmationTicketListener {
+public interface ConfirmationListener {
     void onClickButton(View view, Boolean confirmation);
 }

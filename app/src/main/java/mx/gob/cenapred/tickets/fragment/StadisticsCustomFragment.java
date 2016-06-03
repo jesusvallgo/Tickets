@@ -19,22 +19,22 @@ import java.util.List;
 import mx.gob.cenapred.tickets.R;
 import mx.gob.cenapred.tickets.activity.MainActivity;
 import mx.gob.cenapred.tickets.adapter.StadisticsCustomFilterAdapter;
+import mx.gob.cenapred.tickets.constant.MainConstant;
 import mx.gob.cenapred.tickets.entity.BundleEntity;
 import mx.gob.cenapred.tickets.entity.CustomFilterEntity;
 import mx.gob.cenapred.tickets.entity.CustomFilterItemEntity;
 import mx.gob.cenapred.tickets.entity.MensajeEntity;
+import mx.gob.cenapred.tickets.exception.NoUserLoginException;
+import mx.gob.cenapred.tickets.listener.ConfirmationListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
+import mx.gob.cenapred.tickets.manager.ConfirmationManager;
 import mx.gob.cenapred.tickets.manager.DatePickerManager;
-import mx.gob.cenapred.tickets.manager.KeyboardManager;
 import mx.gob.cenapred.tickets.manager.MessagesManager;
 import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 
-public class StadisticsCustomFragment extends Fragment {
+public class StadisticsCustomFragment extends Fragment implements ConfirmationListener {
     // **************************** Constantes ****************************
-
-    // Instancia a la clase auxiliar para ocultar el teclado
-    private final KeyboardManager keyboardManager = new KeyboardManager();
 
     // Instancia a la clase para validar datos de entrada
     private final ValidaCadenaUtil validaCadenaUtil = new ValidaCadenaUtil();
@@ -50,8 +50,13 @@ public class StadisticsCustomFragment extends Fragment {
     // Manejador de las preferencias de la aplicacion
     private AppPreferencesManager appPreferencesManager;
 
+    // Instancia para obener el Fragment que se debe pasar a la interfaz
+    private StadisticsCustomFragment stadisticsCustomFragment = this;
+
     // Contenedor de datos del Bundle
     private BundleEntity bundleEntity = new BundleEntity();
+
+    StadisticsCustomFilterAdapter stadisticsCustomFilterAdapter;
 
     // Variables para almacenar los posibles errores
     private List<MensajeEntity> messagesList;
@@ -96,10 +101,42 @@ public class StadisticsCustomFragment extends Fragment {
         // Genera la vista para el Fragment
         rootView = inflater.inflate(R.layout.fragment_stadistics_custom, container, false);
 
+        // Mapea los elementos del Fragment
         final ExpandableListView expandableListView = (ExpandableListView) rootView.findViewById(R.id.stadistics_custom_exp_lsv);
-        StadisticsCustomFilterAdapter stadisticsCustomFilterAdapter = new StadisticsCustomFilterAdapter(getActivity());
+        Button btnGetStadistics = (Button) rootView.findViewById(R.id.stadistics_custom_btn_get);
 
+        // Manejador de los datos de la sesion de usuario
+        appPreferencesManager = new AppPreferencesManager(getContext());
+
+        try {
+            // Recupera el APIKEY almacenada en el dispositivo
+            apiKey = appPreferencesManager.getApiKey();
+
+            // Valida el ApiKey
+            validaCadenaUtil.validarApiKey(apiKey);
+        } catch (NoUserLoginException nulEx) {
+            // Agrega el error a mostrar
+            messageTypeList.add(AppPreference.MESSAGE_ERROR);
+            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
+            messageDescriptionList.add(nulEx.getMessage());
+        }
+
+        if (messageTitleList.size() > 0) {
+            // Indica que debe regresar al Fragment anterior
+            alertAction = AppPreference.ALERT_ACTION_GOBACK;
+
+            this.displayMessage(messageTypeList, messageTitleList, messageDescriptionList);
+        }
+
+        // Instancia al adaptador de la lista desplegable
+        if (stadisticsCustomFilterAdapter == null) {
+            stadisticsCustomFilterAdapter = new StadisticsCustomFilterAdapter(getActivity());
+        }
+
+        // Establece el adaptador a la lista desplegable
         expandableListView.setAdapter(stadisticsCustomFilterAdapter);
+
+        // Metodo para detectar el clic en los elementos de cada grupo
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -156,18 +193,20 @@ public class StadisticsCustomFragment extends Fragment {
             }
         });
 
+        // Metodo para detectar cuando un grupo se expande
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int groupExpanded = -1;
+
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (groupExpanded != groupPosition){
+                if (groupExpanded != groupPosition) {
                     expandableListView.collapseGroup(groupExpanded);
                 }
                 groupExpanded = groupPosition;
             }
         });
 
-        Button btnGetStadistics = (Button) rootView.findViewById(R.id.stadistics_custom_btn_get);
+        // Metodo para enviar la solicitud de informacion
         btnGetStadistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,46 +245,18 @@ public class StadisticsCustomFragment extends Fragment {
                     }
                 }
 
-                if(filter.compareTo("")!=0){
+                if (filter.compareTo("") != 0) {
                     filter = "{" + filter + "}";
                 }
 
-                BundleEntity bundleEntity = new BundleEntity();
                 bundleEntity.setFiltro(filter);
 
-                ((MainActivity)getActivity()).manageFragment(R.id.fragment_stadistics_view,bundleEntity);
+                // Solicita la confirmacion del envio del reporte
+                ConfirmationManager confirmationManager = new ConfirmationManager();
+                confirmationManager.listener = stadisticsCustomFragment;
+                confirmationManager.displayNewReportConfirmation(v, getContext(), AppPreference.CONFIRMATION_EMAIL_STADISTICS);
             }
         });
-
-        /*
-        // Configura el Fragment para ocultar el teclado
-        keyboardManager.configureUI(rootView, getActivity());
-
-        // Mapea los elementos del Fragment
-
-        // Manejador de los datos de la sesion de usuario
-        appPreferencesManager = new AppPreferencesManager(getContext());
-
-        try {
-            // Recupera el APIKEY almacenada en el dispositivo
-            apiKey = appPreferencesManager.getApiKey();
-
-            // Valida el ApiKey
-            validaCadenaUtil.validarApiKey(apiKey);
-        }  catch (NoUserLoginException nulEx) {
-            // Agrega el error a mostrar
-            messageTypeList.add(AppPreference.MESSAGE_ERROR);
-            messageTitleList.add(MainConstant.MESSAGE_TITLE_NO_SESSION);
-            messageDescriptionList.add(nulEx.getMessage());
-        }
-
-        if( messageTitleList.size()>0 ){
-            // Indica que debe regresar al Fragment anterior
-            alertAction = AppPreference.ALERT_ACTION_GOBACK;
-
-            this.displayMessage(messageTypeList,messageTitleList,messageDescriptionList);
-        }
-        */
 
         return rootView;
     }
@@ -256,5 +267,16 @@ public class StadisticsCustomFragment extends Fragment {
 
         // Despliega los errores encontrados
         messagesManager.displayMessage(getActivity(), getContext(), messagesList, alertAction);
+    }
+
+    @Override
+    public void onClickButton(View view, Boolean confirmation) {
+        Boolean sendMail = Boolean.FALSE;
+        if (confirmation) {
+            sendMail = Boolean.TRUE;
+        }
+        bundleEntity.setSendMail(sendMail);
+
+        ((MainActivity) getActivity()).manageFragment(R.id.fragment_stadistics_view, bundleEntity);
     }
 }

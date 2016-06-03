@@ -48,9 +48,11 @@ public class MainConstant {
 
     // Constantes para titulos de alertas de confirmacion
     public static final String CONFIRMATION_TITLE_NEW_REPORT = "Confirmación";
+    public static final String CONFIRMATION_TITLE_MAIL_STADISTICS = "Confirmación";
 
     // Constantes para descripcion de alertas de confirmacion
     public static final String CONFIRMATION_DESCRIPTION_NEW_REPORT = "¿Desea enviar la Solicitud de Servicio?";
+    public static final String CONFIRMATION_DESCRIPTION_MAIL_STADISTICS = "¿Desea enviar la estadística a su correo electrónico institucional?";
 
     // Constantes para botnes de alertas de confirmacion
     public static final String CONFIRMATION_BUTTON_POSITIVE = "Aceptar";

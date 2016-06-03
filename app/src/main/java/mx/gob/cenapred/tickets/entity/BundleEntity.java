@@ -6,6 +6,7 @@ public class BundleEntity {
     private Integer idReportBundle;
     private Integer idAreaAtencion;
     private String filtro;
+    private Boolean sendMail;
     private Boolean addToBackStack;
     private List<BitacoraEntity> listHistoryAction;
     private List<AreaAtencionEntity> listAreaAtencion;
@@ -33,6 +34,14 @@ public class BundleEntity {
 
     public void setFiltro(String filtro) {
         this.filtro = filtro;
+    }
+
+    public Boolean getSendMail() {
+        return sendMail;
+    }
+
+    public void setSendMail(Boolean sendMail) {
+        this.sendMail = sendMail;
     }
 
     public Boolean getAddToBackStack() {

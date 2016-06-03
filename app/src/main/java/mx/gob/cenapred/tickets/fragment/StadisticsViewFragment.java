@@ -74,7 +74,8 @@ public class StadisticsViewFragment extends Fragment implements WebServiceListen
     private MenuItem menuItemCount;
     private String apiKey = "";
     private Integer numReport = 0;
-    String filter = "";
+    private String filter = "";
+    private Boolean sendMail = Boolean.FALSE;
 
     // Constructor por default
     public StadisticsViewFragment() {
@@ -94,6 +95,7 @@ public class StadisticsViewFragment extends Fragment implements WebServiceListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filter = getArguments().getString("filter");
+        sendMail = getArguments().getBoolean("sendMail");
 
         // Limpia las listas de error
         messageTypeList.clear();
@@ -142,6 +144,7 @@ public class StadisticsViewFragment extends Fragment implements WebServiceListen
             peticionWSEntity.setMetodo("get");
             peticionWSEntity.setTipo("stadistics");
             peticionWSEntity.setFiltro(filter);
+            peticionWSEntity.setSendMail(sendMail);
             peticionWSEntity.setApiKey(apiKey);
 
             // Llamada al cliente para consultar los detalles del reporte

@@ -17,5 +17,8 @@ public class AppPreference {
     public static final String MESSAGE_WARNING = "WARNING";
     public static final String MESSAGE_SUCCESS = "SUCCESS";
 
+    public static final String CONFIRMATION_NEW_REPORT = "NEW_REPORT";
+    public static final String CONFIRMATION_EMAIL_STADISTICS = "EMAIL_STADISTICS";
+
     public static final Integer BUNDLE_TECHNICAL_SUPPORT = 1;
 }

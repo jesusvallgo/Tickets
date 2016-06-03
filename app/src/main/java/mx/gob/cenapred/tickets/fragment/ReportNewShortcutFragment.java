@@ -24,7 +24,7 @@ import mx.gob.cenapred.tickets.entity.ReporteEntity;
 import mx.gob.cenapred.tickets.entity.ResponseWebServiceEntity;
 import mx.gob.cenapred.tickets.exception.NoInputDataException;
 import mx.gob.cenapred.tickets.exception.NoUserLoginException;
-import mx.gob.cenapred.tickets.listener.ConfirmationTicketListener;
+import mx.gob.cenapred.tickets.listener.ConfirmationListener;
 import mx.gob.cenapred.tickets.listener.WebServiceListener;
 import mx.gob.cenapred.tickets.manager.AppPreferencesManager;
 import mx.gob.cenapred.tickets.manager.ConfirmationManager;
@@ -33,7 +33,7 @@ import mx.gob.cenapred.tickets.preference.AppPreference;
 import mx.gob.cenapred.tickets.util.ValidaCadenaUtil;
 import mx.gob.cenapred.tickets.webservice.ReporteWebService;
 
-public class ReportNewShortcutFragment extends Fragment implements View.OnClickListener, WebServiceListener, ConfirmationTicketListener {
+public class ReportNewShortcutFragment extends Fragment implements View.OnClickListener, WebServiceListener, ConfirmationListener {
     // **************************** Constantes ****************************
 
     // Instancia a la clase para validar datos de entrada
@@ -200,7 +200,7 @@ public class ReportNewShortcutFragment extends Fragment implements View.OnClickL
             // Solicita la confirmacion del envio del reporte
             ConfirmationManager confirmationManager = new ConfirmationManager();
             confirmationManager.listener = reportNewShortcutFragment;
-            confirmationManager.displayNewReportConfirmation(v, getContext());
+            confirmationManager.displayNewReportConfirmation(v, getContext(),AppPreference.CONFIRMATION_NEW_REPORT);
         }
     }
 

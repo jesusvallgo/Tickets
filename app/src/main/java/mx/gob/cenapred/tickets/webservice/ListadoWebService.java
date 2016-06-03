@@ -73,10 +73,15 @@ public class ListadoWebService extends AsyncTask<PeticionWSEntity, Void, Respons
             // Regresa un arreglo de tipo MensajeEntitie que contendra los posibles errores
             switch (peticion[0].getMetodo()) {
                 case "get":
-                    if (peticion[0].getTipo().compareTo("stadistics")==0 && peticion[0].getFiltro().compareTo("")!=0){
-                        urlWs+="&filter=" + URLEncoder.encode(peticion[0].getFiltro(), "UTF-8");
+                    if (peticion[0].getTipo().compareTo("stadistics")==0 ){
+                        if( peticion[0].getFiltro().compareTo("")!=0) {
+                            urlWs += "&filter=" + URLEncoder.encode(peticion[0].getFiltro(), "UTF-8");
+                        }
+
+                        if (peticion[0].getSendMail() == Boolean.TRUE){
+                            urlWs += "&sendMail=" + Boolean.TRUE.toString();
+                        }
                     }
-                    System.out.println(urlWs);
                     requestEntity = new HttpEntity<>(httpHeaders);
                     responseEntity = restTemplate.exchange(urlWs, HttpMethod.GET, requestEntity, ResponseWebServiceEntity.class);
                     break;

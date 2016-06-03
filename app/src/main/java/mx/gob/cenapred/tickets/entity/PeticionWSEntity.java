@@ -5,6 +5,7 @@ public class PeticionWSEntity {
     private String accion;
     private String tipo;
     private String filtro;
+    private Boolean sendMail;
     private String apiKey;
     private String email;
     private TokenGCMEntity tokenGCMEntity;
@@ -40,6 +41,14 @@ public class PeticionWSEntity {
 
     public void setFiltro(String filtro) {
         this.filtro = filtro;
+    }
+
+    public Boolean getSendMail() {
+        return sendMail;
+    }
+
+    public void setSendMail(Boolean sendMail) {
+        this.sendMail = sendMail;
     }
 
     public String getApiKey() {

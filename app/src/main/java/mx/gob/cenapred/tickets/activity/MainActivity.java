@@ -356,6 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.fragment_stadistics_view:
                 fragmentName = "Resultado";
                 bundle.putString("filter", bundleEntity.getFiltro());
+                bundle.putBoolean("sendMail", bundleEntity.getSendMail());
                 mainCurrentFragment = new StadisticsViewFragment();
                 addToBackStack = true;
                 break;
